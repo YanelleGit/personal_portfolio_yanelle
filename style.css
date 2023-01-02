@@ -35,7 +35,7 @@ section{
     padding: 0 80px;
     margin: auto;
 }
-.about, .services, .skills, .work, .contact, footer{
+.about, .services, .skills, .work, .contact, .btn, footer{
     font-family: 'Poppins', sans-serif;
 }
 .about .about-content,
@@ -453,7 +453,7 @@ section .title::after{
   }
 /* work section styling */
 .work .title::after{
-    content: "other things that i do";
+    content: "View more on my Digital Portfolio";
 }
 .work .carousel .card{
     background: #222;
