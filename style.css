@@ -321,7 +321,7 @@ section .title::after{
 .services .title::after,
 .work .title::after{
     background: #111;
-    content: "what am i doing";
+    content: "HTML-CSS-JS-BOOTSTRAP";
 }
 .services .serv-content .card{
     width: calc(33% - 20px);
