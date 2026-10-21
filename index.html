@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yanelle Tan | Web Designer & WordPress Developer</title>
+  <title>Yanelle Tan | Web Designer & Developer</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -55,7 +55,7 @@
 
     /* Custom Glassmorphism Panels */
     .glass-card {
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     /* Light Mode Cards */
@@ -102,12 +102,34 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
+    /* Scroll Hide Utility */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Scroll Animation Base Styles */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   </style>
 </head>
-<body class="font-sans antialiased selection:bg-brand-purple selection:text-white relative min-h-screen">
+<body class="font-sans antialiased selection:bg-brand-purple selection:text-white relative min-h-screen overflow-x-hidden">
 
   <!-- White Circle Cursor Follower -->
-  <div id="cursor-follower"></div>
+  <div id="cursor-follower" class="hidden md:block"></div>
 
   <!-- HEADER / NAVIGATION -->
   <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-md transition-colors duration-300 border-b border-slate-200/50 dark:border-slate-800/50 bg-white/80 dark:bg-slate-950/80">
@@ -119,17 +141,17 @@
         <span>Yanelle<span class="text-brand-purple">.</span></span>
       </a>
 
-      <!-- Navigation Links -->
+      <!-- Desktop Navigation Links -->
       <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-700 dark:text-slate-300">
         <a href="#about" class="hover:text-brand-cyan transition-colors">About</a>
+        <a href="#projects" class="hover:text-brand-cyan transition-colors">Live Projects</a>
         <a href="#skills" class="hover:text-brand-cyan transition-colors">Skills</a>
         <a href="#experience" class="hover:text-brand-cyan transition-colors">Experience</a>
-        <a href="#portfolio" class="hover:text-brand-cyan transition-colors">Portfolio</a>
         <a href="#contact" class="hover:text-brand-cyan transition-colors">Contact</a>
       </nav>
 
-      <!-- Theme Switcher & Social Links -->
-      <div class="flex items-center gap-4">
+      <!-- Theme Switcher & Actions -->
+      <div class="flex items-center gap-3">
         <button id="theme-toggle" class="p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="Toggle Theme">
           <i id="theme-toggle-dark-icon" class="fa-solid fa-moon text-base"></i>
           <i id="theme-toggle-light-icon" class="fa-solid fa-sun text-base hidden"></i>
@@ -138,49 +160,64 @@
         <a href="#contact" class="hidden sm:inline-flex px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-semibold text-sm hover:opacity-90 transition-opacity">
           Hire Yanelle
         </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars text-lg" id="mobile-menu-icon"></i>
+        </button>
       </div>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-6 py-6 space-y-4">
+      <a href="#about" class="mobile-link block text-base font-semibold text-slate-800 dark:text-slate-200 hover:text-brand-cyan">About</a>
+      <a href="#projects" class="mobile-link block text-base font-semibold text-slate-800 dark:text-slate-200 hover:text-brand-cyan">Live Projects</a>
+      <a href="#skills" class="mobile-link block text-base font-semibold text-slate-800 dark:text-slate-200 hover:text-brand-cyan">Skills</a>
+      <a href="#experience" class="mobile-link block text-base font-semibold text-slate-800 dark:text-slate-200 hover:text-brand-cyan">Experience</a>
+      <a href="#contact" class="mobile-link block text-base font-semibold text-slate-800 dark:text-slate-200 hover:text-brand-cyan">Contact</a>
+      <a href="#contact" class="mobile-link block w-full text-center py-3 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-purple text-white font-bold text-sm">Hire Yanelle</a>
     </div>
   </header>
 
-  <main class="pt-28">
+  <main class="pt-24 sm:pt-28">
 
-    <!-- HERO SECTION (Clean, High-Contrast, No Bounding Box or Background Flashlight) -->
-    <section id="about" class="py-20 md:py-32 px-6 max-w-5xl mx-auto text-center">
+    <!-- HERO SECTION -->
+    <section id="about" class="py-16 sm:py-24 md:py-32 px-6 max-w-5xl mx-auto text-center reveal">
       
       <!-- Experience Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-300 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-900/80 text-xs font-semibold tracking-wide text-slate-800 dark:text-slate-300 mb-8">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-300 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-900/80 text-xs font-semibold tracking-wide text-slate-800 dark:text-slate-300 mb-8 max-w-full flex-wrap justify-center">
         <span class="w-2 h-2 rounded-full bg-brand-cyan animate-pulse"></span>
-        4+ YEARS EXPERIENCE • WEB & WORDPRESS SPECIALIST
+        <span>WEB DESIGN & PLATFORM DEVELOPMENT</span>
       </div>
 
       <!-- Main Headline -->
-      <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-6">
+      <h1 class="font-heading text-3xl sm:text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15] mb-6">
         Crafting Digital Products with <br class="hidden sm:inline" />
         <span class="text-gradient">Precision & Visual Artistry</span>
       </h1>
 
       <!-- Sub-headline -->
-      <p class="font-heading text-lg sm:text-xl font-bold uppercase tracking-wider text-brand-cyan mb-8">
-        Yanelle Tan — Web Designer & WordPress Developer
+      <p class="font-heading text-base sm:text-lg font-bold uppercase tracking-wider text-brand-cyan mb-8">
+        Yanelle Tan — Web Designer & Developer
       </p>
 
-      <!-- Clean Quote/Summary Text (No Bounding Box) -->
-      <p class="max-w-3xl mx-auto text-lg sm:text-xl text-slate-700 dark:text-slate-300 font-normal leading-relaxed mb-10">
+      <!-- Clean Quote/Summary Text -->
+      <p class="max-w-3xl mx-auto text-base sm:text-xl text-slate-700 dark:text-slate-300 font-normal leading-relaxed mb-10">
         "Building custom, responsive, and SEO-optimized websites tailored precisely to your business goals and growth, blended with creative, standout design."
       </p>
 
       <!-- Tech Stack Pill Badges -->
       <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
-        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">WordPress & Builders</span>
-        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">Shopify & Wix</span>
-        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">Figma-to-WordPress</span>
-        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">Custom PHP / HTML / CSS</span>
+        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">Adaptable CMS & Page Builders</span>
+        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">WordPress, Shopify & Wix Expertise</span>
+        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">Figma-to-Web Conversion</span>
+        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">Custom Code & Modern Web Stacks</span>
       </div>
 
       <!-- CTA Action Buttons -->
       <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="#portfolio" class="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-purple text-white font-bold text-sm shadow-lg hover:shadow-brand-cyan/25 hover:scale-[1.02] transition-all">
-          <i class="fa-solid fa-layer-group mr-2"></i> Explore Services
+        <a href="#projects" class="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-purple text-white font-bold text-sm shadow-lg hover:shadow-brand-cyan/25 hover:scale-[1.02] transition-all">
+          <i class="fa-solid fa-layer-group mr-2"></i> View Live Work
         </a>
         <a href="#contact" class="px-8 py-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-bold text-sm bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
           <i class="fa-solid fa-paper-plane mr-2"></i> Hire Yanelle
@@ -188,49 +225,234 @@
       </div>
     </section>
 
+    <!-- HORIZONTAL SCROLLABLE LIVE CLIENT PROJECTS SECTION -->
+    <section id="projects" class="py-20 border-y border-slate-200/60 dark:border-slate-800/60 relative overflow-hidden reveal">
+      <div class="max-w-7xl mx-auto px-6 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold text-brand-cyan tracking-widest uppercase mb-2 block">Proven Results</span>
+          <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Recent Live Client Projects</h2>
+          <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base mt-2">Explore custom website builds launched for global clients across diverse industries.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="scroll-left" class="p-3 rounded-xl border border-slate-300 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Scroll Left">
+            <i class="fa-solid fa-chevron-left text-sm"></i>
+          </button>
+          <button id="scroll-right" class="p-3 rounded-xl border border-slate-300 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Scroll Right">
+            <i class="fa-solid fa-chevron-right text-sm"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Horizontal Cards Container -->
+      <div id="projects-carousel" class="flex gap-6 overflow-x-auto no-scrollbar px-6 md:px-12 pb-6 pt-2 scroll-smooth">
+
+        <!-- Card 1: Tooth Patrol -->
+        <div class="glass-card min-w-[300px] sm:min-w-[360px] md:min-w-[400px] max-w-[400px] p-6 sm:p-8 rounded-3xl flex flex-col justify-between shrink-0 group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-500 text-xs font-bold uppercase tracking-wider">Dental / Healthcare</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500" title="Live Site"></span>
+            </div>
+            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-brand-cyan transition-colors">Tooth Patrol</h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              Pediatric dentistry platform focused on welcoming visual hierarchy, patient scheduling, and reassuring clinical design.
+            </p>
+            <ul class="space-y-2 text-xs font-medium text-slate-700 dark:text-slate-300 mb-8">
+              <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>Custom Responsive Design</li>
+              <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>Patient Booking Structure</li>
+              <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>Speed & Mobile Optimized</li>
+            </ul>
+          </div>
+          <a href="https://www.toothpatrolpd.com/" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-brand-cyan hover:text-white hover:border-brand-cyan transition-all">
+            <span>Visit Live Site</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 2: Apexx Wealth -->
+        <div class="glass-card min-w-[300px] sm:min-w-[360px] md:min-w-[400px] max-w-[400px] p-6 sm:p-8 rounded-3xl flex flex-col justify-between shrink-0 group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <span class="px-3 py-1 rounded-full bg-purple-500/10 text-brand-purple text-xs font-bold uppercase tracking-wider">Financial Services</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500" title="Live Site"></span>
+            </div>
+            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-brand-purple transition-colors">Apexx Wealth</h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              Sophisticated wealth management & corporate financial firm website engineered with corporate branding aesthetics.
+            </p>
+            <ul class="space-y-2 text-xs font-medium text-slate-700 dark:text-slate-300 mb-8">
+              <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>Corporate Web Layout</li>
+              <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>High-Trust Visual Design</li>
+              <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>Secure & SEO Prepared</li>
+            </ul>
+          </div>
+          <a href="https://apexxwealth.co.za/" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-brand-purple hover:text-white hover:border-brand-purple transition-all">
+            <span>Visit Live Site</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 3: Roseville Center -->
+        <div class="glass-card min-w-[300px] sm:min-w-[360px] md:min-w-[400px] max-w-[400px] p-6 sm:p-8 rounded-3xl flex flex-col justify-between shrink-0 group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <span class="px-3 py-1 rounded-full bg-pink-500/10 text-brand-pink text-xs font-bold uppercase tracking-wider">Community / Non-Profit</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500" title="Live Site"></span>
+            </div>
+            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-brand-pink transition-colors">Roseville Center</h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              Community platform highlighting services, accessible information hierarchy, and engagement gateways.
+            </p>
+            <ul class="space-y-2 text-xs font-medium text-slate-700 dark:text-slate-300 mb-8">
+              <li><i class="fa-solid fa-check text-brand-pink mr-2"></i>Accessible UI Navigation</li>
+              <li><i class="fa-solid fa-check text-brand-pink mr-2"></i>Community Portal Layout</li>
+              <li><i class="fa-solid fa-check text-brand-pink mr-2"></i>Cross-Device Smoothness</li>
+            </ul>
+          </div>
+          <a href="https://rosevillecenter.org/" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-brand-pink hover:text-white hover:border-brand-pink transition-all">
+            <span>Visit Live Site</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 4: Traditions Dental -->
+        <div class="glass-card min-w-[300px] sm:min-w-[360px] md:min-w-[400px] max-w-[400px] p-6 sm:p-8 rounded-3xl flex flex-col justify-between shrink-0 group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold uppercase tracking-wider">Dental Practice</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500" title="Live Site"></span>
+            </div>
+            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-emerald-500 transition-colors">Traditions Dental</h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              Modern dental care web build emphasizing client trust, services breakdown, and seamless contact points.
+            </p>
+            <ul class="space-y-2 text-xs font-medium text-slate-700 dark:text-slate-300 mb-8">
+              <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Patient Conversion Focused</li>
+              <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Interactive Service Cards</li>
+              <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Mobile First Layout</li>
+            </ul>
+          </div>
+          <a href="https://www.traditionsdental.com/" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all">
+            <span>Visit Live Site</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 5: Laura Hockey -->
+        <div class="glass-card min-w-[300px] sm:min-w-[360px] md:min-w-[400px] max-w-[400px] p-6 sm:p-8 rounded-3xl flex flex-col justify-between shrink-0 group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 text-xs font-bold uppercase tracking-wider">Personal Brand / Coaching</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500" title="Live Site"></span>
+            </div>
+            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-amber-500 transition-colors">Laura Hockey</h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              Personal branding website tailored for high-impact visual representation, coaching services, and bio presentation.
+            </p>
+            <ul class="space-y-2 text-xs font-medium text-slate-700 dark:text-slate-300 mb-8">
+              <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Personal Brand Architecture</li>
+              <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Sleek Typography Styling</li>
+              <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Lead Generation Integration</li>
+            </ul>
+          </div>
+          <a href="https://laurahockey.com/" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-amber-500 hover:text-white hover:border-amber-500 transition-all">
+            <span>Visit Live Site</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 6: TDMP LaunchWeb -->
+        <div class="glass-card min-w-[300px] sm:min-w-[360px] md:min-w-[400px] max-w-[400px] p-6 sm:p-8 rounded-3xl flex flex-col justify-between shrink-0 group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-500 text-xs font-bold uppercase tracking-wider">Digital Agency Build</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500" title="Live Site"></span>
+            </div>
+            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-500 transition-colors">TDMP LaunchWeb</h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              Performance-driven marketing agency portal created for fast load speeds and strong conversion paths.
+            </p>
+            <ul class="space-y-2 text-xs font-medium text-slate-700 dark:text-slate-300 mb-8">
+              <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i>High Conversion Funnel UI</li>
+              <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i>Modular Landing Layout</li>
+              <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i>SEO & Speed Optimized</li>
+            </ul>
+          </div>
+          <a href="https://tdmp.launchweb.co.za/" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-indigo-500 hover:text-white hover:border-indigo-500 transition-all">
+            <span>Visit Live Site</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Card 7: Rose Guesthouse Klerksdorp -->
+        <div class="glass-card min-w-[300px] sm:min-w-[360px] md:min-w-[400px] max-w-[400px] p-6 sm:p-8 rounded-3xl flex flex-col justify-between shrink-0 group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <span class="px-3 py-1 rounded-full bg-teal-500/10 text-teal-500 text-xs font-bold uppercase tracking-wider">Hospitality & Booking</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500" title="Live Site"></span>
+            </div>
+            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-teal-500 transition-colors">Rose Guesthouse</h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              Warm hospitality lodging website integrated with accommodation galleries, room details, and direct inquiries.
+            </p>
+            <ul class="space-y-2 text-xs font-medium text-slate-700 dark:text-slate-300 mb-8">
+              <li><i class="fa-solid fa-check text-teal-500 mr-2"></i>Room Showcase Gallery</li>
+              <li><i class="fa-solid fa-check text-teal-500 mr-2"></i>Direct Booking Links</li>
+              <li><i class="fa-solid fa-check text-teal-500 mr-2"></i>Mobile Friendly Navigation</li>
+            </ul>
+          </div>
+          <a href="https://www.roseguesthouseklerksdorp.co.za/" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-teal-500 hover:text-white hover:border-teal-500 transition-all">
+            <span>Visit Live Site</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
     <!-- CORE SKILLS SECTION -->
-    <section id="skills" class="py-20 px-6 max-w-7xl mx-auto">
+    <section id="skills" class="py-20 px-6 max-w-7xl mx-auto reveal">
       <div class="text-center mb-16">
-        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">Core Expertise</h2>
-        <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">Technical skills and design capabilities cultivated over 4 years of client projects.</p>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">Capabilities & Expertise</h2>
+        <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">Adaptable to any page builder, content platform, or custom design ecosystem.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <!-- Web Development -->
-        <div class="glass-card p-8 rounded-2xl">
+        <!-- Web Platforms -->
+        <div class="glass-card p-8 rounded-2xl reveal">
           <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 text-brand-cyan flex items-center justify-center text-xl mb-6">
-            <i class="fa-solid fa-code"></i>
+            <i class="fa-solid fa-globe"></i>
           </div>
-          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Web Development</h3>
+          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Versatile Web Platforms</h3>
           <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-            Custom themes, layouts, and robust site setups across primary CMS and e-commerce platforms.
+            Fluent in deploying and tailoring websites on any CMS environment based on client preferences.
           </p>
           <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
-            <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>WordPress & Shopify</li>
-            <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>Wix Custom Implementations</li>
-            <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>Custom PHP, HTML5 & CSS3</li>
+            <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>WordPress, Shopify & Wix Primary Projects</li>
+            <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>Adaptable to Any Content Management System</li>
+            <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>Custom PHP, HTML5, CSS3 & JavaScript</li>
           </ul>
         </div>
 
-        <!-- Page Builders -->
-        <div class="glass-card p-8 rounded-2xl">
+        <!-- Visual Page Builders -->
+        <div class="glass-card p-8 rounded-2xl reveal">
           <div class="w-12 h-12 rounded-xl bg-brand-purple/10 text-brand-purple flex items-center justify-center text-xl mb-6">
             <i class="fa-solid fa-cubes"></i>
           </div>
-          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Page Builders</h3>
+          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Visual Builders & Frameworks</h3>
           <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-            Expertise in modular visual builders to give clients easy control over site editing.
+            Quickly adapting to any visual editor, block environment, or page builder stack effortlessly.
           </p>
           <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
-            <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>Elementor & Elementor Pro</li>
-            <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>Divi & Avada Theme Builder</li>
-            <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>Beaver Builder Custom Layouts</li>
+            <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>Elementor, Divi, Avada & Beaver Builder</li>
+            <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>Gutenberg & Custom Block Solutions</li>
+            <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>Flexible Editor Customization for Clients</li>
           </ul>
         </div>
 
         <!-- Design & Prototyping -->
-        <div class="glass-card p-8 rounded-2xl">
+        <div class="glass-card p-8 rounded-2xl reveal">
           <div class="w-12 h-12 rounded-xl bg-brand-pink/10 text-brand-pink flex items-center justify-center text-xl mb-6">
             <i class="fa-solid fa-bezier-curve"></i>
           </div>
@@ -239,14 +461,14 @@
             Translating brand requirements into pixel-perfect Figma prototypes and visual assets.
           </p>
           <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
-            <li><i class="fa-solid fa-check text-brand-pink mr-2"></i>Figma UI/UX Mockups</li>
+            <li><i class="fa-solid fa-check text-brand-pink mr-2"></i>Figma UI/UX Mockups & Design Systems</li>
             <li><i class="fa-solid fa-check text-brand-pink mr-2"></i>Adobe Photoshop & Illustrator</li>
-            <li><i class="fa-solid fa-check text-brand-pink mr-2"></i>Figma-to-WordPress Conversions</li>
+            <li><i class="fa-solid fa-check text-brand-pink mr-2"></i>Figma-to-Web Pixel-Perfect Translation</li>
           </ul>
         </div>
 
         <!-- Optimization & Maintenance -->
-        <div class="glass-card p-8 rounded-2xl">
+        <div class="glass-card p-8 rounded-2xl reveal">
           <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl mb-6">
             <i class="fa-solid fa-gauge-high"></i>
           </div>
@@ -257,12 +479,12 @@
           <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
             <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>On-Page SEO Best Practices</li>
             <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Core Web Vitals Performance Tuning</li>
-            <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Responsive Mobile Testing</li>
+            <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>100% Mobile & Tablet Responsiveness</li>
           </ul>
         </div>
 
         <!-- Migrations & Code Fixing -->
-        <div class="glass-card p-8 rounded-2xl">
+        <div class="glass-card p-8 rounded-2xl reveal">
           <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl mb-6">
             <i class="fa-solid fa-wrench"></i>
           </div>
@@ -271,14 +493,14 @@
             Seamless server transitions and taking over broken or unfinished inherited codebases.
           </p>
           <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
-            <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Full Website Migrations</li>
+            <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Full Website & Server Migrations</li>
             <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Troubleshooting Inherited Projects</li>
-            <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Security Implementation</li>
+            <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Security & Bug Fixes</li>
           </ul>
         </div>
 
         <!-- Branding & Graphics -->
-        <div class="glass-card p-8 rounded-2xl">
+        <div class="glass-card p-8 rounded-2xl reveal">
           <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-xl mb-6">
             <i class="fa-solid fa-palette"></i>
           </div>
@@ -287,17 +509,17 @@
             Creating cohesive brand collateral and deploying AI tools for research and coding speed.
           </p>
           <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
-            <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i>Visual Identity & Product Labels</li>
+            <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i>Visual Identity & Product Assets</li>
             <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i>Marketing Collateral & Canva</li>
-            <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i>AI-Assisted Web Workflows</li>
+            <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i>AI-Assisted Accelerated Workflows</li>
           </ul>
         </div>
 
       </div>
     </section>
 
-    <!-- WORK EXPERIENCE SECTION (Full 5 Roles from CV) -->
-    <section id="experience" class="py-20 px-6 max-w-5xl mx-auto">
+    <!-- WORK EXPERIENCE SECTION -->
+    <section id="experience" class="py-20 px-6 max-w-5xl mx-auto reveal">
       <div class="text-center mb-16">
         <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">Work Experience</h2>
         <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">Comprehensive career history across client builds, agencies, and dev teams.</p>
@@ -306,7 +528,7 @@
       <div class="space-y-8">
 
         <!-- Role 1: LaunchDigital -->
-        <div class="glass-card p-8 rounded-2xl relative">
+        <div class="glass-card p-6 sm:p-8 rounded-2xl relative reveal">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <div>
               <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Web Designer & Developer</h3>
@@ -317,14 +539,14 @@
             </span>
           </div>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 list-disc list-inside">
-            <li>Customized WordPress themes and templates to build unique, brand-aligned websites for clients.</li>
+            <li>Customized themes and templates to build unique, brand-aligned websites for clients.</li>
             <li>Applied on-page SEO best practices and performance tuning to improve loading speed and search visibility.</li>
             <li>Integrated brand identity and visual elements into custom layouts using Figma and Adobe tools.</li>
           </ul>
         </div>
 
         <!-- Role 2: WriteWay Digital -->
-        <div class="glass-card p-8 rounded-2xl relative">
+        <div class="glass-card p-6 sm:p-8 rounded-2xl relative reveal">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <div>
               <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Web Developer</h3>
@@ -335,14 +557,14 @@
             </span>
           </div>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 list-disc list-inside">
-            <li>Built WordPress websites from custom templates tailored to client needs and branding requirements.</li>
+            <li>Built custom websites tailored to client requirements and brand identities across various platforms.</li>
             <li>Handled full website migrations, ensuring a smooth transition to new hosting environments.</li>
             <li>Took over unfinished web projects, troubleshooting existing design code and completing layouts efficiently.</li>
           </ul>
         </div>
 
         <!-- Role 3: Serenity -->
-        <div class="glass-card p-8 rounded-2xl relative">
+        <div class="glass-card p-6 sm:p-8 rounded-2xl relative reveal">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <div>
               <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Web Designer & Developer</h3>
@@ -353,17 +575,17 @@
             </span>
           </div>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 list-disc list-inside">
-            <li>Designed and built mental health and psychiatric websites focused on user accessibility and empathy.</li>
+            <li>Designed and built healthcare and psychiatric websites focused on user accessibility and empathy.</li>
             <li>Optimized site functionality for full responsiveness and SEO-friendliness across all mobile devices.</li>
             <li>Coordinated with cross-functional teams to meet strict design and production deadlines.</li>
           </ul>
         </div>
 
         <!-- Role 4: Haven Media Solution -->
-        <div class="glass-card p-8 rounded-2xl relative">
+        <div class="glass-card p-6 sm:p-8 rounded-2xl relative reveal">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <div>
-              <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">WordPress Web Designer</h3>
+              <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Web Designer</h3>
               <p class="text-sm font-semibold text-emerald-500">Haven Media Solution</p>
             </div>
             <span class="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 w-fit">
@@ -371,13 +593,13 @@
             </span>
           </div>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 list-disc list-inside">
-            <li>Designed and developed WordPress websites for businesses across various industries.</li>
+            <li>Designed and developed client websites for businesses across various industries.</li>
             <li>Created responsive, user-friendly, and visually appealing page layouts targeting conversion.</li>
           </ul>
         </div>
 
         <!-- Role 5: Fab Web Designs -->
-        <div class="glass-card p-8 rounded-2xl relative">
+        <div class="glass-card p-6 sm:p-8 rounded-2xl relative reveal">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <div>
               <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Web & Graphic Designer</h3>
@@ -389,7 +611,7 @@
           </div>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 list-disc list-inside">
             <li>Designed website graphics and site pages in Figma from initial concept to detailed wireframe.</li>
-            <li>Converted Figma designs into fully functional WordPress websites using Avada, Elementor, Divi, and Beaver Builder.</li>
+            <li>Converted Figma designs into fully functional websites using custom builders and code.</li>
             <li>Collaborated with content writers, SEO specialists, and developers to improve site performance and search rankings.</li>
           </ul>
         </div>
@@ -397,23 +619,18 @@
       </div>
     </section>
 
-    <!-- PORTFOLIO / FEATURED PROJECTS SECTION -->
-    <section id="portfolio" class="py-20 px-6 max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">Selected Work & Showcase</h2>
-        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">Explore external portfolios or browse specialized implementation highlights.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+    <!-- ADDITIONAL PORTFOLIO LINKS SECTION -->
+    <section class="py-12 px-6 max-w-7xl mx-auto reveal">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
         <!-- Behance External Box -->
-        <a href="https://www.behance.net/miatan88" target="_blank" class="glass-card p-8 rounded-2xl flex items-center justify-between group">
+        <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="glass-card p-8 rounded-2xl flex items-center justify-between group">
           <div>
             <span class="text-xs font-bold text-brand-cyan tracking-wider uppercase mb-2 block">External Portfolio</span>
             <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white group-hover:text-brand-cyan transition-colors">Behance Showcase <i class="fa-solid fa-arrow-up-right-from-square text-lg ml-2"></i></h3>
             <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">View visual design work, Figma UI mockups, and client branding projects.</p>
           </div>
-          <div class="w-14 h-14 rounded-2xl bg-blue-600/10 text-blue-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+          <div class="w-14 h-14 rounded-2xl bg-blue-600/10 text-blue-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shrink-0">
             <i class="fa-brands fa-behance"></i>
           </div>
         </a>
@@ -422,10 +639,10 @@
         <div class="glass-card p-8 rounded-2xl flex items-center justify-between">
           <div>
             <span class="text-xs font-bold text-brand-purple tracking-wider uppercase mb-2 block">Custom Solutions</span>
-            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white">Figma to WordPress</h3>
-            <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">1:1 precision translation from design files into responsive WordPress builds.</p>
+            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white">Figma to Website</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">1:1 precision translation from design files into responsive web platforms.</p>
           </div>
-          <div class="w-14 h-14 rounded-2xl bg-brand-purple/10 text-brand-purple flex items-center justify-center text-2xl">
+          <div class="w-14 h-14 rounded-2xl bg-brand-purple/10 text-brand-purple flex items-center justify-center text-2xl shrink-0">
             <i class="fa-brands fa-figma"></i>
           </div>
         </div>
@@ -434,18 +651,18 @@
     </section>
 
     <!-- CONTACT SECTION -->
-    <section id="contact" class="py-20 px-6 max-w-4xl mx-auto">
+    <section id="contact" class="py-20 px-6 max-w-4xl mx-auto reveal">
       <div class="glass-card p-8 sm:p-12 rounded-3xl text-center">
         <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">Let's Work Together</h2>
         <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base max-w-xl mx-auto mb-8">
-          Have an upcoming project, website migration, or custom WordPress build? Get in touch directly!
+          Have an upcoming project, website migration, or custom website build? Get in touch directly!
         </p>
 
         <!-- Direct Email -->
         <div class="mb-10">
-          <a href="mailto:Tmianelle@gmail.com" class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-base hover:border-brand-cyan transition-colors">
-            <i class="fa-solid fa-envelope text-brand-cyan"></i>
-            <span>Tmianelle@gmail.com</span>
+          <a href="mailto:Tmianelle@gmail.com" class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-sm sm:text-base hover:border-brand-cyan transition-colors max-w-full overflow-hidden text-ellipsis">
+            <i class="fa-solid fa-envelope text-brand-cyan shrink-0"></i>
+            <span class="truncate">Tmianelle@gmail.com</span>
           </a>
         </div>
 
@@ -481,10 +698,10 @@
 
   <!-- FOOTER -->
   <footer class="py-8 px-6 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400">
-    <p>© 2026 Yanelle Tan. Web Designer & WordPress Developer. All rights reserved.</p>
+    <p>© 2026 Yanelle Tan. Web Designer & Developer. All rights reserved.</p>
   </footer>
 
-  <!-- JAVASCRIPT: Theme Toggle & White Circle Cursor Follower -->
+  <!-- JAVASCRIPT: Theme Toggle, Cursor, Mobile Drawer, Horizontal Carousel & Scroll Animations -->
   <script>
     // 1. Theme Toggle Functionality
     const themeToggleBtn = document.getElementById('theme-toggle');
@@ -501,7 +718,6 @@
       }
     }
 
-    // Initialize Icon state
     updateIcons();
 
     themeToggleBtn.addEventListener('click', () => {
@@ -509,40 +725,94 @@
       updateIcons();
     });
 
-    // 2. Smooth White Circle Cursor Follower
-    const cursor = document.getElementById('cursor-follower');
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let cursorX = window.innerWidth / 2;
-    let cursorY = window.innerHeight / 2;
+    // 2. Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
 
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenuIcon.classList.replace('fa-xmark', 'fa-bars');
+      } else {
+        mobileMenuIcon.classList.replace('fa-bars', 'fa-xmark');
+      }
     });
 
-    function animateCursor() {
-      // Interpolate towards mouse position
-      cursorX += (mouseX - cursorX) * 0.15;
-      cursorY += (mouseY - cursorY) * 0.15;
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenuIcon.classList.replace('fa-xmark', 'fa-bars');
+      });
+    });
 
-      cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
-      requestAnimationFrame(animateCursor);
+    // 3. Smooth White Circle Cursor Follower
+    const cursor = document.getElementById('cursor-follower');
+    if (cursor) {
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let cursorX = window.innerWidth / 2;
+      let cursorY = window.innerHeight / 2;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+
+        cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+        requestAnimationFrame(animateCursor);
+      }
+
+      animateCursor();
+
+      const clickables = document.querySelectorAll('a, button, input, textarea');
+      clickables.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width = '48px';
+          cursor.style.height = '48px';
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width = '24px';
+          cursor.style.height = '24px';
+        });
+      });
     }
 
-    animateCursor();
+    // 4. Horizontal Projects Carousel Controls
+    const carousel = document.getElementById('projects-carousel');
+    const scrollLeftBtn = document.getElementById('scroll-left');
+    const scrollRightBtn = document.getElementById('scroll-right');
 
-    // Scale cursor on clickable hover
-    const clickables = document.querySelectorAll('a, button, input, textarea');
-    clickables.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '48px';
-        cursor.style.height = '48px';
+    scrollLeftBtn.addEventListener('click', () => {
+      carousel.scrollBy({ left: -380, behavior: 'smooth' });
+    });
+
+    scrollRightBtn.addEventListener('click', () => {
+      carousel.scrollBy({ left: 380, behavior: 'smooth' });
+    });
+
+    // 5. Scroll Intersection Observer Animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.12
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
       });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '24px';
-        cursor.style.height = '24px';
-      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      revealObserver.observe(el);
     });
   </script>
 </body>
