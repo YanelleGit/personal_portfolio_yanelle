@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yanelle Tan | Web Designer & WordPress Developer Portfolio</title>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yanelle Tan | Web Designer & WordPress Developer</title>
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- FontAwesome Icons & Google Fonts -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -21,13 +21,14 @@
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            display: ['"Space Grotesk"', 'sans-serif'],
+            heading: ['"Space Grotesk"', 'sans-serif'],
           },
           colors: {
-            brandCyan: '#06b6d4',
-            brandPurple: '#8b5cf6',
-            brandPink: '#ec4899',
-            brandGold: '#f59e0b',
+            brand: {
+              cyan: '#06b6d4',
+              purple: '#a855f7',
+              pink: '#ec4899',
+            }
           }
         }
       }
@@ -35,843 +36,514 @@
   </script>
 
   <style>
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 10px;
+    /* Custom Smooth Scroll & Base resets */
+    html {
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    ::-webkit-scrollbar-track {
-      background: var(--bg-main, #070a12);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #334155;
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #06b6d4;
-    }
-
-    /* Ambient Background Orbs */
-    .bg-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(110px);
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.35;
-      transition: opacity 0.5s ease;
-    }
-
-    .light .bg-orb {
-      opacity: 0.15;
-    }
-
-    /* Glassmorphism Styles for Dark Mode */
-    .glass-card {
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    .glass-nav {
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      transition: background-color 0.4s ease, border-color 0.4s ease;
-    }
-
-    /* Theme Adaptive Classes */
-    html.light {
-      background-color: #f8fafc;
-      color: #0f172a;
-    }
-
-    html.dark {
-      background-color: #070a12;
-      color: #f8fafc;
-    }
-
-    .light .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    }
-
-    .light .glass-nav {
-      background: rgba(255, 255, 255, 0.9);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    }
-
-    /* Light Mode Typography & Color Overrides */
-    .light .text-white {
-      color: #0f172a !important;
-    }
-    .light .text-slate-100 {
-      color: #0f172a !important;
-    }
-    .light .text-slate-200 {
-      color: #1e293b !important;
-    }
-    .light .text-slate-300 {
-      color: #334155 !important;
-    }
-    .light .text-slate-400 {
-      color: #64748b !important;
-    }
-    .light .bg-slate-950 {
+    
+    /* LIGHT MODE STYLING: Full Pure White Background */
+    html:not(.dark) body {
       background-color: #ffffff !important;
-    }
-    .light .bg-slate-900 {
-      background-color: #f1f5f9 !important;
-    }
-    .light .border-slate-800 {
-      border-color: #e2e8f0 !important;
-    }
-    .light .border-slate-700 {
-      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
     }
 
-    /* Gradient Text */
-    .text-gradient {
-      background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    /* DARK MODE STYLING */
+    html.dark body {
+      background-color: #0b0f19 !important;
+      color: #f1f5f9 !important;
     }
 
-    /* Smooth Cursor Follower */
-    #cursorFollower {
+    /* Custom Glassmorphism Panels */
+    .glass-card {
+      transition: all 0.3s ease;
+    }
+    
+    /* Light Mode Cards */
+    html:not(.dark) .glass-card {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    }
+    html:not(.dark) .glass-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Dark Mode Cards */
+    html.dark .glass-card {
+      background-color: rgba(17, 24, 39, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+    }
+    html.dark .glass-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* White Circle Custom Follower Cursor */
+    #cursor-follower {
+      pointer-events: none;
       position: fixed;
       top: 0;
       left: 0;
-      width: 32px;
-      height: 32px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.25);
-      border: 1.5px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-      pointer-events: none;
+      background-color: #ffffff;
+      mix-blend-mode: difference;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-      backdrop-filter: blur(2px);
+      transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
     }
 
-    .light #cursorFollower {
-      background: rgba(15, 23, 42, 0.15);
-      border: 1.5px solid rgba(15, 23, 42, 0.7);
-      box-shadow: 0 0 15px rgba(15, 23, 42, 0.3);
-    }
-
-    .card-hover {
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
-    }
-    .card-hover:hover {
-      transform: translateY(-6px);
+    /* Text Gradient */
+    .text-gradient {
+      background: linear-gradient(135deg, #06b6d4 0%, #a855f7 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   </style>
 </head>
-<body class="bg-[#070a12] text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-white relative overflow-x-hidden transition-colors duration-500">
+<body class="font-sans antialiased selection:bg-brand-purple selection:text-white relative min-h-screen">
 
-  <!-- Smooth White Circle Cursor Follower -->
-  <div id="cursorFollower"></div>
+  <!-- White Circle Cursor Follower -->
+  <div id="cursor-follower"></div>
 
-  <!-- Ambient Background Orbs -->
-  <div id="orb1" class="bg-orb w-[450px] h-[450px] bg-cyan-500/20 top-[-100px] left-[-100px]"></div>
-  <div id="orb2" class="bg-orb w-[550px] h-[550px] bg-purple-600/20 top-[40%] right-[-150px]"></div>
-  <div id="orb3" class="bg-orb w-[400px] h-[400px] bg-amber-500/15 bottom-[10%] left-[10%]"></div>
-
-  <!-- ==================== NAVIGATION HEADER ==================== -->
-  <header class="sticky top-0 z-50">
-    <div class="w-full glass-nav px-4 sm:px-8 py-3.5 shadow-xl flex justify-between items-center">
+  <!-- HEADER / NAVIGATION -->
+  <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-md transition-colors duration-300 border-b border-slate-200/50 dark:border-slate-800/50 bg-white/80 dark:bg-slate-950/80">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       
-      <!-- Logo -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 via-purple-500 to-cyan-400 p-[2px] shadow-lg transition-transform duration-300 group-hover:scale-105">
-          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-display font-extrabold text-lg text-amber-400">
-            YT
-          </div>
-        </div>
-        <div>
-          <span class="font-display font-extrabold text-lg sm:text-xl tracking-wide block leading-none text-white">YANELLE TAN</span>
-          <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest block mt-0.5">Web Designer & Dev</span>
-        </div>
+      <!-- Brand Logo -->
+      <a href="#" class="font-heading font-bold text-xl tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-cyan to-brand-purple flex items-center justify-center text-white text-sm font-extrabold">YT</span>
+        <span>Yanelle<span class="text-brand-purple">.</span></span>
       </a>
 
-      <!-- Desktop Navigation -->
-      <div class="hidden lg:flex items-center gap-6">
-        <nav class="flex items-center gap-1 font-medium text-sm text-slate-300">
-          <a href="#summary" class="px-3.5 py-2 rounded-xl hover:text-amber-400 hover:bg-slate-800/60 transition-colors">Summary</a>
-          <a href="#skills" class="px-3.5 py-2 rounded-xl hover:text-cyan-400 hover:bg-slate-800/60 transition-colors">Skills</a>
-          <a href="#services" class="px-3.5 py-2 rounded-xl hover:text-purple-400 hover:bg-slate-800/60 transition-colors">Services</a>
-          <a href="#experience" class="px-3.5 py-2 rounded-xl hover:text-pink-400 hover:bg-slate-800/60 transition-colors">Experience</a>
-          <a href="#portfolio" class="px-3.5 py-2 rounded-xl hover:text-amber-400 hover:bg-slate-800/60 transition-colors">Portfolio</a>
-          <a href="#contact" class="px-3.5 py-2 rounded-xl hover:text-cyan-400 hover:bg-slate-800/60 transition-colors">Contact</a>
-        </nav>
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-700 dark:text-slate-300">
+        <a href="#about" class="hover:text-brand-cyan transition-colors">About</a>
+        <a href="#skills" class="hover:text-brand-cyan transition-colors">Skills</a>
+        <a href="#experience" class="hover:text-brand-cyan transition-colors">Experience</a>
+        <a href="#portfolio" class="hover:text-brand-cyan transition-colors">Portfolio</a>
+        <a href="#contact" class="hover:text-brand-cyan transition-colors">Contact</a>
+      </nav>
 
-        <div class="h-5 w-[1px] bg-slate-700/60"></div>
-
-        <!-- Social Links & Theme Toggle -->
-        <div class="flex items-center gap-2">
-          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-200 hover:text-emerald-400 hover:border-emerald-500/50 transition-all" title="Upwork">
-            <i class="fa-solid fa-briefcase text-sm"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-200 hover:text-blue-400 hover:border-blue-500/50 transition-all" title="LinkedIn">
-            <i class="fa-brands fa-linkedin-in text-sm"></i>
-          </a>
-          <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-200 hover:text-purple-400 hover:border-purple-500/50 transition-all" title="Behance">
-            <i class="fa-brands fa-behance text-sm"></i>
-          </a>
-          <a href="mailto:Tmianelle@gmail.com" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-200 hover:text-pink-400 hover:border-pink-500/50 transition-all" title="Email">
-            <i class="fa-regular fa-envelope text-sm"></i>
-          </a>
-
-          <!-- Dark/Light Theme Toggle Button -->
-          <button onclick="toggleTheme()" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-amber-400 hover:border-amber-400 transition-all ml-1" title="Toggle Theme">
-            <i class="fa-solid fa-sun text-sm" id="themeIcon"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- Mobile Controls -->
-      <div class="flex items-center gap-2 lg:hidden">
-        <button onclick="toggleTheme()" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-amber-400">
-          <i class="fa-solid fa-sun text-sm" id="themeIconMobile"></i>
+      <!-- Theme Switcher & Social Links -->
+      <div class="flex items-center gap-4">
+        <button id="theme-toggle" class="p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="Toggle Theme">
+          <i id="theme-toggle-dark-icon" class="fa-solid fa-moon text-base"></i>
+          <i id="theme-toggle-light-icon" class="fa-solid fa-sun text-base hidden"></i>
         </button>
-        <button onclick="toggleMobileNav()" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-white">
-          <i class="fa-solid fa-bars" id="menuIcon"></i>
-        </button>
-      </div>
 
-      <!-- Mobile Drawer -->
-      <div id="mobileDrawer" class="hidden absolute top-full left-0 w-full p-5 glass-card flex flex-col gap-3 font-medium text-sm lg:hidden shadow-2xl z-50 border-t border-slate-800">
-        <a href="#summary" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Summary</a>
-        <a href="#skills" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Skills</a>
-        <a href="#services" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Services</a>
-        <a href="#experience" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Experience</a>
-        <a href="#portfolio" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Portfolio</a>
-        <a href="#contact" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Contact</a>
-        <div class="pt-3 border-t border-slate-800 flex justify-around">
-          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="text-xs flex items-center gap-1.5 text-emerald-400 font-bold"><i class="fa-solid fa-briefcase"></i> Upwork</a>
-          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="text-xs flex items-center gap-1.5 text-blue-400 font-bold"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-          <a href="https://www.behance.net/miatan88" target="_blank" class="text-xs flex items-center gap-1.5 text-purple-400 font-bold"><i class="fa-brands fa-behance"></i> Behance</a>
-        </div>
+        <a href="#contact" class="hidden sm:inline-flex px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-semibold text-sm hover:opacity-90 transition-opacity">
+          Hire Yanelle
+        </a>
       </div>
-
     </div>
   </header>
 
-  <!-- ==================== 1. CLEAN HERO SECTION ==================== -->
-  <section id="heroSection" class="relative w-full py-24 sm:py-32 px-4 sm:px-8 border-b border-slate-800/80">
-    <div class="relative z-10 w-full max-w-5xl mx-auto text-center my-auto">
+  <main class="pt-28">
+
+    <!-- HERO SECTION (Clean, High-Contrast, No Bounding Box or Background Flashlight) -->
+    <section id="about" class="py-20 md:py-32 px-6 max-w-5xl mx-auto text-center">
       
-      <!-- Pill Badge -->
-      <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-extrabold tracking-wider mb-8 shadow-sm">
-        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+      <!-- Experience Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-300 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-900/80 text-xs font-semibold tracking-wide text-slate-800 dark:text-slate-300 mb-8">
+        <span class="w-2 h-2 rounded-full bg-brand-cyan animate-pulse"></span>
         4+ YEARS EXPERIENCE • WEB & WORDPRESS SPECIALIST
       </div>
 
-      <!-- Main Heading -->
-      <h1 class="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight max-w-4xl mx-auto">
+      <!-- Main Headline -->
+      <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-6">
         Crafting Digital Products with <br class="hidden sm:inline" />
         <span class="text-gradient">Precision & Visual Artistry</span>
       </h1>
 
-      <!-- Subtitle -->
-      <p class="font-display font-bold text-base sm:text-xl text-cyan-400 mt-6 tracking-wider uppercase">
-        YANELLE TAN — WEB DESIGNER & WORDPRESS DEVELOPER
+      <!-- Sub-headline -->
+      <p class="font-heading text-lg sm:text-xl font-bold uppercase tracking-wider text-brand-cyan mb-8">
+        Yanelle Tan — Web Designer & WordPress Developer
       </p>
 
-      <!-- Clean Inline Statement Text (No Box / No Border Wrapper) -->
-      <p class="mt-6 font-normal text-base sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-        Building custom, responsive, and SEO-optimized websites tailored precisely to your business goals and growth, blended with creative, standout design.
+      <!-- Clean Quote/Summary Text (No Bounding Box) -->
+      <p class="max-w-3xl mx-auto text-lg sm:text-xl text-slate-700 dark:text-slate-300 font-normal leading-relaxed mb-10">
+        "Building custom, responsive, and SEO-optimized websites tailored precisely to your business goals and growth, blended with creative, standout design."
       </p>
 
-      <!-- Skill Pills -->
-      <div class="flex flex-wrap justify-center gap-3 mt-8">
-        <span class="px-4 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-semibold text-slate-300">WordPress & Builders</span>
-        <span class="px-4 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-semibold text-slate-300">Shopify & Wix</span>
-        <span class="px-4 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-semibold text-slate-300">Figma-to-WordPress</span>
-        <span class="px-4 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-semibold text-slate-300">Custom PHP/CSS/HTML</span>
+      <!-- Tech Stack Pill Badges -->
+      <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">WordPress & Builders</span>
+        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">Shopify & Wix</span>
+        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">Figma-to-WordPress</span>
+        <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-300">Custom PHP / HTML / CSS</span>
       </div>
 
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-10">
-        <a href="#services" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-purple-600 to-pink-500 text-white font-display font-bold text-base shadow-lg hover:opacity-95 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2">
-          Explore Services
+      <!-- CTA Action Buttons -->
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#portfolio" class="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-purple text-white font-bold text-sm shadow-lg hover:shadow-brand-cyan/25 hover:scale-[1.02] transition-all">
+          <i class="fa-solid fa-layer-group mr-2"></i> Explore Services
         </a>
-        <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-slate-900/90 border border-slate-700 font-display font-bold text-base text-white hover:border-cyan-400 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2">
-          <i class="fa-solid fa-paper-plane text-cyan-400"></i> Hire Yanelle
+        <a href="#contact" class="px-8 py-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-bold text-sm bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+          <i class="fa-solid fa-paper-plane mr-2"></i> Hire Yanelle
         </a>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- CORE SKILLS SECTION -->
+    <section id="skills" class="py-20 px-6 max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">Core Expertise</h2>
+        <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">Technical skills and design capabilities cultivated over 4 years of client projects.</p>
+      </div>
 
-  <!-- ==================== PROFESSIONAL SUMMARY ==================== -->
-  <section id="summary" class="py-20 px-4 max-w-6xl mx-auto relative z-10">
-    <div class="glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-slate-800">
-      <div class="flex flex-col md:flex-row items-center gap-8">
-        <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-tr from-amber-400 via-purple-500 to-cyan-400 p-[2px] shrink-0 shadow-md">
-          <div class="w-full h-full bg-slate-950 rounded-[22px] flex items-center justify-center text-amber-400 text-3xl sm:text-4xl">
-            <i class="fa-solid fa-sparkles"></i>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Web Development -->
+        <div class="glass-card p-8 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 text-brand-cyan flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-code"></i>
           </div>
-        </div>
-        <div>
-          <span class="text-xs font-bold uppercase tracking-widest text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
-            Professional Summary
-          </span>
-          <h2 class="font-display font-bold text-2xl sm:text-4xl text-white mt-2 mb-4">
-            Nearly 4 Years of Digital Excellence
-          </h2>
-          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            Web Designer and WordPress Developer with nearly 4 years of experience building responsive, SEO-optimized websites for clients across multiple industries. Skilled in <strong>WordPress (Elementor, Divi, Avada, Beaver Builder), Shopify, Figma-to-WordPress implementation, custom HTML/CSS/PHP, website migrations, and performance optimization</strong>. Also experienced in graphic design and branding. Adapts quickly to new platforms and client requirements, and uses AI tools to speed up research, coding, and troubleshooting.
+          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Web Development</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+            Custom themes, layouts, and robust site setups across primary CMS and e-commerce platforms.
           </p>
+          <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>WordPress & Shopify</li>
+            <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>Wix Custom Implementations</li>
+            <li><i class="fa-solid fa-check text-brand-cyan mr-2"></i>Custom PHP, HTML5 & CSS3</li>
+          </ul>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ==================== CORE SKILLS ==================== -->
-  <section id="skills" class="py-16 px-4 max-w-7xl mx-auto relative z-10">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-xs font-bold uppercase tracking-widest text-cyan-400 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-        Technical Capabilities
-      </span>
-      <h2 class="font-display font-bold text-3xl sm:text-5xl text-white mt-3">
-        Core Skills & Expertise
-      </h2>
-      <p class="text-slate-400 mt-3 text-base">
-        A detailed breakdown of technical, design, and web optimization competencies.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      
-      <!-- Skill Category 1 -->
-      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
-        <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-4">
-          <i class="fa-solid fa-code"></i>
-        </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Web Development</h3>
-        <ul class="space-y-2 text-sm text-slate-300">
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-xs"></i> WordPress, Shopify, Wix</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-xs"></i> Custom Themes & Layouts</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-xs"></i> Custom PHP, HTML5 & CSS3</li>
-        </ul>
-      </div>
-
-      <!-- Skill Category 2 -->
-      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
-        <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-4">
-          <i class="fa-solid fa-cubes"></i>
-        </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Page Builders</h3>
-        <ul class="space-y-2 text-sm text-slate-300">
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Elementor & Elementor Pro</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Divi Theme & Builder</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Avada & Beaver Builder</li>
-        </ul>
-      </div>
-
-      <!-- Skill Category 3 -->
-      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
-        <div class="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl mb-4">
-          <i class="fa-solid fa-gauge-high"></i>
-        </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Optimization & Performance</h3>
-        <ul class="space-y-2 text-sm text-slate-300">
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-pink-400 text-xs"></i> On-Page SEO Best Practices</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-pink-400 text-xs"></i> Responsive Mobile-First Design</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-pink-400 text-xs"></i> Security & Speed Optimization</li>
-        </ul>
-      </div>
-
-      <!-- Skill Category 4 -->
-      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
-        <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4">
-          <i class="fa-brands fa-figma"></i>
-        </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Design & Prototyping</h3>
-        <ul class="space-y-2 text-sm text-slate-300">
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-xs"></i> Figma UI/UX Layouts</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-xs"></i> Adobe Photoshop & Illustrator</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-xs"></i> Canva Pro Design</li>
-        </ul>
-      </div>
-
-      <!-- Skill Category 5 -->
-      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
-        <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4">
-          <i class="fa-solid fa-palette"></i>
-        </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Graphic Design & Branding</h3>
-        <ul class="space-y-2 text-sm text-slate-300">
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Visual Identity & Packaging</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Print-Ready Marketing Materials</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Vector Illustration & Image Editing</li>
-        </ul>
-      </div>
-
-      <!-- Skill Category 6 -->
-      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
-        <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-4">
-          <i class="fa-solid fa-bolt"></i>
-        </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Migrations & AI Workflows</h3>
-        <ul class="space-y-2 text-sm text-slate-300">
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-xs"></i> Full Website Server Migrations</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-xs"></i> Troubleshooting Inherited Code</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-xs"></i> AI-Assisted Research & Coding</li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== SERVICES SECTION ==================== -->
-  <section id="services" class="py-20 px-4 max-w-7xl mx-auto relative z-10">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-xs font-bold uppercase tracking-widest text-purple-400 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
-        Service Offerings
-      </span>
-      <h2 class="font-display font-bold text-3xl sm:text-5xl text-white mt-3">
-        Tailored Digital Services
-      </h2>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="glass-card card-hover rounded-3xl p-6 border border-slate-800">
-        <i class="fa-solid fa-laptop-code text-cyan-400 text-3xl mb-4"></i>
-        <h3 class="font-display font-bold text-lg text-white mb-2">Custom Web Development</h3>
-        <p class="text-slate-300 text-xs leading-relaxed">
-          Custom WordPress, Shopify, and Wix setups crafted for high conversions, responsiveness, and seamless navigation.
-        </p>
-      </div>
-
-      <div class="glass-card card-hover rounded-3xl p-6 border border-slate-800">
-        <i class="fa-brands fa-figma text-purple-400 text-3xl mb-4"></i>
-        <h3 class="font-display font-bold text-lg text-white mb-2">Figma-to-WordPress</h3>
-        <p class="text-slate-300 text-xs leading-relaxed">
-          Pixel-perfect conversion of Figma designs into dynamic Elementor, Divi, Avada, or Beaver Builder pages.
-        </p>
-      </div>
-
-      <div class="glass-card card-hover rounded-3xl p-6 border border-slate-800">
-        <i class="fa-solid fa-rocket text-pink-400 text-3xl mb-4"></i>
-        <h3 class="font-display font-bold text-lg text-white mb-2">Performance & SEO</h3>
-        <p class="text-slate-300 text-xs leading-relaxed">
-          Speed tuning, security hardening, on-page SEO optimization, and clean code architecture.
-        </p>
-      </div>
-
-      <div class="glass-card card-hover rounded-3xl p-6 border border-slate-800">
-        <i class="fa-solid fa-pen-nib text-amber-400 text-3xl mb-4"></i>
-        <h3 class="font-display font-bold text-lg text-white mb-2">Graphic Design & Branding</h3>
-        <p class="text-slate-300 text-xs leading-relaxed">
-          Brand visual identity, product label/packaging design, print-ready marketing assets, and vector art.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== WORK EXPERIENCE ==================== -->
-  <section id="experience" class="py-20 px-4 max-w-5xl mx-auto relative z-10">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-xs font-bold uppercase tracking-widest text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
-        Career Journey
-      </span>
-      <h2 class="font-display font-bold text-3xl sm:text-5xl text-white mt-3">
-        Detailed Work Experience
-      </h2>
-      <p class="text-slate-400 mt-3 text-base">
-        Complete job history and key responsibilities from CV.
-      </p>
-    </div>
-
-    <div class="relative border-l-2 border-slate-800 ml-4 sm:ml-8 space-y-10">
-
-      <!-- Job 1: LaunchDigital -->
-      <div class="relative pl-6 sm:pl-10 group">
-        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-cyan-400 ring-4 ring-[#070a12] group-hover:scale-125 transition-transform"></div>
-        <div class="glass-card card-hover rounded-2xl p-6 sm:p-8 border border-slate-800">
-          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
-            <div>
-              <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Apr 2025 - Oct 2026</span>
-              <h3 class="font-display font-bold text-xl sm:text-2xl text-white mt-1">Web Designer & Developer</h3>
-              <p class="font-semibold text-cyan-300 text-sm">LaunchDigital</p>
-            </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">WordPress & SEO</span>
+        <!-- Page Builders -->
+        <div class="glass-card p-8 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-brand-purple/10 text-brand-purple flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-cubes"></i>
           </div>
-          <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mt-4">
+          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Page Builders</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+            Expertise in modular visual builders to give clients easy control over site editing.
+          </p>
+          <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>Elementor & Elementor Pro</li>
+            <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>Divi & Avada Theme Builder</li>
+            <li><i class="fa-solid fa-check text-brand-purple mr-2"></i>Beaver Builder Custom Layouts</li>
+          </ul>
+        </div>
+
+        <!-- Design & Prototyping -->
+        <div class="glass-card p-8 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-brand-pink/10 text-brand-pink flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-bezier-curve"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Design & Prototyping</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+            Translating brand requirements into pixel-perfect Figma prototypes and visual assets.
+          </p>
+          <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <li><i class="fa-solid fa-check text-brand-pink mr-2"></i>Figma UI/UX Mockups</li>
+            <li><i class="fa-solid fa-check text-brand-pink mr-2"></i>Adobe Photoshop & Illustrator</li>
+            <li><i class="fa-solid fa-check text-brand-pink mr-2"></i>Figma-to-WordPress Conversions</li>
+          </ul>
+        </div>
+
+        <!-- Optimization & Maintenance -->
+        <div class="glass-card p-8 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-gauge-high"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Site Optimization</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+            Ensuring high search visibility, rapid loading speeds, and multi-device compliance.
+          </p>
+          <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>On-Page SEO Best Practices</li>
+            <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Core Web Vitals Performance Tuning</li>
+            <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Responsive Mobile Testing</li>
+          </ul>
+        </div>
+
+        <!-- Migrations & Code Fixing -->
+        <div class="glass-card p-8 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-wrench"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Migrations & Fixes</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+            Seamless server transitions and taking over broken or unfinished inherited codebases.
+          </p>
+          <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Full Website Migrations</li>
+            <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Troubleshooting Inherited Projects</li>
+            <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Security Implementation</li>
+          </ul>
+        </div>
+
+        <!-- Branding & Graphics -->
+        <div class="glass-card p-8 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-palette"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Branding & AI Workflows</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+            Creating cohesive brand collateral and deploying AI tools for research and coding speed.
+          </p>
+          <ul class="space-y-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i>Visual Identity & Product Labels</li>
+            <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i>Marketing Collateral & Canva</li>
+            <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i>AI-Assisted Web Workflows</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WORK EXPERIENCE SECTION (Full 5 Roles from CV) -->
+    <section id="experience" class="py-20 px-6 max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">Work Experience</h2>
+        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">Comprehensive career history across client builds, agencies, and dev teams.</p>
+      </div>
+
+      <div class="space-y-8">
+
+        <!-- Role 1: LaunchDigital -->
+        <div class="glass-card p-8 rounded-2xl relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+            <div>
+              <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Web Designer & Developer</h3>
+              <p class="text-sm font-semibold text-brand-cyan">LaunchDigital</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 w-fit">
+              Apr 2025 – Oct 2026
+            </span>
+          </div>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 list-disc list-inside">
             <li>Customized WordPress themes and templates to build unique, brand-aligned websites for clients.</li>
             <li>Applied on-page SEO best practices and performance tuning to improve loading speed and search visibility.</li>
             <li>Integrated brand identity and visual elements into custom layouts using Figma and Adobe tools.</li>
           </ul>
         </div>
-      </div>
 
-      <!-- Job 2: WriteWay Digital -->
-      <div class="relative pl-6 sm:pl-10 group">
-        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-purple-400 ring-4 ring-[#070a12] group-hover:scale-125 transition-transform"></div>
-        <div class="glass-card card-hover rounded-2xl p-6 sm:p-8 border border-slate-800">
-          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+        <!-- Role 2: WriteWay Digital -->
+        <div class="glass-card p-8 rounded-2xl relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <div>
-              <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">Sep 2025 - Sep 2026</span>
-              <h3 class="font-display font-bold text-xl sm:text-2xl text-white mt-1">Web Developer</h3>
-              <p class="font-semibold text-purple-300 text-sm">WriteWay Digital</p>
+              <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Web Developer</h3>
+              <p class="text-sm font-semibold text-brand-purple">WriteWay Digital</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 border border-purple-500/20 text-purple-300">Migrations & Debugging</span>
+            <span class="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 w-fit">
+              Sep 2025 – Sep 2026
+            </span>
           </div>
-          <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mt-4">
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 list-disc list-inside">
             <li>Built WordPress websites from custom templates tailored to client needs and branding requirements.</li>
-            <li>Handled full website migrations, ensuring a smooth transition to the new environment.</li>
-            <li>Took over unfinished web projects, troubleshooting existing design code and completing the layouts.</li>
+            <li>Handled full website migrations, ensuring a smooth transition to new hosting environments.</li>
+            <li>Took over unfinished web projects, troubleshooting existing design code and completing layouts efficiently.</li>
           </ul>
         </div>
-      </div>
 
-      <!-- Job 3: Serenity -->
-      <div class="relative pl-6 sm:pl-10 group">
-        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-pink-400 ring-4 ring-[#070a12] group-hover:scale-125 transition-transform"></div>
-        <div class="glass-card card-hover rounded-2xl p-6 sm:p-8 border border-slate-800">
-          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+        <!-- Role 3: Serenity -->
+        <div class="glass-card p-8 rounded-2xl relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <div>
-              <span class="text-xs font-bold text-pink-400 uppercase tracking-wider">Feb 2024 - Sep 2026</span>
-              <h3 class="font-display font-bold text-xl sm:text-2xl text-white mt-1">Web Designer & Developer</h3>
-              <p class="font-semibold text-pink-300 text-sm">Serenity</p>
+              <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Web Designer & Developer</h3>
+              <p class="text-sm font-semibold text-brand-pink">Serenity</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-pink-500/10 border border-pink-500/20 text-pink-300">Healthcare Web Design</span>
+            <span class="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 w-fit">
+              Feb 2024 – Sep 2026
+            </span>
           </div>
-          <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mt-4">
-            <li>Designed and built mental health and psychiatric websites.</li>
-            <li>Optimized site functionality for full responsiveness and SEO-friendliness.</li>
-            <li>Coordinated with cross-functional teams to meet design and production deadlines.</li>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 list-disc list-inside">
+            <li>Designed and built mental health and psychiatric websites focused on user accessibility and empathy.</li>
+            <li>Optimized site functionality for full responsiveness and SEO-friendliness across all mobile devices.</li>
+            <li>Coordinated with cross-functional teams to meet strict design and production deadlines.</li>
           </ul>
         </div>
-      </div>
 
-      <!-- Job 4: Haven Media Solution -->
-      <div class="relative pl-6 sm:pl-10 group">
-        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-amber-400 ring-4 ring-[#070a12] group-hover:scale-125 transition-transform"></div>
-        <div class="glass-card card-hover rounded-2xl p-6 sm:p-8 border border-slate-800">
-          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+        <!-- Role 4: Haven Media Solution -->
+        <div class="glass-card p-8 rounded-2xl relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <div>
-              <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">May 2024 - May 2025</span>
-              <h3 class="font-display font-bold text-xl sm:text-2xl text-white mt-1">WordPress Web Designer</h3>
-              <p class="font-semibold text-amber-300 text-sm">Haven Media Solution</p>
+              <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">WordPress Web Designer</h3>
+              <p class="text-sm font-semibold text-emerald-500">Haven Media Solution</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 border border-amber-500/20 text-amber-300">Business Web Layouts</span>
+            <span class="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 w-fit">
+              May 2024 – May 2025
+            </span>
           </div>
-          <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mt-4">
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 list-disc list-inside">
             <li>Designed and developed WordPress websites for businesses across various industries.</li>
-            <li>Created responsive, user-friendly, and visually appealing page layouts.</li>
+            <li>Created responsive, user-friendly, and visually appealing page layouts targeting conversion.</li>
           </ul>
         </div>
-      </div>
 
-      <!-- Job 5: Fab Web Designs -->
-      <div class="relative pl-6 sm:pl-10 group">
-        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-400 ring-4 ring-[#070a12] group-hover:scale-125 transition-transform"></div>
-        <div class="glass-card card-hover rounded-2xl p-6 sm:p-8 border border-slate-800">
-          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+        <!-- Role 5: Fab Web Designs -->
+        <div class="glass-card p-8 rounded-2xl relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <div>
-              <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Feb 2023 - May 2025</span>
-              <h3 class="font-display font-bold text-xl sm:text-2xl text-white mt-1">Web & Graphic Designer</h3>
-              <p class="font-semibold text-emerald-300 text-sm">Fab Web Designs</p>
+              <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white">Web & Graphic Designer</h3>
+              <p class="text-sm font-semibold text-amber-500">Fab Web Designs</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">Figma to Page Builders</span>
+            <span class="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 w-fit">
+              Feb 2023 – May 2025
+            </span>
           </div>
-          <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mt-4">
-            <li>Designed website graphics and site pages in Figma.</li>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 list-disc list-inside">
+            <li>Designed website graphics and site pages in Figma from initial concept to detailed wireframe.</li>
             <li>Converted Figma designs into fully functional WordPress websites using Avada, Elementor, Divi, and Beaver Builder.</li>
             <li>Collaborated with content writers, SEO specialists, and developers to improve site performance and search rankings.</li>
           </ul>
         </div>
+
+      </div>
+    </section>
+
+    <!-- PORTFOLIO / FEATURED PROJECTS SECTION -->
+    <section id="portfolio" class="py-20 px-6 max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">Selected Work & Showcase</h2>
+        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">Explore external portfolios or browse specialized implementation highlights.</p>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ==================== PORTFOLIO SHOWCASE GRID ==================== -->
-  <section id="portfolio" class="py-20 px-4 max-w-7xl mx-auto relative z-10">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-xs font-bold uppercase tracking-widest text-cyan-400 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-        Design Showcase
-      </span>
-      <h2 class="font-display font-bold text-3xl sm:text-5xl text-white mt-3">
-        Featured Projects & Prototypes
-      </h2>
-      <p class="text-slate-400 mt-3 text-base">
-        Explore full visual case studies directly on Behance.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      
-      <!-- Project 1 -->
-      <div class="glass-card card-hover rounded-3xl overflow-hidden group border border-slate-800">
-        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center p-6">
-          <div class="w-full h-full rounded-xl bg-gradient-to-tr from-cyan-900/60 to-purple-900/60 border border-cyan-500/30 flex flex-col items-center justify-center text-center p-4">
-            <i class="fa-solid fa-heart-pulse text-3xl text-cyan-400 mb-2"></i>
-            <span class="text-xs font-bold text-white uppercase">Serenity Psychiatric Platform</span>
-          </div>
-        </div>
-        <div class="p-6">
-          <h3 class="font-display font-bold text-xl text-white mb-2">Healthcare & Mental Health Web Portal</h3>
-          <p class="text-slate-300 text-xs leading-relaxed mb-4">
-            Responsive WordPress web application built for psychiatric care with SEO optimization and booking flow.
-          </p>
-          <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 hover:text-cyan-300">
-            View on Behance <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Project 2 -->
-      <div class="glass-card card-hover rounded-3xl overflow-hidden group border border-slate-800">
-        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center p-6">
-          <div class="w-full h-full rounded-xl bg-gradient-to-tr from-purple-900/60 to-pink-900/60 border border-purple-500/30 flex flex-col items-center justify-center text-center p-4">
-            <i class="fa-brands fa-figma text-3xl text-purple-400 mb-2"></i>
-            <span class="text-xs font-bold text-white uppercase">Figma-to-Elementor Conversion</span>
-          </div>
-        </div>
-        <div class="p-6">
-          <h3 class="font-display font-bold text-xl text-white mb-2">Pixel-Perfect Agency Redesign</h3>
-          <p class="text-slate-300 text-xs leading-relaxed mb-4">
-            Custom corporate landing pages transformed from multi-frame Figma UI kits into light-speed Elementor pages.
-          </p>
-          <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold text-purple-400 hover:text-purple-300">
-            View on Behance <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Project 3 -->
-      <div class="glass-card card-hover rounded-3xl overflow-hidden group border border-slate-800">
-        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center p-6">
-          <div class="w-full h-full rounded-xl bg-gradient-to-tr from-amber-900/60 to-emerald-900/60 border border-amber-500/30 flex flex-col items-center justify-center text-center p-4">
-            <i class="fa-solid fa-box-open text-3xl text-amber-400 mb-2"></i>
-            <span class="text-xs font-bold text-white uppercase">Branding & Product Packaging</span>
-          </div>
-        </div>
-        <div class="p-6">
-          <h3 class="font-display font-bold text-xl text-white mb-2">Product Label & Vector Artwork</h3>
-          <p class="text-slate-300 text-xs leading-relaxed mb-4">
-            Print-ready product label design, packaging layouts, and vector illustrations crafted in Adobe Illustrator.
-          </p>
-          <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold text-amber-400 hover:text-amber-300">
-            View on Behance <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Behance Banner -->
-    <div class="mt-12 text-center">
-      <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-slate-900/90 border border-slate-700 text-white font-display font-bold text-sm hover:border-purple-400 transition-all">
-        <i class="fa-brands fa-behance text-purple-400 text-xl"></i> Browse Complete Behance Portfolio
-      </a>
-    </div>
-  </section>
-
-  <!-- ==================== CONTACT SECTION ==================== -->
-  <section id="contact" class="py-20 px-4 max-w-4xl mx-auto relative z-10">
-    <div class="glass-card rounded-3xl p-6 sm:p-12 relative overflow-hidden border border-slate-800">
-      
-      <div class="text-center max-w-2xl mx-auto mb-10">
-        <span class="text-xs font-bold uppercase tracking-widest text-cyan-400 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-          Get In Touch
-        </span>
-        <h2 class="font-display font-bold text-3xl sm:text-5xl text-white mt-3">
-          Let's Build Something Great 🚀
-        </h2>
-        <p class="text-slate-300 mt-2 text-base">
-          Ready to kickstart your web design or WordPress project? Drop a message directly to Yanelle Tan.
-        </p>
-      </div>
-
-      <!-- Quick Contact Info Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-10 text-center">
-        <a href="mailto:Tmianelle@gmail.com" class="p-3.5 rounded-2xl glass-card hover:border-cyan-400 transition-colors">
-          <i class="fa-regular fa-envelope text-cyan-400 text-lg mb-1 block"></i>
-          <span class="text-xs font-bold text-slate-200 block truncate">Tmianelle@gmail.com</span>
-        </a>
-        <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl glass-card hover:border-emerald-400 transition-colors">
-          <i class="fa-solid fa-briefcase text-emerald-400 text-lg mb-1 block"></i>
-          <span class="text-xs font-bold text-slate-200 block">Upwork Profile</span>
-        </a>
-        <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl glass-card hover:border-blue-400 transition-colors">
-          <i class="fa-brands fa-linkedin-in text-blue-400 text-lg mb-1 block"></i>
-          <span class="text-xs font-bold text-slate-200 block">LinkedIn Profile</span>
-        </a>
-        <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl glass-card hover:border-purple-400 transition-colors">
-          <i class="fa-brands fa-behance text-purple-400 text-lg mb-1 block"></i>
-          <span class="text-xs font-bold text-slate-200 block">Behance Portfolio</span>
-        </a>
-      </div>
-
-      <!-- Contact Form -->
-      <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
-        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
-        <input type="hidden" name="subject" value="New Portfolio Inquiry for Yanelle Tan">
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        
+        <!-- Behance External Box -->
+        <a href="https://www.behance.net/miatan88" target="_blank" class="glass-card p-8 rounded-2xl flex items-center justify-between group">
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Your Name</label>
-            <input type="text" name="name" required placeholder="e.g. Alex Morgan" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors">
+            <span class="text-xs font-bold text-brand-cyan tracking-wider uppercase mb-2 block">External Portfolio</span>
+            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white group-hover:text-brand-cyan transition-colors">Behance Showcase <i class="fa-solid fa-arrow-up-right-from-square text-lg ml-2"></i></h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">View visual design work, Figma UI mockups, and client branding projects.</p>
           </div>
+          <div class="w-14 h-14 rounded-2xl bg-blue-600/10 text-blue-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            <i class="fa-brands fa-behance"></i>
+          </div>
+        </a>
+
+        <!-- Custom Solutions Box -->
+        <div class="glass-card p-8 rounded-2xl flex items-center justify-between">
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Your Email</label>
-            <input type="email" name="email" required placeholder="e.g. alex@company.com" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors">
+            <span class="text-xs font-bold text-brand-purple tracking-wider uppercase mb-2 block">Custom Solutions</span>
+            <h3 class="font-heading text-2xl font-bold text-slate-900 dark:text-white">Figma to WordPress</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">1:1 precision translation from design files into responsive WordPress builds.</p>
+          </div>
+          <div class="w-14 h-14 rounded-2xl bg-brand-purple/10 text-brand-purple flex items-center justify-center text-2xl">
+            <i class="fa-brands fa-figma"></i>
           </div>
         </div>
 
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Project Message</label>
-          <textarea name="message" rows="4" required placeholder="Tell Yanelle about your website goals, builder preferences, or timeline..." class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"></textarea>
-        </div>
+      </div>
+    </section>
 
-        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-purple-600 to-pink-500 text-white font-display font-bold text-lg shadow-lg hover:opacity-95 active:scale-[0.99] transition-all">
-          Send Message <i class="fa-solid fa-paper-plane ml-2"></i>
-        </button>
-      </form>
-
-      <!-- Submission Status -->
-      <div id="formSuccessMessage" class="hidden text-center py-10 space-y-4">
-        <div class="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-400 flex items-center justify-center text-3xl mx-auto">
-          ✓
-        </div>
-        <h3 class="font-display font-bold text-2xl text-white">Message Dispatched!</h3>
-        <p class="text-slate-300 max-w-md mx-auto text-sm">
-          Thank you! Yanelle Tan has received your inquiry and will respond to your email promptly.
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-20 px-6 max-w-4xl mx-auto">
+      <div class="glass-card p-8 sm:p-12 rounded-3xl text-center">
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">Let's Work Together</h2>
+        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base max-w-xl mx-auto mb-8">
+          Have an upcoming project, website migration, or custom WordPress build? Get in touch directly!
         </p>
+
+        <!-- Direct Email -->
+        <div class="mb-10">
+          <a href="mailto:Tmianelle@gmail.com" class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-base hover:border-brand-cyan transition-colors">
+            <i class="fa-solid fa-envelope text-brand-cyan"></i>
+            <span>Tmianelle@gmail.com</span>
+          </a>
+        </div>
+
+        <!-- Web3Forms Contact Form -->
+        <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4 text-left max-w-xl mx-auto">
+          <!-- Web3Forms Access Key -->
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase">Your Name</label>
+              <input type="text" name="name" required class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-brand-cyan transition-colors text-sm" placeholder="John Doe" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase">Email Address</label>
+              <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-brand-cyan transition-colors text-sm" placeholder="john@example.com" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase">Project Message</label>
+            <textarea name="message" rows="4" required class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-brand-cyan transition-colors text-sm" placeholder="Tell me about your website requirements..."></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-purple text-white font-bold text-sm shadow-lg hover:opacity-95 transition-opacity">
+            Send Message
+          </button>
+        </form>
       </div>
+    </section>
 
-    </div>
-  </section>
+  </main>
 
-  <!-- ==================== FOOTER ==================== -->
-  <footer class="py-10 border-t border-slate-800 glass-nav mt-20 relative z-10 text-center">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="font-display font-extrabold text-xl text-white mb-1">YANELLE TAN</div>
-      <p class="text-xs text-slate-400 mb-6">Web Designer & WordPress Developer Portfolio</p>
-
-      <div class="flex justify-center gap-4 mb-6">
-        <a href="mailto:Tmianelle@gmail.com" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-cyan-400 transition-colors"><i class="fa-regular fa-envelope"></i></a>
-        <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-emerald-400 transition-colors"><i class="fa-solid fa-briefcase"></i></a>
-        <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-blue-400 transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
-        <a href="https://www.behance.net/miatan88" target="_blank" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-purple-400 transition-colors"><i class="fa-brands fa-behance"></i></a>
-      </div>
-
-      <p class="text-[11px] text-slate-500">
-        &copy; 2026 Yanelle Tan. All rights reserved.
-      </p>
-    </div>
+  <!-- FOOTER -->
+  <footer class="py-8 px-6 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400">
+    <p>© 2026 Yanelle Tan. Web Designer & WordPress Developer. All rights reserved.</p>
   </footer>
 
-  <!-- ==================== JAVASCRIPT ==================== -->
+  <!-- JAVASCRIPT: Theme Toggle & White Circle Cursor Follower -->
   <script>
-    /* ================= 1. SMOOTH WHITE CIRCLE CURSOR FOLLOWER ================= */
-    const cursor = document.getElementById('cursorFollower');
+    // 1. Theme Toggle Functionality
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    function updateIcons() {
+      if (document.documentElement.classList.contains('dark')) {
+        darkIcon.classList.add('hidden');
+        lightIcon.classList.remove('hidden');
+      } else {
+        darkIcon.classList.remove('hidden');
+        lightIcon.classList.add('hidden');
+      }
+    }
+
+    // Initialize Icon state
+    updateIcons();
+
+    themeToggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      updateIcons();
+    });
+
+    // 2. Smooth White Circle Cursor Follower
+    const cursor = document.getElementById('cursor-follower');
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
-    let cursorX = mouseX;
-    let cursorY = mouseY;
+    let cursorX = window.innerWidth / 2;
+    let cursorY = window.innerHeight / 2;
 
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-
-      // Parallax Ambient Orbs
-      const orb1 = document.getElementById('orb1');
-      const orb2 = document.getElementById('orb2');
-      const orb3 = document.getElementById('orb3');
-      const xRatio = e.clientX / window.innerWidth;
-      const yRatio = e.clientY / window.innerHeight;
-
-      if(orb1) orb1.style.transform = `translate(${xRatio * 35}px, ${yRatio * 35}px)`;
-      if(orb2) orb2.style.transform = `translate(${-xRatio * 45}px, ${-yRatio * 45}px)`;
-      if(orb3) orb3.style.transform = `translate(${xRatio * 25}px, ${-yRatio * 25}px)`;
     });
 
     function animateCursor() {
-      // Smooth interpolation (Lerp)
+      // Interpolate towards mouse position
       cursorX += (mouseX - cursorX) * 0.15;
       cursorY += (mouseY - cursorY) * 0.15;
 
-      if (cursor) {
-        cursor.style.left = `${cursorX}px`;
-        cursor.style.top = `${cursorY}px`;
-      }
+      cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
       requestAnimationFrame(animateCursor);
     }
+
     animateCursor();
 
-    /* Hover effect for interactive elements */
-    const interactiveElements = document.querySelectorAll('a, button, input, textarea');
-    interactiveElements.forEach(el => {
+    // Scale cursor on clickable hover
+    const clickables = document.querySelectorAll('a, button, input, textarea');
+    clickables.forEach(el => {
       el.addEventListener('mouseenter', () => {
-        if(cursor) {
-          cursor.style.width = '48px';
-          cursor.style.height = '48px';
-          cursor.style.backgroundColor = 'rgba(6, 182, 212, 0.3)';
-          cursor.style.borderColor = 'rgba(6, 182, 212, 0.9)';
-        }
+        cursor.style.width = '48px';
+        cursor.style.height = '48px';
       });
       el.addEventListener('mouseleave', () => {
-        if(cursor) {
-          cursor.style.width = '32px';
-          cursor.style.height = '32px';
-          const isLight = document.documentElement.classList.contains('light');
-          cursor.style.backgroundColor = isLight ? 'rgba(15, 23, 42, 0.15)' : 'rgba(255, 255, 255, 0.25)';
-          cursor.style.borderColor = isLight ? 'rgba(15, 23, 42, 0.7)' : 'rgba(255, 255, 255, 0.8)';
-        }
+        cursor.style.width = '24px';
+        cursor.style.height = '24px';
       });
     });
-
-    /* ================= 2. LIGHT / DARK THEME TOGGLE ================= */
-    function toggleTheme() {
-      const html = document.documentElement;
-      const icon = document.getElementById('themeIcon');
-      const iconMobile = document.getElementById('themeIconMobile');
-
-      if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        html.classList.add('light');
-        if(icon) { icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); }
-        if(iconMobile) { iconMobile.classList.remove('fa-sun'); iconMobile.classList.add('fa-moon'); }
-      } else {
-        html.classList.remove('light');
-        html.classList.add('dark');
-        if(icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
-        if(iconMobile) { iconMobile.classList.remove('fa-moon'); iconMobile.classList.add('fa-sun'); }
-      }
-    }
-
-    /* Mobile Nav Toggle */
-    function toggleMobileNav() {
-      const drawer = document.getElementById('mobileDrawer');
-      const icon = document.getElementById('menuIcon');
-      drawer.classList.toggle('hidden');
-      if (drawer.classList.contains('hidden')) {
-        icon.classList.remove('fa-xmark');
-        icon.classList.add('fa-bars');
-      } else {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-xmark');
-      }
-    }
-
-    /* Form Handler */
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      document.getElementById('contactForm').classList.add('hidden');
-      document.getElementById('formSuccessMessage').classList.remove('hidden');
-    }
   </script>
 </body>
 </html>
