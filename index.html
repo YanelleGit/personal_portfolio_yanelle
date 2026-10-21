@@ -1,41 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yanelle Tan | Web Designer & WordPress Developer Portfolio</title>
-  
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- FontAwesome Icons & Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Patrick+Hand&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
-            display: ['"Fredoka One"', 'cursive'],
-            handwritten: ['"Patrick Hand"', 'cursive'],
-            body: ['"Outfit"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
           },
           colors: {
-            artYellow: '#FFD166',
-            artRed: '#EF476F',
-            artBlue: '#118AB2',
-            artGreen: '#06D6A0',
-            artPurple: '#8338EC',
-            artOrange: '#FF9F1C',
-            paperBg: '#F7F3E9',
-          },
-          boxShadow: {
-            'craft': '4px 6px 0px 0px rgba(0,0,0,0.85)',
-            'craft-lg': '8px 12px 0px 0px rgba(0,0,0,0.9)',
-            'pop': '0 8px 0 0 #000',
+            brandCyan: '#06b6d4',
+            brandPurple: '#8b5cf6',
+            brandPink: '#ec4899',
+            brandGold: '#f59e0b',
           }
         }
       }
@@ -43,608 +35,827 @@
   </script>
 
   <style>
-    /* Custom Styling for Art Attack Nostalgia Vibe */
-    body {
-      background-color: #f2edd9;
-      background-image: radial-gradient(#d5cbb0 1.5px, transparent 1.5px);
-      background-size: 24px 24px;
-      overflow-x: hidden;
-      font-family: 'Outfit', sans-serif;
-    }
-
-    /* Wavy Cutout Edges & Craft Effects */
-    .paper-edge {
-      background: #fff;
-      position: relative;
-      border: 3px solid #111;
-      box-shadow: 6px 6px 0px #000;
-    }
-
-    .tape-strip {
-      position: absolute;
-      width: 100px;
-      height: 28px;
-      background: rgba(245, 222, 179, 0.88);
-      border: 1px dashed rgba(0,0,0,0.3);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.12);
-      z-index: 20;
-    }
-
-    .bouncy {
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .bouncy:hover {
-      transform: scale(1.04) rotate(-1deg);
-    }
-
-    /* Canvas styling */
-    canvas {
-      touch-action: none;
-    }
-
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
-      width: 12px;
+      width: 10px;
     }
     ::-webkit-scrollbar-track {
-      background: #f2edd9;
+      background: var(--bg-main, #070a12);
     }
     ::-webkit-scrollbar-thumb {
-      background: #EF476F;
-      border: 3px solid #000;
-      border-radius: 8px;
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #06b6d4;
     }
 
-    .drip-svg {
-      filter: drop-shadow(0px 4px 0px rgba(0,0,0,0.85));
+    /* Ambient Background Orbs */
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(110px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      transition: opacity 0.5s ease;
+    }
+
+    .light .bg-orb {
+      opacity: 0.15;
+    }
+
+    /* Glassmorphism Styles for Dark Mode */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .glass-nav {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background-color 0.4s ease, border-color 0.4s ease;
+    }
+
+    /* Theme Adaptive Classes */
+    html.light {
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+
+    html.dark {
+      background-color: #070a12;
+      color: #f8fafc;
+    }
+
+    .light .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .light .glass-nav {
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    /* Light Mode Typography & Color Overrides */
+    .light .text-white {
+      color: #0f172a !important;
+    }
+    .light .text-slate-100 {
+      color: #0f172a !important;
+    }
+    .light .text-slate-200 {
+      color: #1e293b !important;
+    }
+    .light .text-slate-300 {
+      color: #334155 !important;
+    }
+    .light .text-slate-400 {
+      color: #64748b !important;
+    }
+    .light .bg-slate-950 {
+      background-color: #ffffff !important;
+    }
+    .light .bg-slate-900 {
+      background-color: #f1f5f9 !important;
+    }
+    .light .border-slate-800 {
+      border-color: #e2e8f0 !important;
+    }
+    .light .border-slate-700 {
+      border-color: #cbd5e1 !important;
+    }
+
+    /* Gradient Text */
+    .text-gradient {
+      background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Smooth Cursor Follower */
+    #cursorFollower {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1.5px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+      backdrop-filter: blur(2px);
+    }
+
+    .light #cursorFollower {
+      background: rgba(15, 23, 42, 0.15);
+      border: 1.5px solid rgba(15, 23, 42, 0.7);
+      box-shadow: 0 0 15px rgba(15, 23, 42, 0.3);
+    }
+
+    .card-hover {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
     }
   </style>
 </head>
-<body class="text-gray-900 leading-relaxed selection:bg-artYellow selection:text-black">
+<body class="bg-[#070a12] text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-white relative overflow-x-hidden transition-colors duration-500">
 
-  <!-- ==================== HEADER / NAV ==================== -->
-  <header class="sticky top-0 z-50 p-2 sm:p-4">
-    <div class="max-w-6xl mx-auto bg-white border-3 md:border-4 border-black rounded-2xl p-2.5 sm:p-3 shadow-craft flex flex-wrap justify-between items-center bg-paperBg relative">
+  <!-- Smooth White Circle Cursor Follower -->
+  <div id="cursorFollower"></div>
+
+  <!-- Ambient Background Orbs -->
+  <div id="orb1" class="bg-orb w-[450px] h-[450px] bg-cyan-500/20 top-[-100px] left-[-100px]"></div>
+  <div id="orb2" class="bg-orb w-[550px] h-[550px] bg-purple-600/20 top-[40%] right-[-150px]"></div>
+  <div id="orb3" class="bg-orb w-[400px] h-[400px] bg-amber-500/15 bottom-[10%] left-[10%]"></div>
+
+  <!-- ==================== NAVIGATION HEADER ==================== -->
+  <header class="sticky top-0 z-50">
+    <div class="w-full glass-nav px-4 sm:px-8 py-3.5 shadow-xl flex justify-between items-center">
       
-      <!-- Brand / Logo -->
-      <div class="flex items-center gap-2 sm:gap-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-artRed rounded-full border-2 sm:border-3 border-black flex items-center justify-center font-display text-xl sm:text-2xl text-white shadow-md transform -rotate-6 hover:rotate-12 transition-transform">
-          🎨
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 via-purple-500 to-cyan-400 p-[2px] shadow-lg transition-transform duration-300 group-hover:scale-105">
+          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-display font-extrabold text-lg text-amber-400">
+            YT
+          </div>
         </div>
         <div>
-          <span class="font-display text-xl sm:text-2xl md:text-3xl text-black tracking-wide block leading-none">YANELLE TAN</span>
-          <span class="text-[9px] sm:text-xs bg-artYellow px-1.5 py-0.5 rounded-md border border-black font-bold uppercase inline-block mt-0.5">Web Designer & Dev</span>
+          <span class="font-display font-extrabold text-lg sm:text-xl tracking-wide block leading-none text-white">YANELLE TAN</span>
+          <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest block mt-0.5">Web Designer & Dev</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center gap-6">
+        <nav class="flex items-center gap-1 font-medium text-sm text-slate-300">
+          <a href="#summary" class="px-3.5 py-2 rounded-xl hover:text-amber-400 hover:bg-slate-800/60 transition-colors">Summary</a>
+          <a href="#skills" class="px-3.5 py-2 rounded-xl hover:text-cyan-400 hover:bg-slate-800/60 transition-colors">Skills</a>
+          <a href="#services" class="px-3.5 py-2 rounded-xl hover:text-purple-400 hover:bg-slate-800/60 transition-colors">Services</a>
+          <a href="#experience" class="px-3.5 py-2 rounded-xl hover:text-pink-400 hover:bg-slate-800/60 transition-colors">Experience</a>
+          <a href="#portfolio" class="px-3.5 py-2 rounded-xl hover:text-amber-400 hover:bg-slate-800/60 transition-colors">Portfolio</a>
+          <a href="#contact" class="px-3.5 py-2 rounded-xl hover:text-cyan-400 hover:bg-slate-800/60 transition-colors">Contact</a>
+        </nav>
+
+        <div class="h-5 w-[1px] bg-slate-700/60"></div>
+
+        <!-- Social Links & Theme Toggle -->
+        <div class="flex items-center gap-2">
+          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-200 hover:text-emerald-400 hover:border-emerald-500/50 transition-all" title="Upwork">
+            <i class="fa-solid fa-briefcase text-sm"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-200 hover:text-blue-400 hover:border-blue-500/50 transition-all" title="LinkedIn">
+            <i class="fa-brands fa-linkedin-in text-sm"></i>
+          </a>
+          <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-200 hover:text-purple-400 hover:border-purple-500/50 transition-all" title="Behance">
+            <i class="fa-brands fa-behance text-sm"></i>
+          </a>
+          <a href="mailto:Tmianelle@gmail.com" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-200 hover:text-pink-400 hover:border-pink-500/50 transition-all" title="Email">
+            <i class="fa-regular fa-envelope text-sm"></i>
+          </a>
+
+          <!-- Dark/Light Theme Toggle Button -->
+          <button onclick="toggleTheme()" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-amber-400 hover:border-amber-400 transition-all ml-1" title="Toggle Theme">
+            <i class="fa-solid fa-sun text-sm" id="themeIcon"></i>
+          </button>
         </div>
       </div>
 
-      <!-- Mobile Menu Toggle Button -->
-      <div class="flex items-center gap-2 md:hidden">
-        <!-- Compact Header Icons on Mobile Header -->
-        <div class="flex items-center gap-1.5">
-          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="w-8 h-8 rounded-lg bg-emerald-500 text-white border-2 border-black flex items-center justify-center text-xs shadow-[2px_2px_0px_#000]" title="Upwork"><i class="fa-solid fa-briefcase"></i></a>
-          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="w-8 h-8 rounded-lg bg-blue-600 text-white border-2 border-black flex items-center justify-center text-xs shadow-[2px_2px_0px_#000]" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-        </div>
-        <button onclick="toggleMobileNav()" class="w-9 h-9 bg-artYellow border-2 border-black rounded-xl flex items-center justify-center text-lg font-bold shadow-[2px_2px_0px_#000] active:scale-95">
-          <i class="fa-solid fa-bars" id="navToggleIcon"></i>
+      <!-- Mobile Controls -->
+      <div class="flex items-center gap-2 lg:hidden">
+        <button onclick="toggleTheme()" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-amber-400">
+          <i class="fa-solid fa-sun text-sm" id="themeIconMobile"></i>
+        </button>
+        <button onclick="toggleMobileNav()" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-white">
+          <i class="fa-solid fa-bars" id="menuIcon"></i>
         </button>
       </div>
 
-      <!-- Desktop Nav & Compact Icons -->
-      <div class="hidden md:flex items-center gap-4">
-        <!-- Section Links Navigation -->
-        <nav class="flex items-center gap-2 font-display text-xs md:text-sm">
-          <a href="#offers" class="px-3 py-1.5 bg-artYellow border-2 border-black rounded-xl hover:bg-yellow-300 shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-0.5">Services</a>
-          <a href="#experience" class="px-3 py-1.5 bg-artGreen border-2 border-black rounded-xl hover:bg-emerald-300 shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-0.5">Experience</a>
-          <a href="#sandbox" class="px-3 py-1.5 bg-artBlue text-white border-2 border-black rounded-xl hover:bg-sky-400 shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-0.5">Creative Sandbox</a>
-          <a href="#contact" class="px-3 py-1.5 bg-artRed text-white border-2 border-black rounded-xl hover:bg-rose-500 shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-0.5">Contact</a>
-        </nav>
-
-        <!-- Divider line -->
-        <div class="w-0.5 h-6 bg-black/20"></div>
-
-        <!-- Top Right Social & Contact Compact Icons -->
-        <div class="flex items-center gap-2">
-          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="w-9 h-9 rounded-xl bg-emerald-500 text-white border-2 border-black flex items-center justify-center hover:bg-emerald-600 shadow-[2px_2px_0px_#000] transition-transform hover:scale-110" title="Upwork Profile">
-            <i class="fa-solid fa-briefcase text-sm"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="w-9 h-9 rounded-xl bg-blue-600 text-white border-2 border-black flex items-center justify-center hover:bg-blue-700 shadow-[2px_2px_0px_#000] transition-transform hover:scale-110" title="LinkedIn Profile">
-            <i class="fa-brands fa-linkedin text-base"></i>
-          </a>
-          <a href="https://www.behance.net/miatan88" target="_blank" class="w-9 h-9 rounded-xl bg-artPurple text-white border-2 border-black flex items-center justify-center hover:bg-purple-600 shadow-[2px_2px_0px_#000] transition-transform hover:scale-110" title="Behance Portfolio">
-            <i class="fa-brands fa-behance text-base"></i>
-          </a>
-          <a href="mailto:Tmianelle@gmail.com" class="w-9 h-9 rounded-xl bg-artOrange text-black border-2 border-black flex items-center justify-center hover:bg-orange-400 shadow-[2px_2px_0px_#000] transition-transform hover:scale-110" title="Direct Email">
-            <i class="fa-solid fa-envelope text-sm"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Mobile Dropdown Navigation Drawer -->
-      <div id="mobileNavDrawer" class="hidden w-full md:hidden pt-3 mt-3 border-t-2 border-black flex flex-col gap-2 font-display text-sm">
-        <a href="#offers" onclick="toggleMobileNav()" class="w-full text-center py-2 bg-artYellow border-2 border-black rounded-xl shadow-[2px_2px_0px_#000]">Services</a>
-        <a href="#experience" onclick="toggleMobileNav()" class="w-full text-center py-2 bg-artGreen border-2 border-black rounded-xl shadow-[2px_2px_0px_#000]">Experience</a>
-        <a href="#sandbox" onclick="toggleMobileNav()" class="w-full text-center py-2 bg-artBlue text-white border-2 border-black rounded-xl shadow-[2px_2px_0px_#000]">Creative Sandbox</a>
-        <a href="#contact" onclick="toggleMobileNav()" class="w-full text-center py-2 bg-artRed text-white border-2 border-black rounded-xl shadow-[2px_2px_0px_#000]">Contact</a>
-        <div class="flex justify-center gap-3 pt-2">
-          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="px-3 py-1 bg-emerald-500 text-white border border-black rounded-lg text-xs font-bold flex items-center gap-1.5"><i class="fa-solid fa-briefcase"></i> Upwork</a>
-          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="px-3 py-1 bg-blue-600 text-white border border-black rounded-lg text-xs font-bold flex items-center gap-1.5"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-          <a href="https://www.behance.net/miatan88" target="_blank" class="px-3 py-1 bg-artPurple text-white border border-black rounded-lg text-xs font-bold flex items-center gap-1.5"><i class="fa-brands fa-behance"></i> Behance</a>
+      <!-- Mobile Drawer -->
+      <div id="mobileDrawer" class="hidden absolute top-full left-0 w-full p-5 glass-card flex flex-col gap-3 font-medium text-sm lg:hidden shadow-2xl z-50 border-t border-slate-800">
+        <a href="#summary" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Summary</a>
+        <a href="#skills" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Skills</a>
+        <a href="#services" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Services</a>
+        <a href="#experience" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Experience</a>
+        <a href="#portfolio" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Portfolio</a>
+        <a href="#contact" onclick="toggleMobileNav()" class="p-2.5 rounded-xl hover:bg-slate-800/50">Contact</a>
+        <div class="pt-3 border-t border-slate-800 flex justify-around">
+          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="text-xs flex items-center gap-1.5 text-emerald-400 font-bold"><i class="fa-solid fa-briefcase"></i> Upwork</a>
+          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="text-xs flex items-center gap-1.5 text-blue-400 font-bold"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+          <a href="https://www.behance.net/miatan88" target="_blank" class="text-xs flex items-center gap-1.5 text-purple-400 font-bold"><i class="fa-brands fa-behance"></i> Behance</a>
         </div>
       </div>
 
     </div>
   </header>
 
-  <!-- ==================== HERO SECTION ==================== -->
-  <section class="relative min-h-[80vh] md:min-h-[85vh] flex items-center justify-center overflow-hidden py-6 sm:py-10 px-3 sm:px-4">
-    
-    <!-- Hero Canvas Overlay for Splatter Drawing -->
-    <canvas id="heroCanvas" class="absolute inset-0 w-full h-full z-0 cursor-crosshair"></canvas>
-
-    <!-- Interactive Hero Controls Banner -->
-    <div class="absolute top-2 sm:top-4 left-1/2 -translate-x-1/2 z-20 bg-white/95 border-2 border-black px-3 sm:px-4 py-1 rounded-full shadow-md text-[11px] sm:text-xs md:text-sm font-handwritten font-bold text-center flex items-center gap-2 pointer-events-auto max-w-[92vw] whitespace-nowrap">
-      <span>✨ Click or tap background for paint splatters!</span>
-      <button onclick="clearHeroCanvas()" class="bg-artRed text-white px-2 py-0.5 rounded border border-black text-[10px] sm:text-xs hover:bg-red-600 transition-colors">Clear Paint</button>
-    </div>
-
-    <!-- Central Hero Paper Cutout Card -->
-    <div class="relative z-10 max-w-4xl w-full bg-white border-3 sm:border-4 border-black rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-craft-lg transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+  <!-- ==================== 1. CLEAN HERO SECTION ==================== -->
+  <section id="heroSection" class="relative w-full py-24 sm:py-32 px-4 sm:px-8 border-b border-slate-800/80">
+    <div class="relative z-10 w-full max-w-5xl mx-auto text-center my-auto">
       
-      <!-- Decorative Paper Tapes & Stamps -->
-      <div class="tape-strip -top-3 -left-4 sm:-top-4 sm:-left-6 transform -rotate-12 w-20 sm:w-28"></div>
-      <div class="tape-strip -top-3 -right-4 sm:-top-4 sm:-right-6 transform rotate-12 w-20 sm:w-28"></div>
-      <div class="absolute -top-5 right-4 sm:right-10 bg-artPurple text-white px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full border-2 border-black font-display text-[10px] sm:text-xs md:text-sm shadow-md transform rotate-6">
-        ✂️ 4+ Years Experience
+      <!-- Pill Badge -->
+      <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-extrabold tracking-wider mb-8 shadow-sm">
+        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+        4+ YEARS EXPERIENCE • WEB & WORDPRESS SPECIALIST
       </div>
 
-      <div class="text-center space-y-4 sm:space-y-5 mt-2 sm:mt-0">
-        
-        <!-- Big Cutout Title -->
-        <div class="inline-block relative">
-          <span class="inline-block bg-artYellow px-3 sm:px-4 py-1.5 sm:py-2 text-2xl sm:text-4xl md:text-6xl font-display border-3 sm:border-4 border-black rounded-xl sm:rounded-2xl shadow-craft transform -rotate-2 mr-1 sm:mr-2">
-            YANELLE
-          </span>
-          <span class="inline-block bg-artRed text-white px-3 sm:px-4 py-1.5 sm:py-2 text-2xl sm:text-4xl md:text-6xl font-display border-3 sm:border-4 border-black rounded-xl sm:rounded-2xl shadow-craft transform rotate-3">
-            TAN
-          </span>
-        </div>
+      <!-- Main Heading -->
+      <h1 class="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight max-w-4xl mx-auto">
+        Crafting Digital Products with <br class="hidden sm:inline" />
+        <span class="text-gradient">Precision & Visual Artistry</span>
+      </h1>
 
-        <p class="font-display text-lg sm:text-xl md:text-2xl text-artBlue tracking-wide">
-          WEB DESIGNER & WORDPRESS DEVELOPER
+      <!-- Subtitle -->
+      <p class="font-display font-bold text-base sm:text-xl text-cyan-400 mt-6 tracking-wider uppercase">
+        YANELLE TAN — WEB DESIGNER & WORDPRESS DEVELOPER
+      </p>
+
+      <!-- Clean Inline Statement Text (No Box / No Border Wrapper) -->
+      <p class="mt-6 font-normal text-base sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+        Building custom, responsive, and SEO-optimized websites tailored precisely to your business goals and growth, blended with creative, standout design.
+      </p>
+
+      <!-- Skill Pills -->
+      <div class="flex flex-wrap justify-center gap-3 mt-8">
+        <span class="px-4 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-semibold text-slate-300">WordPress & Builders</span>
+        <span class="px-4 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-semibold text-slate-300">Shopify & Wix</span>
+        <span class="px-4 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-semibold text-slate-300">Figma-to-WordPress</span>
+        <span class="px-4 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-semibold text-slate-300">Custom PHP/CSS/HTML</span>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-10">
+        <a href="#services" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-purple-600 to-pink-500 text-white font-display font-bold text-base shadow-lg hover:opacity-95 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2">
+          Explore Services
+        </a>
+        <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-slate-900/90 border border-slate-700 font-display font-bold text-base text-white hover:border-cyan-400 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-paper-plane text-cyan-400"></i> Hire Yanelle
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== PROFESSIONAL SUMMARY ==================== -->
+  <section id="summary" class="py-20 px-4 max-w-6xl mx-auto relative z-10">
+    <div class="glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-slate-800">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+        <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-tr from-amber-400 via-purple-500 to-cyan-400 p-[2px] shrink-0 shadow-md">
+          <div class="w-full h-full bg-slate-950 rounded-[22px] flex items-center justify-center text-amber-400 text-3xl sm:text-4xl">
+            <i class="fa-solid fa-sparkles"></i>
+          </div>
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
+            Professional Summary
+          </span>
+          <h2 class="font-display font-bold text-2xl sm:text-4xl text-white mt-2 mb-4">
+            Nearly 4 Years of Digital Excellence
+          </h2>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Web Designer and WordPress Developer with nearly 4 years of experience building responsive, SEO-optimized websites for clients across multiple industries. Skilled in <strong>WordPress (Elementor, Divi, Avada, Beaver Builder), Shopify, Figma-to-WordPress implementation, custom HTML/CSS/PHP, website migrations, and performance optimization</strong>. Also experienced in graphic design and branding. Adapts quickly to new platforms and client requirements, and uses AI tools to speed up research, coding, and troubleshooting.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CORE SKILLS ==================== -->
+  <section id="skills" class="py-16 px-4 max-w-7xl mx-auto relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-bold uppercase tracking-widest text-cyan-400 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
+        Technical Capabilities
+      </span>
+      <h2 class="font-display font-bold text-3xl sm:text-5xl text-white mt-3">
+        Core Skills & Expertise
+      </h2>
+      <p class="text-slate-400 mt-3 text-base">
+        A detailed breakdown of technical, design, and web optimization competencies.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Skill Category 1 -->
+      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
+        <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-4">
+          <i class="fa-solid fa-code"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Web Development</h3>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-xs"></i> WordPress, Shopify, Wix</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-xs"></i> Custom Themes & Layouts</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-xs"></i> Custom PHP, HTML5 & CSS3</li>
+        </ul>
+      </div>
+
+      <!-- Skill Category 2 -->
+      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
+        <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-4">
+          <i class="fa-solid fa-cubes"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Page Builders</h3>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Elementor & Elementor Pro</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Divi Theme & Builder</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Avada & Beaver Builder</li>
+        </ul>
+      </div>
+
+      <!-- Skill Category 3 -->
+      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
+        <div class="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl mb-4">
+          <i class="fa-solid fa-gauge-high"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Optimization & Performance</h3>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-pink-400 text-xs"></i> On-Page SEO Best Practices</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-pink-400 text-xs"></i> Responsive Mobile-First Design</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-pink-400 text-xs"></i> Security & Speed Optimization</li>
+        </ul>
+      </div>
+
+      <!-- Skill Category 4 -->
+      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
+        <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4">
+          <i class="fa-brands fa-figma"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Design & Prototyping</h3>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-xs"></i> Figma UI/UX Layouts</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-xs"></i> Adobe Photoshop & Illustrator</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400 text-xs"></i> Canva Pro Design</li>
+        </ul>
+      </div>
+
+      <!-- Skill Category 5 -->
+      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4">
+          <i class="fa-solid fa-palette"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Graphic Design & Branding</h3>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Visual Identity & Packaging</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Print-Ready Marketing Materials</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Vector Illustration & Image Editing</li>
+        </ul>
+      </div>
+
+      <!-- Skill Category 6 -->
+      <div class="glass-card card-hover rounded-3xl p-7 border border-slate-800">
+        <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-4">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Migrations & AI Workflows</h3>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-xs"></i> Full Website Server Migrations</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-xs"></i> Troubleshooting Inherited Code</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-xs"></i> AI-Assisted Research & Coding</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SERVICES SECTION ==================== -->
+  <section id="services" class="py-20 px-4 max-w-7xl mx-auto relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-bold uppercase tracking-widest text-purple-400 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
+        Service Offerings
+      </span>
+      <h2 class="font-display font-bold text-3xl sm:text-5xl text-white mt-3">
+        Tailored Digital Services
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="glass-card card-hover rounded-3xl p-6 border border-slate-800">
+        <i class="fa-solid fa-laptop-code text-cyan-400 text-3xl mb-4"></i>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Custom Web Development</h3>
+        <p class="text-slate-300 text-xs leading-relaxed">
+          Custom WordPress, Shopify, and Wix setups crafted for high conversions, responsiveness, and seamless navigation.
         </p>
+      </div>
 
-        <h1 class="font-handwritten text-lg sm:text-xl md:text-3xl text-gray-800 font-bold max-w-3xl mx-auto leading-snug sm:leading-tight">
-          "Building custom, responsive, and SEO-optimized websites tailored precisely to your business goals and growth, blended with playful, standout design."
-        </h1>
+      <div class="glass-card card-hover rounded-3xl p-6 border border-slate-800">
+        <i class="fa-brands fa-figma text-purple-400 text-3xl mb-4"></i>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Figma-to-WordPress</h3>
+        <p class="text-slate-300 text-xs leading-relaxed">
+          Pixel-perfect conversion of Figma designs into dynamic Elementor, Divi, Avada, or Beaver Builder pages.
+        </p>
+      </div>
 
-        <!-- Core Badges from CV -->
-        <div class="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-1 sm:pt-2">
-          <span class="bg-artYellow/30 border-2 border-black px-2.5 py-1 rounded-xl text-[11px] sm:text-xs md:text-sm font-bold flex items-center gap-1">
-            🧱 WordPress & Builders
-          </span>
-          <span class="bg-artGreen/30 border-2 border-black px-2.5 py-1 rounded-xl text-[11px] sm:text-xs md:text-sm font-bold flex items-center gap-1">
-            🛍️ Shopify & Wix
-          </span>
-          <span class="bg-artBlue/30 border-2 border-black px-2.5 py-1 rounded-xl text-[11px] sm:text-xs md:text-sm font-bold flex items-center gap-1">
-            🎨 Figma-to-WordPress
-          </span>
-          <span class="bg-artOrange/30 border-2 border-black px-2.5 py-1 rounded-xl text-[11px] sm:text-xs md:text-sm font-bold flex items-center gap-1">
-            💻 Custom HTML/CSS/PHP
-          </span>
+      <div class="glass-card card-hover rounded-3xl p-6 border border-slate-800">
+        <i class="fa-solid fa-rocket text-pink-400 text-3xl mb-4"></i>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Performance & SEO</h3>
+        <p class="text-slate-300 text-xs leading-relaxed">
+          Speed tuning, security hardening, on-page SEO optimization, and clean code architecture.
+        </p>
+      </div>
+
+      <div class="glass-card card-hover rounded-3xl p-6 border border-slate-800">
+        <i class="fa-solid fa-pen-nib text-amber-400 text-3xl mb-4"></i>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Graphic Design & Branding</h3>
+        <p class="text-slate-300 text-xs leading-relaxed">
+          Brand visual identity, product label/packaging design, print-ready marketing assets, and vector art.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WORK EXPERIENCE ==================== -->
+  <section id="experience" class="py-20 px-4 max-w-5xl mx-auto relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-bold uppercase tracking-widest text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
+        Career Journey
+      </span>
+      <h2 class="font-display font-bold text-3xl sm:text-5xl text-white mt-3">
+        Detailed Work Experience
+      </h2>
+      <p class="text-slate-400 mt-3 text-base">
+        Complete job history and key responsibilities from CV.
+      </p>
+    </div>
+
+    <div class="relative border-l-2 border-slate-800 ml-4 sm:ml-8 space-y-10">
+
+      <!-- Job 1: LaunchDigital -->
+      <div class="relative pl-6 sm:pl-10 group">
+        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-cyan-400 ring-4 ring-[#070a12] group-hover:scale-125 transition-transform"></div>
+        <div class="glass-card card-hover rounded-2xl p-6 sm:p-8 border border-slate-800">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Apr 2025 - Oct 2026</span>
+              <h3 class="font-display font-bold text-xl sm:text-2xl text-white mt-1">Web Designer & Developer</h3>
+              <p class="font-semibold text-cyan-300 text-sm">LaunchDigital</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">WordPress & SEO</span>
+          </div>
+          <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mt-4">
+            <li>Customized WordPress themes and templates to build unique, brand-aligned websites for clients.</li>
+            <li>Applied on-page SEO best practices and performance tuning to improve loading speed and search visibility.</li>
+            <li>Integrated brand identity and visual elements into custom layouts using Figma and Adobe tools.</li>
+          </ul>
         </div>
+      </div>
 
-        <!-- STRICTLY TWO HERO ACTION BUTTONS -->
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-3 pt-4 sm:pt-6">
-          <a href="#offers" class="w-full sm:w-auto px-6 py-3 bg-artRed text-white font-display text-base md:text-lg rounded-2xl border-3 border-black shadow-craft hover:bg-rose-600 active:translate-y-1 transition-all text-center flex items-center justify-center gap-2">
-            <i class="fa-solid fa-toolbox"></i> Explore Services
-          </a>
-          <a href="#contact" class="w-full sm:w-auto px-6 py-3 bg-artGreen text-black font-display text-base md:text-lg rounded-2xl border-3 border-black shadow-craft hover:bg-emerald-400 active:translate-y-1 transition-all text-center flex items-center justify-center gap-2">
-            <i class="fa-solid fa-paper-plane"></i> Hire Yanelle
-          </a>
+      <!-- Job 2: WriteWay Digital -->
+      <div class="relative pl-6 sm:pl-10 group">
+        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-purple-400 ring-4 ring-[#070a12] group-hover:scale-125 transition-transform"></div>
+        <div class="glass-card card-hover rounded-2xl p-6 sm:p-8 border border-slate-800">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">Sep 2025 - Sep 2026</span>
+              <h3 class="font-display font-bold text-xl sm:text-2xl text-white mt-1">Web Developer</h3>
+              <p class="font-semibold text-purple-300 text-sm">WriteWay Digital</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 border border-purple-500/20 text-purple-300">Migrations & Debugging</span>
+          </div>
+          <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mt-4">
+            <li>Built WordPress websites from custom templates tailored to client needs and branding requirements.</li>
+            <li>Handled full website migrations, ensuring a smooth transition to the new environment.</li>
+            <li>Took over unfinished web projects, troubleshooting existing design code and completing the layouts.</li>
+          </ul>
         </div>
+      </div>
 
+      <!-- Job 3: Serenity -->
+      <div class="relative pl-6 sm:pl-10 group">
+        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-pink-400 ring-4 ring-[#070a12] group-hover:scale-125 transition-transform"></div>
+        <div class="glass-card card-hover rounded-2xl p-6 sm:p-8 border border-slate-800">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-xs font-bold text-pink-400 uppercase tracking-wider">Feb 2024 - Sep 2026</span>
+              <h3 class="font-display font-bold text-xl sm:text-2xl text-white mt-1">Web Designer & Developer</h3>
+              <p class="font-semibold text-pink-300 text-sm">Serenity</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-pink-500/10 border border-pink-500/20 text-pink-300">Healthcare Web Design</span>
+          </div>
+          <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mt-4">
+            <li>Designed and built mental health and psychiatric websites.</li>
+            <li>Optimized site functionality for full responsiveness and SEO-friendliness.</li>
+            <li>Coordinated with cross-functional teams to meet design and production deadlines.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Job 4: Haven Media Solution -->
+      <div class="relative pl-6 sm:pl-10 group">
+        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-amber-400 ring-4 ring-[#070a12] group-hover:scale-125 transition-transform"></div>
+        <div class="glass-card card-hover rounded-2xl p-6 sm:p-8 border border-slate-800">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">May 2024 - May 2025</span>
+              <h3 class="font-display font-bold text-xl sm:text-2xl text-white mt-1">WordPress Web Designer</h3>
+              <p class="font-semibold text-amber-300 text-sm">Haven Media Solution</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 border border-amber-500/20 text-amber-300">Business Web Layouts</span>
+          </div>
+          <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mt-4">
+            <li>Designed and developed WordPress websites for businesses across various industries.</li>
+            <li>Created responsive, user-friendly, and visually appealing page layouts.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Job 5: Fab Web Designs -->
+      <div class="relative pl-6 sm:pl-10 group">
+        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-400 ring-4 ring-[#070a12] group-hover:scale-125 transition-transform"></div>
+        <div class="glass-card card-hover rounded-2xl p-6 sm:p-8 border border-slate-800">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Feb 2023 - May 2025</span>
+              <h3 class="font-display font-bold text-xl sm:text-2xl text-white mt-1">Web & Graphic Designer</h3>
+              <p class="font-semibold text-emerald-300 text-sm">Fab Web Designs</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">Figma to Page Builders</span>
+          </div>
+          <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mt-4">
+            <li>Designed website graphics and site pages in Figma.</li>
+            <li>Converted Figma designs into fully functional WordPress websites using Avada, Elementor, Divi, and Beaver Builder.</li>
+            <li>Collaborated with content writers, SEO specialists, and developers to improve site performance and search rankings.</li>
+          </ul>
+        </div>
       </div>
 
     </div>
   </section>
 
-  <!-- Dripping Paint SVG Divider -->
-  <div class="w-full overflow-hidden leading-none -mt-4 mb-8">
-    <svg class="w-full h-12 md:h-20 text-artYellow fill-current drip-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <path d="M0,0 C150,90 350,-40 500,65 C650,170 900,10 1200,40 L1200,0 L0,0 Z"></path>
-    </svg>
-  </div>
-
-  <!-- ==================== WHAT I CAN OFFER / STUDIO SERVICES (SINGLE SECTION) ==================== -->
-  <section id="offers" class="py-12 px-4 max-w-6xl mx-auto">
-    
-    <div class="text-center mb-12">
-      <span class="bg-artBlue text-white font-display px-4 py-1.5 rounded-full border-2 border-black text-sm uppercase tracking-wider shadow-sm">Studio Offerings</span>
-      <h2 class="font-display text-4xl md:text-5xl text-black mt-2">What I Can Offer Your Brand</h2>
-      <p class="font-handwritten text-xl text-gray-700 mt-1">Full-suite web engineering and creative solutions straight from Yanelle's craft station.</p>
+  <!-- ==================== PORTFOLIO SHOWCASE GRID ==================== -->
+  <section id="portfolio" class="py-20 px-4 max-w-7xl mx-auto relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-bold uppercase tracking-widest text-cyan-400 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
+        Design Showcase
+      </span>
+      <h2 class="font-display font-bold text-3xl sm:text-5xl text-white mt-3">
+        Featured Projects & Prototypes
+      </h2>
+      <p class="text-slate-400 mt-3 text-base">
+        Explore full visual case studies directly on Behance.
+      </p>
     </div>
 
-    <!-- Services Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       
-      <!-- Service 1 -->
-      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
-        <div class="tape-strip -top-3 left-6"></div>
-        <div>
-          <div class="w-14 h-14 bg-artRed text-white border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform -rotate-3">
-            🌐
+      <!-- Project 1 -->
+      <div class="glass-card card-hover rounded-3xl overflow-hidden group border border-slate-800">
+        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center p-6">
+          <div class="w-full h-full rounded-xl bg-gradient-to-tr from-cyan-900/60 to-purple-900/60 border border-cyan-500/30 flex flex-col items-center justify-center text-center p-4">
+            <i class="fa-solid fa-heart-pulse text-3xl text-cyan-400 mb-2"></i>
+            <span class="text-xs font-bold text-white uppercase">Serenity Psychiatric Platform</span>
           </div>
-          <h3 class="font-display text-2xl text-black mb-2">Custom Web Design & Dev</h3>
-          <p class="text-sm font-body text-gray-700 mb-4">
-            Building responsive, brand-aligned websites on <strong>WordPress, Shopify, and Wix</strong>. Tailored themes and custom PHP, HTML5, and CSS3 layouts.
-          </p>
         </div>
-        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
-          <div>✓ Responsive & Mobile-First</div>
-          <div>✓ Custom PHP/HTML/CSS Tweaks</div>
-          <div>✓ Multi-industry Tailored Styling</div>
+        <div class="p-6">
+          <h3 class="font-display font-bold text-xl text-white mb-2">Healthcare & Mental Health Web Portal</h3>
+          <p class="text-slate-300 text-xs leading-relaxed mb-4">
+            Responsive WordPress web application built for psychiatric care with SEO optimization and booking flow.
+          </p>
+          <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 hover:text-cyan-300">
+            View on Behance <i class="fa-solid fa-arrow-right"></i>
+          </a>
         </div>
       </div>
 
-      <!-- Service 2 -->
-      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
-        <div class="tape-strip -top-3 right-6"></div>
-        <div>
-          <div class="w-14 h-14 bg-artYellow text-black border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform rotate-3">
-            🧱
+      <!-- Project 2 -->
+      <div class="glass-card card-hover rounded-3xl overflow-hidden group border border-slate-800">
+        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center p-6">
+          <div class="w-full h-full rounded-xl bg-gradient-to-tr from-purple-900/60 to-pink-900/60 border border-purple-500/30 flex flex-col items-center justify-center text-center p-4">
+            <i class="fa-brands fa-figma text-3xl text-purple-400 mb-2"></i>
+            <span class="text-xs font-bold text-white uppercase">Figma-to-Elementor Conversion</span>
           </div>
-          <h3 class="font-display text-2xl text-black mb-2">Page Builder Mastery</h3>
-          <p class="text-sm font-body text-gray-700 mb-4">
-            Deep experience with top page builders: <strong>Elementor, Divi, Avada, and Beaver Builder</strong>. Creating fluid, editable, drag-and-drop layouts.
-          </p>
         </div>
-        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
-          <div>✓ Elementor & Divi Custom Templates</div>
-          <div>✓ Avada & Beaver Builder Expertise</div>
-          <div>✓ Easy Client Content Management</div>
+        <div class="p-6">
+          <h3 class="font-display font-bold text-xl text-white mb-2">Pixel-Perfect Agency Redesign</h3>
+          <p class="text-slate-300 text-xs leading-relaxed mb-4">
+            Custom corporate landing pages transformed from multi-frame Figma UI kits into light-speed Elementor pages.
+          </p>
+          <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold text-purple-400 hover:text-purple-300">
+            View on Behance <i class="fa-solid fa-arrow-right"></i>
+          </a>
         </div>
       </div>
 
-      <!-- Service 3 -->
-      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
-        <div class="tape-strip -top-3 left-10"></div>
-        <div>
-          <div class="w-14 h-14 bg-artBlue text-white border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform -rotate-3">
-            🎨
+      <!-- Project 3 -->
+      <div class="glass-card card-hover rounded-3xl overflow-hidden group border border-slate-800">
+        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center p-6">
+          <div class="w-full h-full rounded-xl bg-gradient-to-tr from-amber-900/60 to-emerald-900/60 border border-amber-500/30 flex flex-col items-center justify-center text-center p-4">
+            <i class="fa-solid fa-box-open text-3xl text-amber-400 mb-2"></i>
+            <span class="text-xs font-bold text-white uppercase">Branding & Product Packaging</span>
           </div>
-          <h3 class="font-display text-2xl text-black mb-2">Figma to WordPress</h3>
-          <p class="text-sm font-body text-gray-700 mb-4">
-            Flawless 1:1 translation from <strong>Figma prototypes to functional WordPress sites</strong>. Pixel-perfect accuracy, responsive margins, and dynamic tags.
+        </div>
+        <div class="p-6">
+          <h3 class="font-display font-bold text-xl text-white mb-2">Product Label & Vector Artwork</h3>
+          <p class="text-slate-300 text-xs leading-relaxed mb-4">
+            Print-ready product label design, packaging layouts, and vector illustrations crafted in Adobe Illustrator.
           </p>
-        </div>
-        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
-          <div>✓ Pixel-Perfect Prototype Match</div>
-          <div>✓ Component & Style System Alignment</div>
-          <div>✓ Clean, Maintainable Builder Structures</div>
-        </div>
-      </div>
-
-      <!-- Service 4 -->
-      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
-        <div class="tape-strip -top-3 right-10"></div>
-        <div>
-          <div class="w-14 h-14 bg-artGreen text-black border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform rotate-3">
-            🛠️
-          </div>
-          <h3 class="font-display text-2xl text-black mb-2">Migrations & Site Salvage</h3>
-          <p class="text-sm font-body text-gray-700 mb-4">
-            Seamless host-to-host website migrations without downtime. Expert at taking over unfinished projects and troubleshooting inherited broken code.
-          </p>
-        </div>
-        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
-          <div>✓ Full Zero-Downtime Server Migrations</div>
-          <div>✓ Inherited Code & Layout Repair</div>
-          <div>✓ Plugin & Theme Conflict Fixes</div>
-        </div>
-      </div>
-
-      <!-- Service 5 -->
-      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
-        <div class="tape-strip -top-3 left-6"></div>
-        <div>
-          <div class="w-14 h-14 bg-artOrange text-black border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform -rotate-3">
-            ⚡
-          </div>
-          <h3 class="font-display text-2xl text-black mb-2">Performance & On-Page SEO</h3>
-          <p class="text-sm font-body text-gray-700 mb-4">
-            Speed optimization, asset compression, caching, and on-page SEO best practices to boost search visibility and improve conversion rates.
-          </p>
-        </div>
-        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
-          <div>✓ PageSpeed & Loading Optimization</div>
-          <div>✓ On-Page SEO Structure & Meta Tuning</div>
-          <div>✓ Security Best Practices</div>
-        </div>
-      </div>
-
-      <!-- Service 6 -->
-      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
-        <div class="tape-strip -top-3 right-6"></div>
-        <div>
-          <div class="w-14 h-14 bg-artPurple text-white border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform rotate-3">
-            🏷️
-          </div>
-          <h3 class="font-display text-2xl text-black mb-2">Graphic Design & Branding</h3>
-          <p class="text-sm font-body text-gray-700 mb-4">
-            Complete visual identity design: product labels, packaging, print-ready marketing collateral, vector illustration, and AI-accelerated visual editing.
-          </p>
-        </div>
-        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
-          <div>✓ Product Labels & Packaging Design</div>
-          <div>✓ Print-Ready Marketing Collateral</div>
-          <div>✓ Adobe Illustrator & Canva Art</div>
+          <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold text-amber-400 hover:text-amber-300">
+            View on Behance <i class="fa-solid fa-arrow-right"></i>
+          </a>
         </div>
       </div>
 
     </div>
 
+    <!-- Behance Banner -->
+    <div class="mt-12 text-center">
+      <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-slate-900/90 border border-slate-700 text-white font-display font-bold text-sm hover:border-purple-400 transition-all">
+        <i class="fa-brands fa-behance text-purple-400 text-xl"></i> Browse Complete Behance Portfolio
+      </a>
+    </div>
   </section>
 
-  <!-- ==================== WORK EXPERIENCE SKETCHBOOK ==================== -->
-  <section id="experience" class="py-12 px-4 max-w-5xl mx-auto">
-    
-    <div class="text-center mb-12">
-      <span class="bg-artGreen text-black font-display px-4 py-1.5 rounded-full border-2 border-black text-sm uppercase tracking-wider shadow-sm">Work History</span>
-      <h2 class="font-display text-4xl md:text-5xl text-black mt-2">Experience Scrapbook</h2>
-      <p class="font-handwritten text-xl text-gray-700 mt-1">Nearly 4 years of hands-on web design, client projects, and theme engineering.</p>
-    </div>
+  <!-- ==================== CONTACT SECTION ==================== -->
+  <section id="contact" class="py-20 px-4 max-w-4xl mx-auto relative z-10">
+    <div class="glass-card rounded-3xl p-6 sm:p-12 relative overflow-hidden border border-slate-800">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-cyan-400 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
+          Get In Touch
+        </span>
+        <h2 class="font-display font-bold text-3xl sm:text-5xl text-white mt-3">
+          Let's Build Something Great 🚀
+        </h2>
+        <p class="text-slate-300 mt-2 text-base">
+          Ready to kickstart your web design or WordPress project? Drop a message directly to Yanelle Tan.
+        </p>
+      </div>
 
-    <!-- Timeline Notebook Wrapper -->
-    <div class="space-y-6">
+      <!-- Quick Contact Info Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-10 text-center">
+        <a href="mailto:Tmianelle@gmail.com" class="p-3.5 rounded-2xl glass-card hover:border-cyan-400 transition-colors">
+          <i class="fa-regular fa-envelope text-cyan-400 text-lg mb-1 block"></i>
+          <span class="text-xs font-bold text-slate-200 block truncate">Tmianelle@gmail.com</span>
+        </a>
+        <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl glass-card hover:border-emerald-400 transition-colors">
+          <i class="fa-solid fa-briefcase text-emerald-400 text-lg mb-1 block"></i>
+          <span class="text-xs font-bold text-slate-200 block">Upwork Profile</span>
+        </a>
+        <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl glass-card hover:border-blue-400 transition-colors">
+          <i class="fa-brands fa-linkedin-in text-blue-400 text-lg mb-1 block"></i>
+          <span class="text-xs font-bold text-slate-200 block">LinkedIn Profile</span>
+        </a>
+        <a href="https://www.behance.net/miatan88" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl glass-card hover:border-purple-400 transition-colors">
+          <i class="fa-brands fa-behance text-purple-400 text-lg mb-1 block"></i>
+          <span class="text-xs font-bold text-slate-200 block">Behance Portfolio</span>
+        </a>
+      </div>
 
-      <!-- Job 1 -->
-      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 md:p-8 shadow-craft relative">
-        <div class="tape-strip -top-3 left-10"></div>
-        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+      <!-- Contact Form -->
+      <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+        <input type="hidden" name="subject" value="New Portfolio Inquiry for Yanelle Tan">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
-            <span class="bg-artRed text-white font-display text-xs px-2.5 py-1 rounded-md border border-black uppercase">Apr 2025 - Oct 2026</span>
-            <h3 class="font-display text-2xl md:text-3xl text-black mt-1">Web Designer & Developer</h3>
-            <p class="font-display text-artBlue text-lg">LaunchDigital</p>
-          </div>
-          <span class="bg-paperBg border-2 border-black px-3 py-1 rounded-xl text-xs font-bold text-gray-800">WordPress & SEO Specialist</span>
-        </div>
-        <ul class="list-disc list-inside text-sm md:text-base font-body text-gray-800 space-y-1.5">
-          <li>Customized WordPress themes and templates to build unique, brand-aligned websites for diverse clientele.</li>
-          <li>Applied on-page SEO best practices and performance tuning to improve loading speed and search visibility.</li>
-          <li>Integrated brand identity and visual elements into custom layouts using Figma and Adobe Creative tools.</li>
-        </ul>
-      </div>
-
-      <!-- Job 2 -->
-      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 md:p-8 shadow-craft relative">
-        <div class="tape-strip -top-3 right-10"></div>
-        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
-          <div>
-            <span class="bg-artYellow text-black font-display text-xs px-2.5 py-1 rounded-md border border-black uppercase">Sep 2025 - Sep 2026</span>
-            <h3 class="font-display text-2xl md:text-3xl text-black mt-1">Web Developer</h3>
-            <p class="font-display text-artPurple text-lg">WriteWay Digital</p>
-          </div>
-          <span class="bg-paperBg border-2 border-black px-3 py-1 rounded-xl text-xs font-bold text-gray-800">Site Migrations & Troubleshooting</span>
-        </div>
-        <ul class="list-disc list-inside text-sm md:text-base font-body text-gray-800 space-y-1.5">
-          <li>Built custom WordPress sites tailored precisely to client needs and branding guidelines.</li>
-          <li>Handled full website migrations, ensuring zero downtime and smooth transitions to new servers.</li>
-          <li>Took over unfinished web projects, troubleshooting existing design code, fixing layout bugs, and completing builds.</li>
-        </ul>
-      </div>
-
-      <!-- Job 3 -->
-      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 md:p-8 shadow-craft relative">
-        <div class="tape-strip -top-3 left-12"></div>
-        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
-          <div>
-            <span class="bg-artBlue text-white font-display text-xs px-2.5 py-1 rounded-md border border-black uppercase">Feb 2024 - Sep 2026</span>
-            <h3 class="font-display text-2xl md:text-3xl text-black mt-1">Web Designer & Developer</h3>
-            <p class="font-display text-artGreen text-lg">Serenity</p>
-          </div>
-          <span class="bg-paperBg border-2 border-black px-3 py-1 rounded-xl text-xs font-bold text-gray-800">Healthcare Web Design</span>
-        </div>
-        <ul class="list-disc list-inside text-sm md:text-base font-body text-gray-800 space-y-1.5">
-          <li>Designed and built specialized mental health and psychiatric websites focused on user trust and accessibility.</li>
-          <li>Optimized site functionality for full mobile responsiveness and SEO-friendliness.</li>
-          <li>Coordinated closely with cross-functional teams to hit design milestones and production deadlines.</li>
-        </ul>
-      </div>
-
-      <!-- Job 4 -->
-      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 md:p-8 shadow-craft relative">
-        <div class="tape-strip -top-3 right-12"></div>
-        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
-          <div>
-            <span class="bg-artOrange text-black font-display text-xs px-2.5 py-1 rounded-md border border-black uppercase">May 2024 - May 2025</span>
-            <h3 class="font-display text-2xl md:text-3xl text-black mt-1">WordPress Web Designer</h3>
-            <p class="font-display text-artRed text-lg">Haven Media Solution</p>
-          </div>
-          <span class="bg-paperBg border-2 border-black px-3 py-1 rounded-xl text-xs font-bold text-gray-800">Multi-Industry Builds</span>
-        </div>
-        <ul class="list-disc list-inside text-sm md:text-base font-body text-gray-800 space-y-1.5">
-          <li>Designed and developed WordPress websites for businesses spanning a wide range of industries.</li>
-          <li>Created responsive, highly user-friendly, and visually appealing page layouts designed for higher engagement.</li>
-        </ul>
-      </div>
-
-      <!-- Job 5 -->
-      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 md:p-8 shadow-craft relative">
-        <div class="tape-strip -top-3 left-10"></div>
-        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
-          <div>
-            <span class="bg-artPurple text-white font-display text-xs px-2.5 py-1 rounded-md border border-black uppercase">Feb 2023 - May 2025</span>
-            <h3 class="font-display text-2xl md:text-3xl text-black mt-1">Web & Graphic Designer</h3>
-            <p class="font-display text-artOrange text-lg">Fab Web Designs</p>
-          </div>
-          <span class="bg-paperBg border-2 border-black px-3 py-1 rounded-xl text-xs font-bold text-gray-800">Figma to Multi-Builder</span>
-        </div>
-        <ul class="list-disc list-inside text-sm md:text-base font-body text-gray-800 space-y-1.5">
-          <li>Designed website graphics, wireframes, and site layouts directly in Figma.</li>
-          <li>Converted Figma designs into functional WordPress websites using Avada, Elementor, Divi, and Beaver Builder.</li>
-          <li>Collaborated with content writers, SEO specialists, and core developers to boost site ranking and performance.</li>
-        </ul>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- ==================== INTERACTIVE MINIGAME / ART ATTACK SANDBOX ==================== -->
-  <section id="sandbox" class="py-12 px-4 max-w-5xl mx-auto">
-    
-    <div class="bg-white border-4 border-black rounded-3xl p-4 md:p-8 shadow-craft-lg relative">
-      <div class="tape-strip -top-4 left-1/2 -translate-x-1/2 w-36"></div>
-
-      <div class="text-center mb-6">
-        <span class="bg-artRed text-white font-display px-4 py-1.5 rounded-full border-2 border-black text-sm uppercase tracking-wider shadow-sm">Mini Game</span>
-        <h2 class="font-display text-3xl md:text-5xl text-black mt-2">Art Attack Sandbox!</h2>
-        <p class="font-handwritten text-lg text-gray-700">Unleash your inner artist on Yanelle's digital canvas. Draw, spray, or stamp!</p>
-      </div>
-
-      <!-- Toolbar Controls -->
-      <div class="bg-paperBg border-3 border-black p-3 rounded-2xl mb-4 flex flex-wrap items-center justify-between gap-3">
-        
-        <!-- Brush Color Picker -->
-        <div class="flex items-center gap-2">
-          <span class="font-display text-xs md:text-sm">Color:</span>
-          <div class="flex gap-1.5" id="colorPickerContainer">
-            <button onclick="setBrushColor('#EF476F')" class="color-dot w-7 h-7 rounded-full bg-[#EF476F] border-2 border-black ring-2 ring-black"></button>
-            <button onclick="setBrushColor('#118AB2')" class="color-dot w-7 h-7 rounded-full bg-[#118AB2] border-2 border-black"></button>
-            <button onclick="setBrushColor('#06D6A0')" class="color-dot w-7 h-7 rounded-full bg-[#06D6A0] border-2 border-black"></button>
-            <button onclick="setBrushColor('#FFD166')" class="color-dot w-7 h-7 rounded-full bg-[#FFD166] border-2 border-black"></button>
-            <button onclick="setBrushColor('#8338EC')" class="color-dot w-7 h-7 rounded-full bg-[#8338EC] border-2 border-black"></button>
-            <button onclick="setBrushColor('#000000')" class="color-dot w-7 h-7 rounded-full bg-black border-2 border-black"></button>
-          </div>
-        </div>
-
-        <!-- Tool Type -->
-        <div class="flex items-center gap-2">
-          <span class="font-display text-xs md:text-sm">Tool:</span>
-          <button onclick="setTool('brush')" id="toolBrush" class="tool-btn bg-artYellow px-3 py-1 border-2 border-black rounded-lg text-xs font-bold shadow-sm">🖌️ Brush</button>
-          <button onclick="setTool('spray')" id="toolSpray" class="tool-btn bg-white px-3 py-1 border-2 border-black rounded-lg text-xs font-bold shadow-sm">💨 Spray</button>
-          <button onclick="setTool('stamp')" id="toolStamp" class="tool-btn bg-white px-3 py-1 border-2 border-black rounded-lg text-xs font-bold shadow-sm">⭐ Stamp</button>
-        </div>
-
-        <!-- Brush Size -->
-        <div class="flex items-center gap-2">
-          <span class="font-display text-xs md:text-sm">Size:</span>
-          <input type="range" id="brushSize" min="4" max="40" value="12" class="w-20 accent-artRed cursor-pointer">
-        </div>
-
-        <!-- Clear / Action -->
-        <div class="flex gap-2">
-          <button onclick="clearSandboxCanvas()" class="bg-artRed text-white px-3 py-1.5 border-2 border-black rounded-xl font-display text-xs shadow-sm hover:bg-rose-600">
-            🗑️ Clear
-          </button>
-          <button onclick="downloadMasterpiece()" class="bg-artGreen text-black px-3 py-1.5 border-2 border-black rounded-xl font-display text-xs shadow-sm hover:bg-emerald-400">
-            💾 Save Art
-          </button>
-        </div>
-
-      </div>
-
-      <!-- Sandbox Drawing Canvas Container -->
-      <div class="relative w-full h-80 md:h-96 bg-paperBg border-3 border-black rounded-2xl overflow-hidden cursor-crosshair shadow-inner">
-        <canvas id="sandboxCanvas" class="w-full h-full"></canvas>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- ==================== CONTACT / MESSAGE IN A PAINT CAN ==================== -->
-  <section id="contact" class="py-12 px-4 max-w-4xl mx-auto">
-    
-    <div class="bg-white border-4 border-black rounded-3xl p-6 md:p-10 shadow-craft relative">
-      <div class="tape-strip -top-4 right-12"></div>
-
-      <div class="text-center mb-8">
-        <span class="bg-artOrange text-black font-display px-4 py-1.5 rounded-full border-2 border-black text-sm uppercase tracking-wider shadow-sm">Send a Project Note</span>
-        <h2 class="font-display text-4xl md:text-5xl text-black mt-2">Let's Craft Something Awesome! 🎨</h2>
-        <p class="font-handwritten text-xl text-gray-700 mt-1">Have a project, WordPress site rebuild, or Figma design ready to code?</p>
-      </div>
-
-      <!-- Direct Info Banner -->
-      <div class="bg-paperBg border-2 border-black rounded-2xl p-4 mb-6 flex flex-wrap justify-around items-center gap-4 text-center font-display text-sm">
-        <div>
-          <span class="text-xs text-gray-500 font-handwritten block">Direct Email:</span>
-          <a href="mailto:Tmianelle@gmail.com" class="text-artRed underline hover:text-red-700">Tmianelle@gmail.com</a>
-        </div>
-        <div>
-          <span class="text-xs text-gray-500 font-handwritten block">Upwork Profile:</span>
-          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="text-emerald-600 underline hover:text-emerald-800">Upwork Profile</a>
-        </div>
-        <div>
-          <span class="text-xs text-gray-500 font-handwritten block">LinkedIn Profile:</span>
-          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="text-blue-600 underline hover:text-blue-800">LinkedIn Profile</a>
-        </div>
-        <div>
-          <span class="text-xs text-gray-500 font-handwritten block">Behance Portfolio:</span>
-          <a href="https://www.behance.net/miatan88" target="_blank" class="text-artBlue underline hover:text-sky-700">behance.net/miatan88</a>
-        </div>
-      </div>
-
-      <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block font-display text-sm text-black mb-1">Your Name</label>
-            <input type="text" required placeholder="e.g. Alex Morgan" class="w-full bg-paperBg border-2 border-black rounded-xl p-3 font-body focus:outline-none focus:ring-2 focus:ring-artRed">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Your Name</label>
+            <input type="text" name="name" required placeholder="e.g. Alex Morgan" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors">
           </div>
           <div>
-            <label class="block font-display text-sm text-black mb-1">Your Email</label>
-            <input type="email" required placeholder="e.g. client@company.com" class="w-full bg-paperBg border-2 border-black rounded-xl p-3 font-body focus:outline-none focus:ring-2 focus:ring-artBlue">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Your Email</label>
+            <input type="email" name="email" required placeholder="e.g. alex@company.com" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors">
           </div>
         </div>
 
         <div>
-          <label class="block font-display text-sm text-black mb-1">Project Details</label>
-          <textarea rows="4" required placeholder="Tell Yanelle about your website goals, timeline, or requirements..." class="w-full bg-paperBg border-2 border-black rounded-xl p-3 font-body focus:outline-none focus:ring-2 focus:ring-artGreen"></textarea>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Project Message</label>
+          <textarea name="message" rows="4" required placeholder="Tell Yanelle about your website goals, builder preferences, or timeline..." class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"></textarea>
         </div>
 
-        <button type="submit" class="w-full py-4 bg-artRed text-white font-display text-xl rounded-2xl border-3 border-black shadow-craft hover:bg-rose-600 active:translate-y-1 transition-all flex items-center justify-center gap-2">
-          <span>🚀 Splatter Send Message!</span>
+        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-purple-600 to-pink-500 text-white font-display font-bold text-lg shadow-lg hover:opacity-95 active:scale-[0.99] transition-all">
+          Send Message <i class="fa-solid fa-paper-plane ml-2"></i>
         </button>
       </form>
 
-      <!-- Success Message -->
-      <div id="formSuccessMessage" class="hidden text-center py-8 space-y-4">
-        <div class="text-6xl animate-bounce">🎨✨</div>
-        <h3 class="font-display text-3xl text-black">Splatter Received!</h3>
-        <p class="font-handwritten text-xl text-gray-700">Thank you! Yanelle Tan has received your project note and will reply to your email shortly.</p>
-        <button onclick="resetContactForm()" class="bg-artYellow px-6 py-2 border-2 border-black rounded-xl font-display text-sm shadow-md">Send Another Note</button>
+      <!-- Submission Status -->
+      <div id="formSuccessMessage" class="hidden text-center py-10 space-y-4">
+        <div class="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-400 flex items-center justify-center text-3xl mx-auto">
+          ✓
+        </div>
+        <h3 class="font-display font-bold text-2xl text-white">Message Dispatched!</h3>
+        <p class="text-slate-300 max-w-md mx-auto text-sm">
+          Thank you! Yanelle Tan has received your inquiry and will respond to your email promptly.
+        </p>
       </div>
 
     </div>
-
   </section>
 
   <!-- ==================== FOOTER ==================== -->
-  <footer class="py-8 text-center text-gray-700 border-t-4 border-black bg-white mt-12">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="font-display text-2xl text-black mb-1">YANELLE TAN</div>
-      <p class="font-handwritten text-lg mb-4">Web Designer & WordPress Developer | Crafting Digital Canvas Experiences</p>
+  <footer class="py-10 border-t border-slate-800 glass-nav mt-20 relative z-10 text-center">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="font-display font-extrabold text-xl text-white mb-1">YANELLE TAN</div>
+      <p class="text-xs text-slate-400 mb-6">Web Designer & WordPress Developer Portfolio</p>
 
-      <div class="flex justify-center gap-4 text-xl mb-6">
-        <a href="mailto:Tmianelle@gmail.com" class="w-10 h-10 rounded-full bg-artRed text-white border-2 border-black flex items-center justify-center hover:scale-110 transition-transform" title="Email"><i class="fa-solid fa-envelope"></i></a>
-        <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="w-10 h-10 rounded-full bg-emerald-500 text-white border-2 border-black flex items-center justify-center hover:scale-110 transition-transform" title="Upwork"><i class="fa-solid fa-briefcase"></i></a>
-        <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="w-10 h-10 rounded-full bg-blue-600 text-white border-2 border-black flex items-center justify-center hover:scale-110 transition-transform" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="https://www.behance.net/miatan88" target="_blank" class="w-10 h-10 rounded-full bg-artBlue text-white border-2 border-black flex items-center justify-center hover:scale-110 transition-transform" title="Behance"><i class="fa-brands fa-behance"></i></a>
+      <div class="flex justify-center gap-4 mb-6">
+        <a href="mailto:Tmianelle@gmail.com" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-cyan-400 transition-colors"><i class="fa-regular fa-envelope"></i></a>
+        <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-emerald-400 transition-colors"><i class="fa-solid fa-briefcase"></i></a>
+        <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-blue-400 transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://www.behance.net/miatan88" target="_blank" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-purple-400 transition-colors"><i class="fa-brands fa-behance"></i></a>
       </div>
 
-      <p class="text-xs text-gray-500 font-body">
-        &copy; 2026 Yanelle Tan. All rights reserved. Interactive Art Attack portfolio theme.
+      <p class="text-[11px] text-slate-500">
+        &copy; 2026 Yanelle Tan. All rights reserved.
       </p>
     </div>
   </footer>
 
-
-  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <!-- ==================== JAVASCRIPT ==================== -->
   <script>
-    /* Mobile Navigation Drawer Toggle */
+    /* ================= 1. SMOOTH WHITE CIRCLE CURSOR FOLLOWER ================= */
+    const cursor = document.getElementById('cursorFollower');
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let cursorX = mouseX;
+    let cursorY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      // Parallax Ambient Orbs
+      const orb1 = document.getElementById('orb1');
+      const orb2 = document.getElementById('orb2');
+      const orb3 = document.getElementById('orb3');
+      const xRatio = e.clientX / window.innerWidth;
+      const yRatio = e.clientY / window.innerHeight;
+
+      if(orb1) orb1.style.transform = `translate(${xRatio * 35}px, ${yRatio * 35}px)`;
+      if(orb2) orb2.style.transform = `translate(${-xRatio * 45}px, ${-yRatio * 45}px)`;
+      if(orb3) orb3.style.transform = `translate(${xRatio * 25}px, ${-yRatio * 25}px)`;
+    });
+
+    function animateCursor() {
+      // Smooth interpolation (Lerp)
+      cursorX += (mouseX - cursorX) * 0.15;
+      cursorY += (mouseY - cursorY) * 0.15;
+
+      if (cursor) {
+        cursor.style.left = `${cursorX}px`;
+        cursor.style.top = `${cursorY}px`;
+      }
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    /* Hover effect for interactive elements */
+    const interactiveElements = document.querySelectorAll('a, button, input, textarea');
+    interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        if(cursor) {
+          cursor.style.width = '48px';
+          cursor.style.height = '48px';
+          cursor.style.backgroundColor = 'rgba(6, 182, 212, 0.3)';
+          cursor.style.borderColor = 'rgba(6, 182, 212, 0.9)';
+        }
+      });
+      el.addEventListener('mouseleave', () => {
+        if(cursor) {
+          cursor.style.width = '32px';
+          cursor.style.height = '32px';
+          const isLight = document.documentElement.classList.contains('light');
+          cursor.style.backgroundColor = isLight ? 'rgba(15, 23, 42, 0.15)' : 'rgba(255, 255, 255, 0.25)';
+          cursor.style.borderColor = isLight ? 'rgba(15, 23, 42, 0.7)' : 'rgba(255, 255, 255, 0.8)';
+        }
+      });
+    });
+
+    /* ================= 2. LIGHT / DARK THEME TOGGLE ================= */
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      const iconMobile = document.getElementById('themeIconMobile');
+
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        if(icon) { icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); }
+        if(iconMobile) { iconMobile.classList.remove('fa-sun'); iconMobile.classList.add('fa-moon'); }
+      } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        if(icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+        if(iconMobile) { iconMobile.classList.remove('fa-moon'); iconMobile.classList.add('fa-sun'); }
+      }
+    }
+
+    /* Mobile Nav Toggle */
     function toggleMobileNav() {
-      const drawer = document.getElementById('mobileNavDrawer');
-      const icon = document.getElementById('navToggleIcon');
+      const drawer = document.getElementById('mobileDrawer');
+      const icon = document.getElementById('menuIcon');
       drawer.classList.toggle('hidden');
       if (drawer.classList.contains('hidden')) {
         icon.classList.remove('fa-xmark');
@@ -655,182 +866,11 @@
       }
     }
 
-    /* ================= 1. HERO CANVAS PAINT SPLATTER LOGIC ================= */
-    const heroCanvas = document.getElementById('heroCanvas');
-    const heroCtx = heroCanvas.getContext('2d');
-    let isDrawingHero = false;
-
-    function resizeHeroCanvas() {
-      if(!heroCanvas || !heroCanvas.parentElement) return;
-      heroCanvas.width = heroCanvas.parentElement.clientWidth;
-      heroCanvas.height = heroCanvas.parentElement.clientHeight;
-    }
-    window.addEventListener('resize', resizeHeroCanvas);
-    resizeHeroCanvas();
-
-    function createSplatter(x, y, color) {
-      heroCtx.fillStyle = color || getRandomPaintColor();
-      
-      const mainRadius = Math.random() * 16 + 8;
-      heroCtx.beginPath();
-      heroCtx.arc(x, y, mainRadius, 0, Math.PI * 2);
-      heroCtx.fill();
-
-      const specks = Math.floor(Math.random() * 6) + 4;
-      for (let i = 0; i < specks; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const dist = mainRadius + Math.random() * 28;
-        const speckRadius = Math.random() * 4 + 1.5;
-        const speckX = x + Math.cos(angle) * dist;
-        const speckY = y + Math.sin(angle) * dist;
-
-        heroCtx.beginPath();
-        heroCtx.arc(speckX, speckY, speckRadius, 0, Math.PI * 2);
-        heroCtx.fill();
-      }
-    }
-
-    function getRandomPaintColor() {
-      const palette = ['#EF476F', '#118AB2', '#06D6A0', '#FFD166', '#8338EC', '#FF9F1C'];
-      return palette[Math.floor(Math.random() * palette.length)];
-    }
-
-    heroCanvas.addEventListener('mousedown', (e) => {
-      isDrawingHero = true;
-      const rect = heroCanvas.getBoundingClientRect();
-      createSplatter(e.clientX - rect.left, e.clientY - rect.top);
-    });
-
-    heroCanvas.addEventListener('mousemove', (e) => {
-      if (!isDrawingHero) return;
-      const rect = heroCanvas.getBoundingClientRect();
-      if (Math.random() > 0.4) {
-        createSplatter(e.clientX - rect.left, e.clientY - rect.top);
-      }
-    });
-
-    window.addEventListener('mouseup', () => isDrawingHero = false);
-
-    heroCanvas.addEventListener('touchstart', (e) => {
-      const rect = heroCanvas.getBoundingClientRect();
-      const touch = e.touches[0];
-      createSplatter(touch.clientX - rect.left, touch.clientY - rect.top);
-    });
-
-    function clearHeroCanvas() {
-      heroCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
-    }
-
-
-    /* ================= 2. ART ATTACK SANDBOX DRAWING CANVAS ================= */
-    const sandboxCanvas = document.getElementById('sandboxCanvas');
-    const sbCtx = sandboxCanvas.getContext('2d');
-    let isDrawingSandbox = false;
-    let currentColor = '#EF476F';
-    let currentTool = 'brush'; 
-
-    function resizeSandboxCanvas() {
-      sandboxCanvas.width = sandboxCanvas.parentElement.clientWidth;
-      sandboxCanvas.height = sandboxCanvas.parentElement.clientHeight;
-      sbCtx.fillStyle = '#F7F3E9';
-      sbCtx.fillRect(0, 0, sandboxCanvas.width, sandboxCanvas.height);
-    }
-    window.addEventListener('resize', resizeSandboxCanvas);
-    setTimeout(resizeSandboxCanvas, 100);
-
-    function setBrushColor(color) {
-      currentColor = color;
-      document.querySelectorAll('.color-dot').forEach(dot => dot.classList.remove('ring-2', 'ring-black'));
-      event.target.classList.add('ring-2', 'ring-black');
-    }
-
-    function setTool(tool) {
-      currentTool = tool;
-      document.querySelectorAll('.tool-btn').forEach(btn => {
-        btn.classList.remove('bg-artYellow');
-        btn.classList.add('bg-white');
-      });
-      if(tool === 'brush') document.getElementById('toolBrush').classList.replace('bg-white', 'bg-artYellow');
-      if(tool === 'spray') document.getElementById('toolSpray').classList.replace('bg-white', 'bg-artYellow');
-      if(tool === 'stamp') document.getElementById('toolStamp').classList.replace('bg-white', 'bg-artYellow');
-    }
-
-    function drawOnSandbox(x, y) {
-      const size = document.getElementById('brushSize').value;
-
-      if(currentTool === 'brush') {
-        sbCtx.fillStyle = currentColor;
-        sbCtx.beginPath();
-        sbCtx.arc(x, y, size, 0, Math.PI * 2);
-        sbCtx.fill();
-      } 
-      else if(currentTool === 'spray') {
-        sbCtx.fillStyle = currentColor;
-        for (let i = 0; i < 20; i++) {
-          const offsetX = (Math.random() - 0.5) * size * 2.5;
-          const offsetY = (Math.random() - 0.5) * size * 2.5;
-          sbCtx.fillRect(x + offsetX, y + offsetY, 2, 2);
-        }
-      } 
-      else if(currentTool === 'stamp') {
-        const stamps = ['⭐', '🎨', '✏️', '✨', '🌺', '💥', '💻'];
-        const stamp = stamps[Math.floor(Math.random() * stamps.length)];
-        sbCtx.font = `${size * 2}px sans-serif`;
-        sbCtx.fillText(stamp, x - size, y + size/2);
-      }
-    }
-
-    sandboxCanvas.addEventListener('mousedown', (e) => {
-      isDrawingSandbox = true;
-      const rect = sandboxCanvas.getBoundingClientRect();
-      drawOnSandbox(e.clientX - rect.left, e.clientY - rect.top);
-    });
-
-    sandboxCanvas.addEventListener('mousemove', (e) => {
-      if(!isDrawingSandbox) return;
-      const rect = sandboxCanvas.getBoundingClientRect();
-      drawOnSandbox(e.clientX - rect.left, e.clientY - rect.top);
-    });
-
-    window.addEventListener('mouseup', () => isDrawingSandbox = false);
-
-    sandboxCanvas.addEventListener('touchstart', (e) => {
-      const rect = sandboxCanvas.getBoundingClientRect();
-      const touch = e.touches[0];
-      drawOnSandbox(touch.clientX - rect.left, touch.clientY - rect.top);
-    });
-
-    sandboxCanvas.addEventListener('touchmove', (e) => {
-      const rect = sandboxCanvas.getBoundingClientRect();
-      const touch = e.touches[0];
-      drawOnSandbox(touch.clientX - rect.left, touch.clientY - rect.top);
-    });
-
-    function clearSandboxCanvas() {
-      sbCtx.fillStyle = '#F7F3E9';
-      sbCtx.fillRect(0, 0, sandboxCanvas.width, sandboxCanvas.height);
-    }
-
-    function downloadMasterpiece() {
-      const image = sandboxCanvas.toDataURL("image/png");
-      const link = document.createElement('a');
-      link.download = 'Yanelle-Tan-Art-Masterpiece.png';
-      link.href = image;
-      link.click();
-    }
-
-
-    /* ================= 3. CONTACT FORM INTERACTION ================= */
+    /* Form Handler */
     function handleFormSubmit(e) {
       e.preventDefault();
       document.getElementById('contactForm').classList.add('hidden');
       document.getElementById('formSuccessMessage').classList.remove('hidden');
-    }
-
-    function resetContactForm() {
-      document.getElementById('contactForm').reset();
-      document.getElementById('contactForm').classList.remove('hidden');
-      document.getElementById('formSuccessMessage').classList.add('hidden');
     }
   </script>
 </body>
