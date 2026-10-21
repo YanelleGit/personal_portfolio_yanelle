@@ -1,382 +1,837 @@
 <!DOCTYPE html>
-<!-- Created By CodingNepal -->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio Website</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yanelle Tan | Web Designer & WordPress Developer Portfolio</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Patrick+Hand&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Fredoka One"', 'cursive'],
+            handwritten: ['"Patrick Hand"', 'cursive'],
+            body: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            artYellow: '#FFD166',
+            artRed: '#EF476F',
+            artBlue: '#118AB2',
+            artGreen: '#06D6A0',
+            artPurple: '#8338EC',
+            artOrange: '#FF9F1C',
+            paperBg: '#F7F3E9',
+          },
+          boxShadow: {
+            'craft': '4px 6px 0px 0px rgba(0,0,0,0.85)',
+            'craft-lg': '8px 12px 0px 0px rgba(0,0,0,0.9)',
+            'pop': '0 8px 0 0 #000',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Styling for Art Attack Nostalgia Vibe */
+    body {
+      background-color: #f2edd9;
+      background-image: radial-gradient(#d5cbb0 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+      overflow-x: hidden;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* Wavy Cutout Edges & Craft Effects */
+    .paper-edge {
+      background: #fff;
+      position: relative;
+      border: 3px solid #111;
+      box-shadow: 6px 6px 0px #000;
+    }
+
+    .tape-strip {
+      position: absolute;
+      width: 100px;
+      height: 28px;
+      background: rgba(245, 222, 179, 0.88);
+      border: 1px dashed rgba(0,0,0,0.3);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+      z-index: 20;
+    }
+
+    .bouncy {
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .bouncy:hover {
+      transform: scale(1.04) rotate(-1deg);
+    }
+
+    /* Canvas styling */
+    canvas {
+      touch-action: none;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f2edd9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #EF476F;
+      border: 3px solid #000;
+      border-radius: 8px;
+    }
+
+    .drip-svg {
+      filter: drop-shadow(0px 4px 0px rgba(0,0,0,0.85));
+    }
+  </style>
 </head>
-<body>
-    <div class="scroll-up-btn">
-        <i class="fas fa-angle-up"></i>
+<body class="text-gray-900 leading-relaxed selection:bg-artYellow selection:text-black">
+
+  <!-- ==================== HEADER / NAV ==================== -->
+  <header class="sticky top-0 z-50 p-2 sm:p-4">
+    <div class="max-w-6xl mx-auto bg-white border-3 md:border-4 border-black rounded-2xl p-2.5 sm:p-3 shadow-craft flex flex-wrap justify-between items-center bg-paperBg relative">
+      
+      <!-- Brand / Logo -->
+      <div class="flex items-center gap-2 sm:gap-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-artRed rounded-full border-2 sm:border-3 border-black flex items-center justify-center font-display text-xl sm:text-2xl text-white shadow-md transform -rotate-6 hover:rotate-12 transition-transform">
+          🎨
+        </div>
+        <div>
+          <span class="font-display text-xl sm:text-2xl md:text-3xl text-black tracking-wide block leading-none">YANELLE TAN</span>
+          <span class="text-[9px] sm:text-xs bg-artYellow px-1.5 py-0.5 rounded-md border border-black font-bold uppercase inline-block mt-0.5">Web Designer & Dev</span>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <div class="flex items-center gap-2 md:hidden">
+        <!-- Compact Header Icons on Mobile Header -->
+        <div class="flex items-center gap-1.5">
+          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="w-8 h-8 rounded-lg bg-emerald-500 text-white border-2 border-black flex items-center justify-center text-xs shadow-[2px_2px_0px_#000]" title="Upwork"><i class="fa-solid fa-briefcase"></i></a>
+          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="w-8 h-8 rounded-lg bg-blue-600 text-white border-2 border-black flex items-center justify-center text-xs shadow-[2px_2px_0px_#000]" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+        <button onclick="toggleMobileNav()" class="w-9 h-9 bg-artYellow border-2 border-black rounded-xl flex items-center justify-center text-lg font-bold shadow-[2px_2px_0px_#000] active:scale-95">
+          <i class="fa-solid fa-bars" id="navToggleIcon"></i>
+        </button>
+      </div>
+
+      <!-- Desktop Nav & Compact Icons -->
+      <div class="hidden md:flex items-center gap-4">
+        <!-- Section Links Navigation -->
+        <nav class="flex items-center gap-2 font-display text-xs md:text-sm">
+          <a href="#offers" class="px-3 py-1.5 bg-artYellow border-2 border-black rounded-xl hover:bg-yellow-300 shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-0.5">Services</a>
+          <a href="#experience" class="px-3 py-1.5 bg-artGreen border-2 border-black rounded-xl hover:bg-emerald-300 shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-0.5">Experience</a>
+          <a href="#sandbox" class="px-3 py-1.5 bg-artBlue text-white border-2 border-black rounded-xl hover:bg-sky-400 shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-0.5">Creative Sandbox</a>
+          <a href="#contact" class="px-3 py-1.5 bg-artRed text-white border-2 border-black rounded-xl hover:bg-rose-500 shadow-[2px_2px_0px_#000] transition-transform hover:-translate-y-0.5">Contact</a>
+        </nav>
+
+        <!-- Divider line -->
+        <div class="w-0.5 h-6 bg-black/20"></div>
+
+        <!-- Top Right Social & Contact Compact Icons -->
+        <div class="flex items-center gap-2">
+          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="w-9 h-9 rounded-xl bg-emerald-500 text-white border-2 border-black flex items-center justify-center hover:bg-emerald-600 shadow-[2px_2px_0px_#000] transition-transform hover:scale-110" title="Upwork Profile">
+            <i class="fa-solid fa-briefcase text-sm"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="w-9 h-9 rounded-xl bg-blue-600 text-white border-2 border-black flex items-center justify-center hover:bg-blue-700 shadow-[2px_2px_0px_#000] transition-transform hover:scale-110" title="LinkedIn Profile">
+            <i class="fa-brands fa-linkedin text-base"></i>
+          </a>
+          <a href="https://www.behance.net/miatan88" target="_blank" class="w-9 h-9 rounded-xl bg-artPurple text-white border-2 border-black flex items-center justify-center hover:bg-purple-600 shadow-[2px_2px_0px_#000] transition-transform hover:scale-110" title="Behance Portfolio">
+            <i class="fa-brands fa-behance text-base"></i>
+          </a>
+          <a href="mailto:Tmianelle@gmail.com" class="w-9 h-9 rounded-xl bg-artOrange text-black border-2 border-black flex items-center justify-center hover:bg-orange-400 shadow-[2px_2px_0px_#000] transition-transform hover:scale-110" title="Direct Email">
+            <i class="fa-solid fa-envelope text-sm"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Navigation Drawer -->
+      <div id="mobileNavDrawer" class="hidden w-full md:hidden pt-3 mt-3 border-t-2 border-black flex flex-col gap-2 font-display text-sm">
+        <a href="#offers" onclick="toggleMobileNav()" class="w-full text-center py-2 bg-artYellow border-2 border-black rounded-xl shadow-[2px_2px_0px_#000]">Services</a>
+        <a href="#experience" onclick="toggleMobileNav()" class="w-full text-center py-2 bg-artGreen border-2 border-black rounded-xl shadow-[2px_2px_0px_#000]">Experience</a>
+        <a href="#sandbox" onclick="toggleMobileNav()" class="w-full text-center py-2 bg-artBlue text-white border-2 border-black rounded-xl shadow-[2px_2px_0px_#000]">Creative Sandbox</a>
+        <a href="#contact" onclick="toggleMobileNav()" class="w-full text-center py-2 bg-artRed text-white border-2 border-black rounded-xl shadow-[2px_2px_0px_#000]">Contact</a>
+        <div class="flex justify-center gap-3 pt-2">
+          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="px-3 py-1 bg-emerald-500 text-white border border-black rounded-lg text-xs font-bold flex items-center gap-1.5"><i class="fa-solid fa-briefcase"></i> Upwork</a>
+          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="px-3 py-1 bg-blue-600 text-white border border-black rounded-lg text-xs font-bold flex items-center gap-1.5"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+          <a href="https://www.behance.net/miatan88" target="_blank" class="px-3 py-1 bg-artPurple text-white border border-black rounded-lg text-xs font-bold flex items-center gap-1.5"><i class="fa-brands fa-behance"></i> Behance</a>
+        </div>
+      </div>
+
     </div>
-    <nav class="navbar">
-        <div class="max-width">
-            <div class="logo"><a href="#">Yanelle<span>Tan.</span></a></div>
-            <ul class="menu">
-                <li><a href="#home" class="menu-btn">Home</a></li>
-                <li><a href="#about" class="menu-btn">About</a></li>
-                <li><a href="#services" class="menu-btn">Services</a></li>
-                <li><a href="#skills" class="menu-btn">Skills</a></li>
-                <li><a href="#work" class="menu-btn">Works</a></li>
-                <li><a href="#contact" class="menu-btn">Contact</a></li>
-            </ul>
-            <div class="menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </nav>
+  </header>
 
-    <!-- home section start -->
-    <section class="home" id="home">
-        <div class="max-width">
-            <div class="home-content">
-                <div class="text-1">Hello, my name is</div>
-                <div class="text-2">Yanelle Tan</div>
-                <div class="text-3">And I'm a <span class="typing"></span></div>
-            </div>
-        </div>
-    </section>
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative min-h-[80vh] md:min-h-[85vh] flex items-center justify-center overflow-hidden py-6 sm:py-10 px-3 sm:px-4">
+    
+    <!-- Hero Canvas Overlay for Splatter Drawing -->
+    <canvas id="heroCanvas" class="absolute inset-0 w-full h-full z-0 cursor-crosshair"></canvas>
 
-    <!-- about section start -->
-    <section class="about" id="about">
-        <div class="max-width">
-            <h2 class="title">About me</h2>
-            <div class="about-content">
-                <div class="column left">
-                    <img src="images/3d.png" alt="">
-                </div>
-                <div class="column right">
-                    <div class="text">I'm Yanelle and I'm a <span class="typing-2"></span></div>
-                    <p>Hello World! Welcome to my Digital Portfolio. I am a front end developer and also a digital artist that is are based on Valenzuela Philippines who finds passion in creating visual stuffs. This Website shows some of the work that i have compiled throughout the years. This will display the growth and the progress that i have made. Hopping to work with company that will help my skills develop further.</p>
-                    <a href="https://pdfhost.io/v/fOZ7A4c7F_FREELANCE_PRIVATE_CLIENT" download="MIANELLE TAN.pdf" target="_blank">Download CV</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Interactive Hero Controls Banner -->
+    <div class="absolute top-2 sm:top-4 left-1/2 -translate-x-1/2 z-20 bg-white/95 border-2 border-black px-3 sm:px-4 py-1 rounded-full shadow-md text-[11px] sm:text-xs md:text-sm font-handwritten font-bold text-center flex items-center gap-2 pointer-events-auto max-w-[92vw] whitespace-nowrap">
+      <span>✨ Click or tap background for paint splatters!</span>
+      <button onclick="clearHeroCanvas()" class="bg-artRed text-white px-2 py-0.5 rounded border border-black text-[10px] sm:text-xs hover:bg-red-600 transition-colors">Clear Paint</button>
+    </div>
 
-    <!-- services section start -->
-    <section class="services" id="services">
-        <div class="max-width">
-            <h2 class="title">My services</h2>
-            <div class="serv-content">
-                <div class="card">
-                    <div class="box">
-                        <i class="fas fa-paint-brush"></i>
-                        <div class="text">Web Design</div>
-                        <p>I do make mockup layout using Figma, Creating and designing simple and user friendly website UI.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="box">
-                        <i class="fas fa-desktop"></i>
-                        <div class="text">Frontend Web Development</div>
-                        <p>I do deliever a quality output of a static website. and in terms of responsive design, I do mostly use bootstrap to show the incredible layouting and be responsive in all devices.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="box">
-                        <i class="fas fa-code"></i>
-                        <div class="text">Wordpress</div>
-                        <p>I do create a site using Wordpress with various plugins like Elementor, avada, beaver builder etc.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="box">
-                        <i class="fas fa-pen-nib"></i>
-                        <div class="text">Graphic Art</div>
-                        <p>I do bring ideas to life with precision and creativity, From concept to creation.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="box">
-                        <i class="fas fa-copy"></i>
-                        <div class="text">PSD and Figma to HTML Conversion</div>
-                        <p>I do convert layout to a responsive site and try to look it more accurate as possible.</p>
-                    </div>
-                </div>
-               </div>
-            </div>
-        </div>
-    </section>
+    <!-- Central Hero Paper Cutout Card -->
+    <div class="relative z-10 max-w-4xl w-full bg-white border-3 sm:border-4 border-black rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-craft-lg transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+      
+      <!-- Decorative Paper Tapes & Stamps -->
+      <div class="tape-strip -top-3 -left-4 sm:-top-4 sm:-left-6 transform -rotate-12 w-20 sm:w-28"></div>
+      <div class="tape-strip -top-3 -right-4 sm:-top-4 sm:-right-6 transform rotate-12 w-20 sm:w-28"></div>
+      <div class="absolute -top-5 right-4 sm:right-10 bg-artPurple text-white px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full border-2 border-black font-display text-[10px] sm:text-xs md:text-sm shadow-md transform rotate-6">
+        ✂️ 4+ Years Experience
+      </div>
 
-    <!-- skills section start -->
-    <section class="skills" id="skills">
-        <div class="max-width">
-            <h2 class="title">My skills</h2>
-            <div class="skills-content">
-                <div class="column left">
-                    <div class="text">My creative skills & experiences.</div>
-                    <p>The main responsibility of a Front-End Developer is the User interface. And to develop my skill i had created personal projects, from layouting the web design, building it with the basic fundamentals structure and finally publishing the output. I had also fun experience on using wordpress that uses plugin to fasten the website creation.  </p>
-                </div>
-                <div class="column right">
-                    <div class="icon">
-                        <div class="iconcir">
-                            <a href="#"><img src="images/icons8-html-5.svg"></a>
-                            <a href="#"><img src="images/icons8-css3.svg"></a>
-                            <a href="#"><img src="images/icons8-javascript.svg"></a>
-                            <a href="#"><img src="images/icons8-bootstrap.svg"></a>
-                            <a href="#"><img src="images/icons8-figma.svg"></a>
-                            <a href="#"><img src="images/icons8-adobe-illustrator.svg"></a>
-                            <a href="#"><img src="images/icons8-adobe-photoshop.svg"></a>
-                            <a href="#"><img src="images/icons8-wordpress.svg"></a>
-                            <a href="#"><img src="images/icons8-shopify.svg"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="services" id="work">
-        <div class="max-width">
-            <h2 class="title">Check Out Some of My works</h2>
-            <div class="serv-content">
-                <!-- <div class="container">
-                    <h1>Dog care center sample</h1>
-                    <img src="images/dog.png" alt="Snow" style="width:100%">
-                    <button class="btn"><a href="https://yanellegit.github.io/DogCare/" target="_blank">View demo</a></button>
-                </div>
-                <div class="container">
-                    <h1>Mental health sample</h1>
-                    <img src="images/mental.png" alt="Snow" style="width:100%">
-                    <button class="btn"><a href="https://yanellegit.github.io/mentalpeace.github.io.-/" target="_blank">View demo</a></button>
-                </div>
-                <div class="container">
-                    <h1>Nature care center sample</h1>
-                    <img src="images/nature.png" alt="Snow" style="width:100%">
-                    <button class="btn"><a href="https://yanellegit.github.io/NatureCare/" target="_blank">View demo</a></button>
-                </div>
-                <div class="container">
-                    <h1>Coffee beans sample</h1>
-                    <img src="images/coffee.png" alt="Snow" style="width:100%">
-                    <button class="btn"><a href="https://yanellegit.github.io/coffBean/" target="_blank">View demo</a></button>
-                </div> -->
-
-                <div class="container">
-                    <h1>Hidden Iron Website</h1>
-                    <iframe src="https://jonathanhit.newhavenhosting.com/" title="description" style="width:100%;height:500px;"></iframe>
-                    <button class="btn"><a href="https://jonathanhit.newhavenhosting.com/" target="_blank">View site</a></button>
-                </div>
-                <div class="container">
-                    <h1>Mojave Pictures Website</h1>
-                    <iframe src="https://mojavepictures.newhavenhosting.com/" title="description" style="width:100%;height:500px;"></iframe>
-                    <button class="btn"><a href="https://mojavepictures.newhavenhosting.com/" target="_blank">View site</a></button>
-                </div>
-                <div class="container">
-                    <h1>Berenice’s Secrets Ecommerce Website</h1>
-                    <iframe src="https://berenicessecrets.newhavenhosting.com/" title="description" style="width:100%;height:500px;"></iframe>
-                    <button class="btn"><a href="https://berenicessecrets.newhavenhosting.com/" target="_blank">View site</a></button>
-                </div>
-                <div class="container">
-                    <h1>Lucy Events & Rentals Website</h1>
-                    <iframe src="https://yulizamoraotanez.newhavenhosting.com/" title="description" style="width:100%;height:500px;"></iframe>
-                    <button class="btn"><a href="https://yulizamoraotanez.newhavenhosting.com/" target="_blank">View site</a></button>
-                </div>
-                <div class="container">
-                    <h1>Country Club Website</h1>
-                    <iframe src="https://countryclub.newhavenhosting.com/wordpress/" title="description" style="width:100%;height:500px;"></iframe>
-                    <button class="btn"><a href="https://countryclub.newhavenhosting.com/wordpress/" target="_blank">View site</a></button>
-                </div>
-                <div class="container">
-                    <h1>Lauren Photography Website</h1>
-                    <iframe src="https://laurenwoodhousephotography.com/" title="description" style="width:100%;height:500px;"></iframe>
-                    <button class="btn"><a href="https://laurenwoodhousephotography.com/" target="_blank">View site</a></button>
-                </div>
-                
-               </div>
+      <div class="text-center space-y-4 sm:space-y-5 mt-2 sm:mt-0">
         
-            </div>
-        </div>
-    </section>
-
-    <!-- works section start -->
-    <section class="work" id="work">
-        <div class="max-width">
-            <h2 class="title">Check out my Other Freelance Works</h2>
-            <div class="wix">
-                <div class="container">
-                    <button class="btn"><a href="https://ynxport09.wordpress.com/" target="_blank">See more</a></button>
-                </div>
-            </div>
-            <div class="carousel owl-carousel">
-                <div class="card">
-                    <div class="box">
-                        <img src="images/mocl.jpg" alt="">
-                        <div class="text">Product Mockup</div>
-                        <!-- <p>I do Digital Art</p> -->
-                    </div>
-                </div>
-                
-
-                <div class="card">
-                    <div class="box">
-                        <img src="images/lab.jpg" alt="">
-                        <div class="text">Label Production</div>
-                        <!-- <p>I do make a Website Design Mockup on Figma</p> -->
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="box">
-                        <img src="images/br.jpg" alt="">
-                        <div class="text">Branding</div>
-                        <!-- <p>I do create a Branding plan to make sure everything is uniform </p> -->
-                    </div>
-                </div>
-
-
-                <div class="card">
-                    <div class="box">
-                        <img src="images/wb.jpg" alt="">
-                        <div class="text">Website Design</div>
-                        <!-- <p>I do add color to old two tone photo  </p> -->
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="box">
-                        <img src="images/ee.jpg" alt="">
-                        <div class="text">Photo Editting</div>
-                        <!-- <p>I do improve photo quality .</p> -->
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="box">
-                        <img src="images/vv.jpg" alt="">
-                        <div class="text">Graphic Art</div>
-                        <!-- <p>I do repair old photos to bring it back to life again</p> -->
-                    </div>
-                </div>
-                <!-- <div class="card">
-                    <div class="box">
-                        <img src="images/ROSE.png" alt="">
-                        <div class="text">Layout</div>
-                        <p>I do make Mockup design.</p>
-                    </div>
-                </div> -->
-            </div> 
+        <!-- Big Cutout Title -->
+        <div class="inline-block relative">
+          <span class="inline-block bg-artYellow px-3 sm:px-4 py-1.5 sm:py-2 text-2xl sm:text-4xl md:text-6xl font-display border-3 sm:border-4 border-black rounded-xl sm:rounded-2xl shadow-craft transform -rotate-2 mr-1 sm:mr-2">
+            YANELLE
+          </span>
+          <span class="inline-block bg-artRed text-white px-3 sm:px-4 py-1.5 sm:py-2 text-2xl sm:text-4xl md:text-6xl font-display border-3 sm:border-4 border-black rounded-xl sm:rounded-2xl shadow-craft transform rotate-3">
+            TAN
+          </span>
         </div>
 
+        <p class="font-display text-lg sm:text-xl md:text-2xl text-artBlue tracking-wide">
+          WEB DESIGNER & WORDPRESS DEVELOPER
+        </p>
 
+        <h1 class="font-handwritten text-lg sm:text-xl md:text-3xl text-gray-800 font-bold max-w-3xl mx-auto leading-snug sm:leading-tight">
+          "Building custom, responsive, and SEO-optimized websites tailored precisely to your business goals and growth, blended with playful, standout design."
+        </h1>
 
-<!-- gallery section start -->
-
-<div class="gallery-container">
-    <ul class="gallery">
-    <li>
-        <a href="">
-            <figure>
-                <img src='images/vector.jpg' alt='Volcano and lava field against a stormy sky'>
-                <figcaption>Vector Art</figcaption>
-            </figure>
-        </a>
-    </li>
-    <li>
-        <a href="">
-            <figure>
-                <img src='images/jen.jpg' alt='Guy on a bike ok a wooden bridge with a forest backdrop'>
-                <figcaption>Graphic Art</figcaption>
-            </figure>
-        </a>
-    </li>
-    <li>
-        <a href="">
-            <figure>
-                <img src='images/lo.jpg' alt='Person standing alone in a misty forest'>
-                <figcaption>Brand Guidline</figcaption>
-            </figure>
-        </a>
-    </li>
-    <li>
-        <a href="">
-            <figure>
-                <img src='images/ker.jpg' alt='Person hiking on a trail through mountains while taking a photo with phone'>
-                <figcaption>Graphic Art</figcaption>
-            </figure>
-        </a>
-    </li>
-    <li>
-        <a href="">
-            <figure>
-                <img src='images/Vantaggio museum.jpg' alt='Street scene with person walking and others on motorbikes, all wearing masks'>
-                <figcaption>Product Model branding</figcaption>
-            </figure>
-        </a>
-    </li>
-    <li>
-        <a href="">
-            <figure>
-                <img src='images/WIN.jpg' alt='Fashionable-looking girl with blond hair and pink sunglasses'>
-                <figcaption>Graphic Art</figcaption>
-            </figure>
-        </a>
-    </li>
-</ul>
-</div>
-
-
-    </section>
-
-
-
-
-
-
-
-    <!-- contact section start -->
-    <section class="contact" id="contact">
-        <div class="max-width">
-            <h2 class="title">Contact me</h2>
-            <div class="contact-content">
-                <div class="column left">
-                    <div class="text">Get in Touch</div>
-                    <p>Hi there! Feel free to contact Me and to work with. Take care</p>
-                    <div class="icons">
-                        <div class="row">
-                            <i class="fas fa-user"></i>
-                            <div class="info">
-                                <div class="head">Name</div>
-                                <div class="sub-title">Yanelle T. Tan</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div class="info">
-                                <div class="head">Address</div>
-                                <div class="sub-title">Marulas Valenzuela, Philippines</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <i class="fas fa-envelope"></i>
-                            <div class="info">
-                                <div class="head">Email</div>
-                                <div class="sub-title">Kevinelle15@gmail.com</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column right">
-                    <h1>Other Social links</h1>
-                    <a href="https://web.facebook.com/mianelle.tan/" target="_blank"><img src="images/icons8-facebook.svg"></a>
-                    <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank"><img src="images/icons8-upwork.svg"></a>
-                    <a href="https://www.linkedin.com/in/mianelle-tan-60076a207/" target="_blank"><img src="images/icons8-linkedin-circled.svg"></a>
-                </div>
-            </div>
+        <!-- Core Badges from CV -->
+        <div class="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-1 sm:pt-2">
+          <span class="bg-artYellow/30 border-2 border-black px-2.5 py-1 rounded-xl text-[11px] sm:text-xs md:text-sm font-bold flex items-center gap-1">
+            🧱 WordPress & Builders
+          </span>
+          <span class="bg-artGreen/30 border-2 border-black px-2.5 py-1 rounded-xl text-[11px] sm:text-xs md:text-sm font-bold flex items-center gap-1">
+            🛍️ Shopify & Wix
+          </span>
+          <span class="bg-artBlue/30 border-2 border-black px-2.5 py-1 rounded-xl text-[11px] sm:text-xs md:text-sm font-bold flex items-center gap-1">
+            🎨 Figma-to-WordPress
+          </span>
+          <span class="bg-artOrange/30 border-2 border-black px-2.5 py-1 rounded-xl text-[11px] sm:text-xs md:text-sm font-bold flex items-center gap-1">
+            💻 Custom HTML/CSS/PHP
+          </span>
         </div>
-    </section>
-    <!-- footer section start -->
-    <footer>
-        <span class="far fa-copyright"></span> 2022 All rights reserved.</span>
-    </footer>
 
-    <script src="script.js"></script>
+        <!-- STRICTLY TWO HERO ACTION BUTTONS -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-3 pt-4 sm:pt-6">
+          <a href="#offers" class="w-full sm:w-auto px-6 py-3 bg-artRed text-white font-display text-base md:text-lg rounded-2xl border-3 border-black shadow-craft hover:bg-rose-600 active:translate-y-1 transition-all text-center flex items-center justify-center gap-2">
+            <i class="fa-solid fa-toolbox"></i> Explore Services
+          </a>
+          <a href="#contact" class="w-full sm:w-auto px-6 py-3 bg-artGreen text-black font-display text-base md:text-lg rounded-2xl border-3 border-black shadow-craft hover:bg-emerald-400 active:translate-y-1 transition-all text-center flex items-center justify-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i> Hire Yanelle
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Dripping Paint SVG Divider -->
+  <div class="w-full overflow-hidden leading-none -mt-4 mb-8">
+    <svg class="w-full h-12 md:h-20 text-artYellow fill-current drip-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,0 C150,90 350,-40 500,65 C650,170 900,10 1200,40 L1200,0 L0,0 Z"></path>
+    </svg>
+  </div>
+
+  <!-- ==================== WHAT I CAN OFFER / STUDIO SERVICES (SINGLE SECTION) ==================== -->
+  <section id="offers" class="py-12 px-4 max-w-6xl mx-auto">
+    
+    <div class="text-center mb-12">
+      <span class="bg-artBlue text-white font-display px-4 py-1.5 rounded-full border-2 border-black text-sm uppercase tracking-wider shadow-sm">Studio Offerings</span>
+      <h2 class="font-display text-4xl md:text-5xl text-black mt-2">What I Can Offer Your Brand</h2>
+      <p class="font-handwritten text-xl text-gray-700 mt-1">Full-suite web engineering and creative solutions straight from Yanelle's craft station.</p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Service 1 -->
+      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
+        <div class="tape-strip -top-3 left-6"></div>
+        <div>
+          <div class="w-14 h-14 bg-artRed text-white border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform -rotate-3">
+            🌐
+          </div>
+          <h3 class="font-display text-2xl text-black mb-2">Custom Web Design & Dev</h3>
+          <p class="text-sm font-body text-gray-700 mb-4">
+            Building responsive, brand-aligned websites on <strong>WordPress, Shopify, and Wix</strong>. Tailored themes and custom PHP, HTML5, and CSS3 layouts.
+          </p>
+        </div>
+        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
+          <div>✓ Responsive & Mobile-First</div>
+          <div>✓ Custom PHP/HTML/CSS Tweaks</div>
+          <div>✓ Multi-industry Tailored Styling</div>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
+        <div class="tape-strip -top-3 right-6"></div>
+        <div>
+          <div class="w-14 h-14 bg-artYellow text-black border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform rotate-3">
+            🧱
+          </div>
+          <h3 class="font-display text-2xl text-black mb-2">Page Builder Mastery</h3>
+          <p class="text-sm font-body text-gray-700 mb-4">
+            Deep experience with top page builders: <strong>Elementor, Divi, Avada, and Beaver Builder</strong>. Creating fluid, editable, drag-and-drop layouts.
+          </p>
+        </div>
+        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
+          <div>✓ Elementor & Divi Custom Templates</div>
+          <div>✓ Avada & Beaver Builder Expertise</div>
+          <div>✓ Easy Client Content Management</div>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
+        <div class="tape-strip -top-3 left-10"></div>
+        <div>
+          <div class="w-14 h-14 bg-artBlue text-white border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform -rotate-3">
+            🎨
+          </div>
+          <h3 class="font-display text-2xl text-black mb-2">Figma to WordPress</h3>
+          <p class="text-sm font-body text-gray-700 mb-4">
+            Flawless 1:1 translation from <strong>Figma prototypes to functional WordPress sites</strong>. Pixel-perfect accuracy, responsive margins, and dynamic tags.
+          </p>
+        </div>
+        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
+          <div>✓ Pixel-Perfect Prototype Match</div>
+          <div>✓ Component & Style System Alignment</div>
+          <div>✓ Clean, Maintainable Builder Structures</div>
+        </div>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
+        <div class="tape-strip -top-3 right-10"></div>
+        <div>
+          <div class="w-14 h-14 bg-artGreen text-black border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform rotate-3">
+            🛠️
+          </div>
+          <h3 class="font-display text-2xl text-black mb-2">Migrations & Site Salvage</h3>
+          <p class="text-sm font-body text-gray-700 mb-4">
+            Seamless host-to-host website migrations without downtime. Expert at taking over unfinished projects and troubleshooting inherited broken code.
+          </p>
+        </div>
+        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
+          <div>✓ Full Zero-Downtime Server Migrations</div>
+          <div>✓ Inherited Code & Layout Repair</div>
+          <div>✓ Plugin & Theme Conflict Fixes</div>
+        </div>
+      </div>
+
+      <!-- Service 5 -->
+      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
+        <div class="tape-strip -top-3 left-6"></div>
+        <div>
+          <div class="w-14 h-14 bg-artOrange text-black border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform -rotate-3">
+            ⚡
+          </div>
+          <h3 class="font-display text-2xl text-black mb-2">Performance & On-Page SEO</h3>
+          <p class="text-sm font-body text-gray-700 mb-4">
+            Speed optimization, asset compression, caching, and on-page SEO best practices to boost search visibility and improve conversion rates.
+          </p>
+        </div>
+        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
+          <div>✓ PageSpeed & Loading Optimization</div>
+          <div>✓ On-Page SEO Structure & Meta Tuning</div>
+          <div>✓ Security Best Practices</div>
+        </div>
+      </div>
+
+      <!-- Service 6 -->
+      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 shadow-craft relative flex flex-col justify-between">
+        <div class="tape-strip -top-3 right-6"></div>
+        <div>
+          <div class="w-14 h-14 bg-artPurple text-white border-3 border-black rounded-2xl flex items-center justify-center font-display text-2xl shadow-md mb-4 transform rotate-3">
+            🏷️
+          </div>
+          <h3 class="font-display text-2xl text-black mb-2">Graphic Design & Branding</h3>
+          <p class="text-sm font-body text-gray-700 mb-4">
+            Complete visual identity design: product labels, packaging, print-ready marketing collateral, vector illustration, and AI-accelerated visual editing.
+          </p>
+        </div>
+        <div class="bg-paperBg border-2 border-black rounded-xl p-3 text-xs font-handwritten font-bold text-gray-800 space-y-1">
+          <div>✓ Product Labels & Packaging Design</div>
+          <div>✓ Print-Ready Marketing Collateral</div>
+          <div>✓ Adobe Illustrator & Canva Art</div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== WORK EXPERIENCE SKETCHBOOK ==================== -->
+  <section id="experience" class="py-12 px-4 max-w-5xl mx-auto">
+    
+    <div class="text-center mb-12">
+      <span class="bg-artGreen text-black font-display px-4 py-1.5 rounded-full border-2 border-black text-sm uppercase tracking-wider shadow-sm">Work History</span>
+      <h2 class="font-display text-4xl md:text-5xl text-black mt-2">Experience Scrapbook</h2>
+      <p class="font-handwritten text-xl text-gray-700 mt-1">Nearly 4 years of hands-on web design, client projects, and theme engineering.</p>
+    </div>
+
+    <!-- Timeline Notebook Wrapper -->
+    <div class="space-y-6">
+
+      <!-- Job 1 -->
+      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 md:p-8 shadow-craft relative">
+        <div class="tape-strip -top-3 left-10"></div>
+        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+          <div>
+            <span class="bg-artRed text-white font-display text-xs px-2.5 py-1 rounded-md border border-black uppercase">Apr 2025 - Oct 2026</span>
+            <h3 class="font-display text-2xl md:text-3xl text-black mt-1">Web Designer & Developer</h3>
+            <p class="font-display text-artBlue text-lg">LaunchDigital</p>
+          </div>
+          <span class="bg-paperBg border-2 border-black px-3 py-1 rounded-xl text-xs font-bold text-gray-800">WordPress & SEO Specialist</span>
+        </div>
+        <ul class="list-disc list-inside text-sm md:text-base font-body text-gray-800 space-y-1.5">
+          <li>Customized WordPress themes and templates to build unique, brand-aligned websites for diverse clientele.</li>
+          <li>Applied on-page SEO best practices and performance tuning to improve loading speed and search visibility.</li>
+          <li>Integrated brand identity and visual elements into custom layouts using Figma and Adobe Creative tools.</li>
+        </ul>
+      </div>
+
+      <!-- Job 2 -->
+      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 md:p-8 shadow-craft relative">
+        <div class="tape-strip -top-3 right-10"></div>
+        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+          <div>
+            <span class="bg-artYellow text-black font-display text-xs px-2.5 py-1 rounded-md border border-black uppercase">Sep 2025 - Sep 2026</span>
+            <h3 class="font-display text-2xl md:text-3xl text-black mt-1">Web Developer</h3>
+            <p class="font-display text-artPurple text-lg">WriteWay Digital</p>
+          </div>
+          <span class="bg-paperBg border-2 border-black px-3 py-1 rounded-xl text-xs font-bold text-gray-800">Site Migrations & Troubleshooting</span>
+        </div>
+        <ul class="list-disc list-inside text-sm md:text-base font-body text-gray-800 space-y-1.5">
+          <li>Built custom WordPress sites tailored precisely to client needs and branding guidelines.</li>
+          <li>Handled full website migrations, ensuring zero downtime and smooth transitions to new servers.</li>
+          <li>Took over unfinished web projects, troubleshooting existing design code, fixing layout bugs, and completing builds.</li>
+        </ul>
+      </div>
+
+      <!-- Job 3 -->
+      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 md:p-8 shadow-craft relative">
+        <div class="tape-strip -top-3 left-12"></div>
+        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+          <div>
+            <span class="bg-artBlue text-white font-display text-xs px-2.5 py-1 rounded-md border border-black uppercase">Feb 2024 - Sep 2026</span>
+            <h3 class="font-display text-2xl md:text-3xl text-black mt-1">Web Designer & Developer</h3>
+            <p class="font-display text-artGreen text-lg">Serenity</p>
+          </div>
+          <span class="bg-paperBg border-2 border-black px-3 py-1 rounded-xl text-xs font-bold text-gray-800">Healthcare Web Design</span>
+        </div>
+        <ul class="list-disc list-inside text-sm md:text-base font-body text-gray-800 space-y-1.5">
+          <li>Designed and built specialized mental health and psychiatric websites focused on user trust and accessibility.</li>
+          <li>Optimized site functionality for full mobile responsiveness and SEO-friendliness.</li>
+          <li>Coordinated closely with cross-functional teams to hit design milestones and production deadlines.</li>
+        </ul>
+      </div>
+
+      <!-- Job 4 -->
+      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 md:p-8 shadow-craft relative">
+        <div class="tape-strip -top-3 right-12"></div>
+        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+          <div>
+            <span class="bg-artOrange text-black font-display text-xs px-2.5 py-1 rounded-md border border-black uppercase">May 2024 - May 2025</span>
+            <h3 class="font-display text-2xl md:text-3xl text-black mt-1">WordPress Web Designer</h3>
+            <p class="font-display text-artRed text-lg">Haven Media Solution</p>
+          </div>
+          <span class="bg-paperBg border-2 border-black px-3 py-1 rounded-xl text-xs font-bold text-gray-800">Multi-Industry Builds</span>
+        </div>
+        <ul class="list-disc list-inside text-sm md:text-base font-body text-gray-800 space-y-1.5">
+          <li>Designed and developed WordPress websites for businesses spanning a wide range of industries.</li>
+          <li>Created responsive, highly user-friendly, and visually appealing page layouts designed for higher engagement.</li>
+        </ul>
+      </div>
+
+      <!-- Job 5 -->
+      <div class="bouncy bg-white border-4 border-black rounded-3xl p-6 md:p-8 shadow-craft relative">
+        <div class="tape-strip -top-3 left-10"></div>
+        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+          <div>
+            <span class="bg-artPurple text-white font-display text-xs px-2.5 py-1 rounded-md border border-black uppercase">Feb 2023 - May 2025</span>
+            <h3 class="font-display text-2xl md:text-3xl text-black mt-1">Web & Graphic Designer</h3>
+            <p class="font-display text-artOrange text-lg">Fab Web Designs</p>
+          </div>
+          <span class="bg-paperBg border-2 border-black px-3 py-1 rounded-xl text-xs font-bold text-gray-800">Figma to Multi-Builder</span>
+        </div>
+        <ul class="list-disc list-inside text-sm md:text-base font-body text-gray-800 space-y-1.5">
+          <li>Designed website graphics, wireframes, and site layouts directly in Figma.</li>
+          <li>Converted Figma designs into functional WordPress websites using Avada, Elementor, Divi, and Beaver Builder.</li>
+          <li>Collaborated with content writers, SEO specialists, and core developers to boost site ranking and performance.</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== INTERACTIVE MINIGAME / ART ATTACK SANDBOX ==================== -->
+  <section id="sandbox" class="py-12 px-4 max-w-5xl mx-auto">
+    
+    <div class="bg-white border-4 border-black rounded-3xl p-4 md:p-8 shadow-craft-lg relative">
+      <div class="tape-strip -top-4 left-1/2 -translate-x-1/2 w-36"></div>
+
+      <div class="text-center mb-6">
+        <span class="bg-artRed text-white font-display px-4 py-1.5 rounded-full border-2 border-black text-sm uppercase tracking-wider shadow-sm">Mini Game</span>
+        <h2 class="font-display text-3xl md:text-5xl text-black mt-2">Art Attack Sandbox!</h2>
+        <p class="font-handwritten text-lg text-gray-700">Unleash your inner artist on Yanelle's digital canvas. Draw, spray, or stamp!</p>
+      </div>
+
+      <!-- Toolbar Controls -->
+      <div class="bg-paperBg border-3 border-black p-3 rounded-2xl mb-4 flex flex-wrap items-center justify-between gap-3">
+        
+        <!-- Brush Color Picker -->
+        <div class="flex items-center gap-2">
+          <span class="font-display text-xs md:text-sm">Color:</span>
+          <div class="flex gap-1.5" id="colorPickerContainer">
+            <button onclick="setBrushColor('#EF476F')" class="color-dot w-7 h-7 rounded-full bg-[#EF476F] border-2 border-black ring-2 ring-black"></button>
+            <button onclick="setBrushColor('#118AB2')" class="color-dot w-7 h-7 rounded-full bg-[#118AB2] border-2 border-black"></button>
+            <button onclick="setBrushColor('#06D6A0')" class="color-dot w-7 h-7 rounded-full bg-[#06D6A0] border-2 border-black"></button>
+            <button onclick="setBrushColor('#FFD166')" class="color-dot w-7 h-7 rounded-full bg-[#FFD166] border-2 border-black"></button>
+            <button onclick="setBrushColor('#8338EC')" class="color-dot w-7 h-7 rounded-full bg-[#8338EC] border-2 border-black"></button>
+            <button onclick="setBrushColor('#000000')" class="color-dot w-7 h-7 rounded-full bg-black border-2 border-black"></button>
+          </div>
+        </div>
+
+        <!-- Tool Type -->
+        <div class="flex items-center gap-2">
+          <span class="font-display text-xs md:text-sm">Tool:</span>
+          <button onclick="setTool('brush')" id="toolBrush" class="tool-btn bg-artYellow px-3 py-1 border-2 border-black rounded-lg text-xs font-bold shadow-sm">🖌️ Brush</button>
+          <button onclick="setTool('spray')" id="toolSpray" class="tool-btn bg-white px-3 py-1 border-2 border-black rounded-lg text-xs font-bold shadow-sm">💨 Spray</button>
+          <button onclick="setTool('stamp')" id="toolStamp" class="tool-btn bg-white px-3 py-1 border-2 border-black rounded-lg text-xs font-bold shadow-sm">⭐ Stamp</button>
+        </div>
+
+        <!-- Brush Size -->
+        <div class="flex items-center gap-2">
+          <span class="font-display text-xs md:text-sm">Size:</span>
+          <input type="range" id="brushSize" min="4" max="40" value="12" class="w-20 accent-artRed cursor-pointer">
+        </div>
+
+        <!-- Clear / Action -->
+        <div class="flex gap-2">
+          <button onclick="clearSandboxCanvas()" class="bg-artRed text-white px-3 py-1.5 border-2 border-black rounded-xl font-display text-xs shadow-sm hover:bg-rose-600">
+            🗑️ Clear
+          </button>
+          <button onclick="downloadMasterpiece()" class="bg-artGreen text-black px-3 py-1.5 border-2 border-black rounded-xl font-display text-xs shadow-sm hover:bg-emerald-400">
+            💾 Save Art
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Sandbox Drawing Canvas Container -->
+      <div class="relative w-full h-80 md:h-96 bg-paperBg border-3 border-black rounded-2xl overflow-hidden cursor-crosshair shadow-inner">
+        <canvas id="sandboxCanvas" class="w-full h-full"></canvas>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== CONTACT / MESSAGE IN A PAINT CAN ==================== -->
+  <section id="contact" class="py-12 px-4 max-w-4xl mx-auto">
+    
+    <div class="bg-white border-4 border-black rounded-3xl p-6 md:p-10 shadow-craft relative">
+      <div class="tape-strip -top-4 right-12"></div>
+
+      <div class="text-center mb-8">
+        <span class="bg-artOrange text-black font-display px-4 py-1.5 rounded-full border-2 border-black text-sm uppercase tracking-wider shadow-sm">Send a Project Note</span>
+        <h2 class="font-display text-4xl md:text-5xl text-black mt-2">Let's Craft Something Awesome! 🎨</h2>
+        <p class="font-handwritten text-xl text-gray-700 mt-1">Have a project, WordPress site rebuild, or Figma design ready to code?</p>
+      </div>
+
+      <!-- Direct Info Banner -->
+      <div class="bg-paperBg border-2 border-black rounded-2xl p-4 mb-6 flex flex-wrap justify-around items-center gap-4 text-center font-display text-sm">
+        <div>
+          <span class="text-xs text-gray-500 font-handwritten block">Direct Email:</span>
+          <a href="mailto:Tmianelle@gmail.com" class="text-artRed underline hover:text-red-700">Tmianelle@gmail.com</a>
+        </div>
+        <div>
+          <span class="text-xs text-gray-500 font-handwritten block">Upwork Profile:</span>
+          <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="text-emerald-600 underline hover:text-emerald-800">Upwork Profile</a>
+        </div>
+        <div>
+          <span class="text-xs text-gray-500 font-handwritten block">LinkedIn Profile:</span>
+          <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="text-blue-600 underline hover:text-blue-800">LinkedIn Profile</a>
+        </div>
+        <div>
+          <span class="text-xs text-gray-500 font-handwritten block">Behance Portfolio:</span>
+          <a href="https://www.behance.net/miatan88" target="_blank" class="text-artBlue underline hover:text-sky-700">behance.net/miatan88</a>
+        </div>
+      </div>
+
+      <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-display text-sm text-black mb-1">Your Name</label>
+            <input type="text" required placeholder="e.g. Alex Morgan" class="w-full bg-paperBg border-2 border-black rounded-xl p-3 font-body focus:outline-none focus:ring-2 focus:ring-artRed">
+          </div>
+          <div>
+            <label class="block font-display text-sm text-black mb-1">Your Email</label>
+            <input type="email" required placeholder="e.g. client@company.com" class="w-full bg-paperBg border-2 border-black rounded-xl p-3 font-body focus:outline-none focus:ring-2 focus:ring-artBlue">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-display text-sm text-black mb-1">Project Details</label>
+          <textarea rows="4" required placeholder="Tell Yanelle about your website goals, timeline, or requirements..." class="w-full bg-paperBg border-2 border-black rounded-xl p-3 font-body focus:outline-none focus:ring-2 focus:ring-artGreen"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-4 bg-artRed text-white font-display text-xl rounded-2xl border-3 border-black shadow-craft hover:bg-rose-600 active:translate-y-1 transition-all flex items-center justify-center gap-2">
+          <span>🚀 Splatter Send Message!</span>
+        </button>
+      </form>
+
+      <!-- Success Message -->
+      <div id="formSuccessMessage" class="hidden text-center py-8 space-y-4">
+        <div class="text-6xl animate-bounce">🎨✨</div>
+        <h3 class="font-display text-3xl text-black">Splatter Received!</h3>
+        <p class="font-handwritten text-xl text-gray-700">Thank you! Yanelle Tan has received your project note and will reply to your email shortly.</p>
+        <button onclick="resetContactForm()" class="bg-artYellow px-6 py-2 border-2 border-black rounded-xl font-display text-sm shadow-md">Send Another Note</button>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="py-8 text-center text-gray-700 border-t-4 border-black bg-white mt-12">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="font-display text-2xl text-black mb-1">YANELLE TAN</div>
+      <p class="font-handwritten text-lg mb-4">Web Designer & WordPress Developer | Crafting Digital Canvas Experiences</p>
+
+      <div class="flex justify-center gap-4 text-xl mb-6">
+        <a href="mailto:Tmianelle@gmail.com" class="w-10 h-10 rounded-full bg-artRed text-white border-2 border-black flex items-center justify-center hover:scale-110 transition-transform" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.upwork.com/freelancers/~01bec3b98db17963d5?mp_source=share" target="_blank" class="w-10 h-10 rounded-full bg-emerald-500 text-white border-2 border-black flex items-center justify-center hover:scale-110 transition-transform" title="Upwork"><i class="fa-solid fa-briefcase"></i></a>
+        <a href="https://www.linkedin.com/in/mianelle-tan-6b0a4a145/" target="_blank" class="w-10 h-10 rounded-full bg-blue-600 text-white border-2 border-black flex items-center justify-center hover:scale-110 transition-transform" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://www.behance.net/miatan88" target="_blank" class="w-10 h-10 rounded-full bg-artBlue text-white border-2 border-black flex items-center justify-center hover:scale-110 transition-transform" title="Behance"><i class="fa-brands fa-behance"></i></a>
+      </div>
+
+      <p class="text-xs text-gray-500 font-body">
+        &copy; 2026 Yanelle Tan. All rights reserved. Interactive Art Attack portfolio theme.
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    /* Mobile Navigation Drawer Toggle */
+    function toggleMobileNav() {
+      const drawer = document.getElementById('mobileNavDrawer');
+      const icon = document.getElementById('navToggleIcon');
+      drawer.classList.toggle('hidden');
+      if (drawer.classList.contains('hidden')) {
+        icon.classList.remove('fa-xmark');
+        icon.classList.add('fa-bars');
+      } else {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-xmark');
+      }
+    }
+
+    /* ================= 1. HERO CANVAS PAINT SPLATTER LOGIC ================= */
+    const heroCanvas = document.getElementById('heroCanvas');
+    const heroCtx = heroCanvas.getContext('2d');
+    let isDrawingHero = false;
+
+    function resizeHeroCanvas() {
+      if(!heroCanvas || !heroCanvas.parentElement) return;
+      heroCanvas.width = heroCanvas.parentElement.clientWidth;
+      heroCanvas.height = heroCanvas.parentElement.clientHeight;
+    }
+    window.addEventListener('resize', resizeHeroCanvas);
+    resizeHeroCanvas();
+
+    function createSplatter(x, y, color) {
+      heroCtx.fillStyle = color || getRandomPaintColor();
+      
+      const mainRadius = Math.random() * 16 + 8;
+      heroCtx.beginPath();
+      heroCtx.arc(x, y, mainRadius, 0, Math.PI * 2);
+      heroCtx.fill();
+
+      const specks = Math.floor(Math.random() * 6) + 4;
+      for (let i = 0; i < specks; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = mainRadius + Math.random() * 28;
+        const speckRadius = Math.random() * 4 + 1.5;
+        const speckX = x + Math.cos(angle) * dist;
+        const speckY = y + Math.sin(angle) * dist;
+
+        heroCtx.beginPath();
+        heroCtx.arc(speckX, speckY, speckRadius, 0, Math.PI * 2);
+        heroCtx.fill();
+      }
+    }
+
+    function getRandomPaintColor() {
+      const palette = ['#EF476F', '#118AB2', '#06D6A0', '#FFD166', '#8338EC', '#FF9F1C'];
+      return palette[Math.floor(Math.random() * palette.length)];
+    }
+
+    heroCanvas.addEventListener('mousedown', (e) => {
+      isDrawingHero = true;
+      const rect = heroCanvas.getBoundingClientRect();
+      createSplatter(e.clientX - rect.left, e.clientY - rect.top);
+    });
+
+    heroCanvas.addEventListener('mousemove', (e) => {
+      if (!isDrawingHero) return;
+      const rect = heroCanvas.getBoundingClientRect();
+      if (Math.random() > 0.4) {
+        createSplatter(e.clientX - rect.left, e.clientY - rect.top);
+      }
+    });
+
+    window.addEventListener('mouseup', () => isDrawingHero = false);
+
+    heroCanvas.addEventListener('touchstart', (e) => {
+      const rect = heroCanvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      createSplatter(touch.clientX - rect.left, touch.clientY - rect.top);
+    });
+
+    function clearHeroCanvas() {
+      heroCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+    }
+
+
+    /* ================= 2. ART ATTACK SANDBOX DRAWING CANVAS ================= */
+    const sandboxCanvas = document.getElementById('sandboxCanvas');
+    const sbCtx = sandboxCanvas.getContext('2d');
+    let isDrawingSandbox = false;
+    let currentColor = '#EF476F';
+    let currentTool = 'brush'; 
+
+    function resizeSandboxCanvas() {
+      sandboxCanvas.width = sandboxCanvas.parentElement.clientWidth;
+      sandboxCanvas.height = sandboxCanvas.parentElement.clientHeight;
+      sbCtx.fillStyle = '#F7F3E9';
+      sbCtx.fillRect(0, 0, sandboxCanvas.width, sandboxCanvas.height);
+    }
+    window.addEventListener('resize', resizeSandboxCanvas);
+    setTimeout(resizeSandboxCanvas, 100);
+
+    function setBrushColor(color) {
+      currentColor = color;
+      document.querySelectorAll('.color-dot').forEach(dot => dot.classList.remove('ring-2', 'ring-black'));
+      event.target.classList.add('ring-2', 'ring-black');
+    }
+
+    function setTool(tool) {
+      currentTool = tool;
+      document.querySelectorAll('.tool-btn').forEach(btn => {
+        btn.classList.remove('bg-artYellow');
+        btn.classList.add('bg-white');
+      });
+      if(tool === 'brush') document.getElementById('toolBrush').classList.replace('bg-white', 'bg-artYellow');
+      if(tool === 'spray') document.getElementById('toolSpray').classList.replace('bg-white', 'bg-artYellow');
+      if(tool === 'stamp') document.getElementById('toolStamp').classList.replace('bg-white', 'bg-artYellow');
+    }
+
+    function drawOnSandbox(x, y) {
+      const size = document.getElementById('brushSize').value;
+
+      if(currentTool === 'brush') {
+        sbCtx.fillStyle = currentColor;
+        sbCtx.beginPath();
+        sbCtx.arc(x, y, size, 0, Math.PI * 2);
+        sbCtx.fill();
+      } 
+      else if(currentTool === 'spray') {
+        sbCtx.fillStyle = currentColor;
+        for (let i = 0; i < 20; i++) {
+          const offsetX = (Math.random() - 0.5) * size * 2.5;
+          const offsetY = (Math.random() - 0.5) * size * 2.5;
+          sbCtx.fillRect(x + offsetX, y + offsetY, 2, 2);
+        }
+      } 
+      else if(currentTool === 'stamp') {
+        const stamps = ['⭐', '🎨', '✏️', '✨', '🌺', '💥', '💻'];
+        const stamp = stamps[Math.floor(Math.random() * stamps.length)];
+        sbCtx.font = `${size * 2}px sans-serif`;
+        sbCtx.fillText(stamp, x - size, y + size/2);
+      }
+    }
+
+    sandboxCanvas.addEventListener('mousedown', (e) => {
+      isDrawingSandbox = true;
+      const rect = sandboxCanvas.getBoundingClientRect();
+      drawOnSandbox(e.clientX - rect.left, e.clientY - rect.top);
+    });
+
+    sandboxCanvas.addEventListener('mousemove', (e) => {
+      if(!isDrawingSandbox) return;
+      const rect = sandboxCanvas.getBoundingClientRect();
+      drawOnSandbox(e.clientX - rect.left, e.clientY - rect.top);
+    });
+
+    window.addEventListener('mouseup', () => isDrawingSandbox = false);
+
+    sandboxCanvas.addEventListener('touchstart', (e) => {
+      const rect = sandboxCanvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      drawOnSandbox(touch.clientX - rect.left, touch.clientY - rect.top);
+    });
+
+    sandboxCanvas.addEventListener('touchmove', (e) => {
+      const rect = sandboxCanvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      drawOnSandbox(touch.clientX - rect.left, touch.clientY - rect.top);
+    });
+
+    function clearSandboxCanvas() {
+      sbCtx.fillStyle = '#F7F3E9';
+      sbCtx.fillRect(0, 0, sandboxCanvas.width, sandboxCanvas.height);
+    }
+
+    function downloadMasterpiece() {
+      const image = sandboxCanvas.toDataURL("image/png");
+      const link = document.createElement('a');
+      link.download = 'Yanelle-Tan-Art-Masterpiece.png';
+      link.href = image;
+      link.click();
+    }
+
+
+    /* ================= 3. CONTACT FORM INTERACTION ================= */
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contactForm').classList.add('hidden');
+      document.getElementById('formSuccessMessage').classList.remove('hidden');
+    }
+
+    function resetContactForm() {
+      document.getElementById('contactForm').reset();
+      document.getElementById('contactForm').classList.remove('hidden');
+      document.getElementById('formSuccessMessage').classList.add('hidden');
+    }
+  </script>
 </body>
 </html>
